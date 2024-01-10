@@ -12,13 +12,13 @@ export async function ListInventories({
 }) {
 	const response = await getAllInventories({ query, page, max: 5 });
 
-	if (response?.error || !response?.data) {
+	if (response?.error || !response.data) {
 		return <FetchFailedError error={response.error} />;
 	}
 
 	return (
 		<div className="flex flex-col space-y-5">
-			<InventoriesTable inventories={response?.data} />
+			<InventoriesTable inventories={response.data} />
 			<PaginationComponent page={page} total={response?.total || 0} max={5} />
 		</div>
 	);

@@ -6,9 +6,9 @@ import { getActualOrganization } from "@/fetchs/organization";
 export async function OrganizationPublic() {
 	const org = await getActualOrganization();
 
-	if (org.error) {
+	if (org.error || !org.data) {
 		return <FetchFailedError error={org.error} />;
 	}
 
-	return <OrganizationPublicForm org={org.data || null} />;
+	return <OrganizationPublicForm org={org.data} />;
 }

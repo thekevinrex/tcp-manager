@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import supabaseClient from "@/lib/supabaseClient";
-import { ReturnFetch } from "@/lib/types";
+import { InventoryWithProduct, ReturnFetch } from "@/lib/types";
 import { Inventory, Prisma } from "@prisma/client";
 import db from "@/lib/db";
 
@@ -12,7 +12,7 @@ export async function getAllInventories({
 	query?: string;
 	page?: number;
 	max?: number;
-}): Promise<ReturnFetch<Inventory[]>> {
+}): Promise<ReturnFetch<InventoryWithProduct[]>> {
 	const { orgId, userId } = auth();
 
 	if (!orgId || !userId) {
@@ -22,15 +22,12 @@ export async function getAllInventories({
 	const where: Prisma.InventoryWhereInput = {
 		Product: {
 			org: orgId,
+			name: {
+				contains: query ? query : "",
+				mode: "insensitive",
+			},
 		},
 	};
-
-	if (query) {
-		where.Product.name = {
-			contains: query,
-			mode: "insensitive",
-		};
-	}
 
 	try {
 		const [inventories, total] = await db.$transaction([

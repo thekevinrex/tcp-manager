@@ -1,5 +1,4 @@
 import { useDraggable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
 import { useMemo } from "react";
 
 export function Draggable({
@@ -17,9 +16,6 @@ export function Draggable({
 			externalId: dragId,
 		},
 	});
-	const style = {
-		transform: CSS.Translate.toString(transform),
-	};
 
 	return (
 		<div ref={setNodeRef} {...listeners} {...attributes}>
