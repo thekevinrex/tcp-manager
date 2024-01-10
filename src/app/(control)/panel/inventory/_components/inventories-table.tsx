@@ -72,11 +72,9 @@ export function InventoriesTable({
 }
 
 const DeleteBotton = ({ inventory }: { inventory: InventoryWithProduct }) => {
-	const [deleted, setDeleted] = useState(false);
 	const { execute, isLoading: loading } = useAction(deleteInventory, {
 		onSuccess: () => {
 			toast.success("Inventory deleted successfully");
-			setDeleted(true);
 		},
 		onError: (error) => {
 			toast.error(error);
@@ -86,10 +84,6 @@ const DeleteBotton = ({ inventory }: { inventory: InventoryWithProduct }) => {
 	const handleAction = () => {
 		execute({ id: inventory.id });
 	};
-
-	if (deleted) {
-		return null;
-	}
 
 	return (
 		<AlertModal

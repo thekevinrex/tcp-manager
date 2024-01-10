@@ -36,7 +36,11 @@ export function FinalizeArea({ area }: { area: SellArea }) {
 			onAction={handleFinalize}
 			trigger={
 				<AlertDialogTrigger asChild>
-					<Button disabled={loading} type="button" className="block w-full">
+					<Button
+						disabled={loading}
+						type="button"
+						className="flex justify-center w-full"
+					>
 						{loading ? <Loader2 className="animate-spin" /> : "Finalize"}
 					</Button>
 				</AlertDialogTrigger>

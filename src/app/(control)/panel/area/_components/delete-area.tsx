@@ -13,12 +13,9 @@ import { useAction } from "@/hooks/useAction";
 import { deleteSellArea } from "@/actions/sell-area/delete-sell-area";
 
 export const DeleteArea = ({ area }: { area: SellArea }) => {
-	const [deleted, setDeleted] = useState(false);
-
 	const { execute, isLoading: loading } = useAction(deleteSellArea, {
 		onSuccess: () => {
 			toast.success("Area deleted successfully");
-			setDeleted(true);
 		},
 		onError: (error) => {
 			toast.error(error);
@@ -28,10 +25,6 @@ export const DeleteArea = ({ area }: { area: SellArea }) => {
 	const handleDelete = () => {
 		execute({ id: area.id });
 	};
-
-	if (deleted) {
-		return;
-	}
 
 	return (
 		<AlertModal
