@@ -23,7 +23,7 @@ export function Chart({
 }) {
 	const [tab, setTab] = useState("total");
 
-	const customTooltip = ({ payload, label, active }) => {
+	const customTooltip = ({ payload, label, active }: any) => {
 		if (active) {
 			return (
 				<div className="bg-background rounded-md border flex flex-col p-5 space-y-2 shadow-md">
