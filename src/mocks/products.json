@@ -1,0 +1,73 @@
+{
+	"error": null,
+	"data": [
+		{
+			"id": 14,
+			"org": "org_2a3lj0IgK4OReUmSHz3la12Kf2t",
+			"name": "Vieja",
+			"image": "https://ntiaosvuiauxykortlzz.supabase.co/storage/v1/object/public/products/25243ada-c8c2-4d4f-bb52-e52ded769fbd_Captura%20de%20pantalla%202023-11-19%20010956.png",
+			"createdAt": "2023-12-28T23:33:53.152",
+			"updatedAt": "2023-12-28T23:33:53.152",
+			"by_user": "user_2ZylWxHcs6y3lOPAOMQRc9vAJ8y",
+			"price": 450,
+			"status": "visible",
+			"aviable": 5,
+			"originalImage": "25243ada-c8c2-4d4f-bb52-e52ded769fbd_Captura de pantalla 2023-11-19 010956.png"
+		},
+		{
+			"id": 13,
+			"org": "org_2a3lj0IgK4OReUmSHz3la12Kf2t",
+			"name": "Ya no es probando",
+			"image": "https://ntiaosvuiauxykortlzz.supabase.co/storage/v1/object/public/products/5ac229b5-5b0e-4f76-86ff-dbc141ee3774_Captura%20de%20pantalla%202023-11-07%20015859.png",
+			"createdAt": "2023-12-28T04:31:40.842",
+			"updatedAt": "2023-12-28T23:33:21.824",
+			"by_user": "user_2ZylWxHcs6y3lOPAOMQRc9vAJ8y",
+			"price": 44,
+			"status": "visible",
+			"aviable": 3,
+			"originalImage": "5ac229b5-5b0e-4f76-86ff-dbc141ee3774_Captura de pantalla 2023-11-07 015859.png"
+		},
+		{
+			"id": 12,
+			"org": "org_2a3lj0IgK4OReUmSHz3la12Kf2t",
+			"name": "Kevinacio",
+			"image": "https://ntiaosvuiauxykortlzz.supabase.co/storage/v1/object/public/products/e28436dd-5070-483b-99f6-6e9fede19223_portafolio.png",
+			"createdAt": "2023-12-27T06:22:56.947",
+			"updatedAt": "2023-12-28T06:34:20.693",
+			"by_user": "user_2ZylWxHcs6y3lOPAOMQRc9vAJ8y",
+			"price": 1000,
+			"status": "visible",
+			"aviable": 0,
+			"originalImage": "e28436dd-5070-483b-99f6-6e9fede19223_portafolio.png"
+		},
+		{
+			"id": 11,
+			"org": "org_2a3lj0IgK4OReUmSHz3la12Kf2t",
+			"name": "Parranda",
+			"image": "https://ntiaosvuiauxykortlzz.supabase.co/storage/v1/object/public/products/76704b42-b6a3-46ce-b02b-32d1f3a875e6_IMG_20230611_222137.jpg",
+			"createdAt": "2023-12-27T04:16:52.055",
+			"updatedAt": "2023-12-29T07:20:44.435",
+			"by_user": "user_2ZylWxHcs6y3lOPAOMQRc9vAJ8y",
+			"price": 530,
+			"status": "hidden",
+			"aviable": 60,
+			"originalImage": "76704b42-b6a3-46ce-b02b-32d1f3a875e6_IMG_20230611_222137.jpg"
+		},
+		{
+			"id": 10,
+			"org": "org_2a3lj0IgK4OReUmSHz3la12Kf2t",
+			"name": "Comino",
+			"image": "https://ntiaosvuiauxykortlzz.supabase.co/storage/v1/object/public/products/4042a41e-80e1-44c4-a8d9-2fc29f9aee77_photo_2023-12-26_16-07-48.jpg",
+			"createdAt": "2023-12-26T21:36:21.09",
+			"updatedAt": "2023-12-26T21:36:21.09",
+			"by_user": "user_2ZylWxHcs6y3lOPAOMQRc9vAJ8y",
+			"price": 550,
+			"status": "visible",
+			"aviable": 0,
+			"originalImage": "4042a41e-80e1-44c4-a8d9-2fc29f9aee77_photo_2023-12-26_16-07-48.jpg"
+		}
+	],
+	"count": 5,
+	"status": 200,
+	"statusText": "OK"
+}

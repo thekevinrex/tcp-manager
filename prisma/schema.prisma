@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Inventory {
+  id        Int     @id @default(autoincrement())
+  
+  productId Int
+  
+  cant      Int     @default(0)
+  total     Int     @default(0)
+  selled Int @default(0)
+
+  createdAt DateTime @default(now())
+
+  Product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sell InventoryOnSell[]
+
+  @@map("inventories")
+}
+
+model Product {
+  id        Int         @id @default(autoincrement())
+  by_user   String
+  org       String
+  
+  name      String
+  image     String?
+  price     Int
+  aviable   Int @default(0)
+  status    String 
+  description String? @default("")
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  inventories Inventory[]
+  selleds Sell[]
+  prices PriceBreakdown[]
+  areaProducts SellAreaProduct[]
+
+  @@map("products")
+}
+
+model PriceBreakdown {
+  id Int @id @default(autoincrement())
+
+  cant Int
+  value Int
+
+  productId Int 
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("prices")
+}
+
+model Sell {
+
+  id Int @id @default(autoincrement())
+
+  productId Int
+  areaId Int
+
+  cant Int @default(0)
+  price Int @default(0)
+
+  selledAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  Area SellArea @relation(fields: [areaId], references: [id], onDelete: Cascade)
+  inventories InventoryOnSell[]
+
+  @@map("sells")
+}
+
+model InventoryOnSell {
+
+  id Int @id @default(autoincrement())
+
+  sellId Int 
+  sell Sell @relation(fields: [sellId], references: [id], onDelete: Cascade)
+
+  inventoryId Int?
+  inventory Inventory? @relation(fields: [inventoryId], references: [id], onDelete: SetNull)
+
+  cant Int
+  price Int
+  selledAt DateTime @default(now())
+
+
+  @@map("sells-inventories")
+}
+
+model SellArea {
+
+  id Int @id @default(autoincrement())
+
+  org String
+
+  createdAt DateTime @default(now())
+  endedAt DateTime? 
+
+  Products SellAreaProduct[]
+  Sells Sell[]
+
+  @@map("sell-areas")
+}
+
+model SellAreaProduct {
+
+  id Int @id @default(autoincrement())
+
+  productId Int 
+  areaId Int
+
+  aviable Int @default(0)
+
+  area SellArea @relation(fields: [areaId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("sell-area-products")
+}
+
+model Organization {
+
+  org String @id
+
+  name String
+  image String
+  slug String
+
+  description String?
+  location String?
+  phone String?
+  
+  domicilio Boolean @default(true)
+  domicilio_details String?
+
+  visible Boolean @default(false)
+
+  @@map("organizations")
+}
