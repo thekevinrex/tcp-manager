@@ -1,4 +1,5 @@
 import { Skeleton } from "../ui/skeleton";
+import { CardListSkeleton } from "./card-list";
 
 export function DashbordChartAndCardsSkeleton() {
 	return (
@@ -17,12 +18,7 @@ export function DashbordChartAndCardsSkeleton() {
 				<Skeleton className="w-auto h-[160px]" />
 			</div>
 
-			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-5">
-				<Skeleton className="w-auto h-[120px] rounded-md" />
-				<Skeleton className="w-auto h-[120px] rounded-md" />
-				<Skeleton className="w-auto h-[120px] rounded-md" />
-				<Skeleton className="w-auto h-[120px] rounded-md" />
-			</div>
+			<CardListSkeleton />
 		</div>
 	);
 }

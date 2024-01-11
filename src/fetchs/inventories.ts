@@ -52,3 +52,31 @@ export async function getAllInventories({
 		return { error: e };
 	}
 }
+
+export type InventoriesStats = {
+	total_selled: number;
+	total_cant: number;
+	total_invert: number;
+	total_left: number;
+};
+
+export async function getInventoriesStats(): Promise<
+	ReturnFetch<InventoriesStats>
+> {
+	const { orgId } = auth();
+
+	if (!orgId) {
+		return { error: "Unauthorized" };
+	}
+
+	try {
+		const stats: InventoriesStats[] =
+			await db.$queryRaw`select sum(cant) as total_cant, sum(selled) as total_selled, sum(cant * total) as total_invert, sum ( (cant - selled) * total ) as total_left
+		from inventories join products on inventories."productId" = products.id
+		where org = ${orgId}`;
+
+		return { data: stats[0] };
+	} catch {
+		return { error: "A error occurred" };
+	}
+}

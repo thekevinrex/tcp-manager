@@ -2,11 +2,10 @@
 
 import { CreditCard, DollarSign, Hash, TrendingUp } from "lucide-react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 import { SellWithProductAndInventories } from "@/lib/types";
 import { useMemo } from "react";
 import { calcStadisticsSell, formatCurrency } from "@/lib/utils";
+import { CardStatItem } from "@/components/card-stat-item";
 
 export function SellAreaStadisticsCard({
 	sells,
@@ -35,18 +34,18 @@ export function SellAreaStadisticsCard({
 
 	return (
 		<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-5">
-			<CardItem title="Operations" icon={<Hash />} total={total} />
-			<CardItem
+			<CardStatItem title="Operations" icon={<Hash />} total={total} />
+			<CardStatItem
 				title="Cant Sells items"
 				icon={<CreditCard />}
 				total={sellsData.sells}
 			/>
-			<CardItem
+			<CardStatItem
 				title="Total Sells"
 				icon={<DollarSign />}
 				total={formatCurrency(sellsData.total)}
 			/>
-			<CardItem
+			<CardStatItem
 				title="Earns"
 				icon={<TrendingUp />}
 				total={formatCurrency(sellsData.earned)}
@@ -54,26 +53,3 @@ export function SellAreaStadisticsCard({
 		</div>
 	);
 }
-
-const CardItem = ({
-	title,
-	total,
-	icon,
-}: {
-	title: string;
-	total: number | string;
-	icon: JSX.Element;
-}) => {
-	return (
-		<Card className="">
-			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-				<CardTitle className="text-sm font-medium">{title}</CardTitle>
-				{icon}
-			</CardHeader>
-
-			<CardContent>
-				<div className="text-2xl font-bold">{total}</div>
-			</CardContent>
-		</Card>
-	);
-};
