@@ -45,6 +45,9 @@ export const useAction = <TInput, TOutput>(
 					setData(result.data);
 					options.onSuccess?.(result.data);
 				}
+			} catch {
+				setError("An error occurred");
+				options.onError?.("An error occurred");
 			} finally {
 				setIsLoading(false);
 				options.onComplete?.();
