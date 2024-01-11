@@ -6,6 +6,7 @@ import {
 	SellWithProductAndInventories,
 } from "./types";
 import { Prisma } from "@prisma/client";
+import { date } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -37,36 +38,44 @@ export function formatDate({
 	f,
 	h = true,
 	t = true,
+	s = false,
 	format,
 }: {
 	f: Date | string;
 	h?: boolean;
 	t?: boolean;
 	format?: string;
+	s?: boolean;
 }): string {
-	if (!formatDate) {
+	if (!f) {
 		return "";
 	}
 
 	if (typeof f !== "string") {
-		f = f.toISOString();
+		f = f.toLocaleString("en-US", {
+			timeZone: "America/Havana",
+		});
 	}
 
-	const [date, time] = f.split("T");
+	const [dateR, timeWithM] = f.split(", ");
 
-	const [y, m, d] = date.replaceAll("/", "-").split("-");
+	const date = dateR.replaceAll("/", "-");
+	const [d, m, y] = date.split("-");
 
-	const [hora, minuts] = time.split(":");
+	const [time, M] = timeWithM.split(" ");
+	const [hora, minuts, segund] = time.split(":");
 
 	if (format) {
 		return format
 			.replaceAll(":d", date)
-			.replaceAll(":t", `${hora}:${minuts}`)
+			.replaceAll(":t", `${hora}:${minuts}${s ? ":" + s : ""} ${M}`)
 			.replaceAll(":y", y)
 			.replaceAll(":m", m)
 			.replaceAll(":d", d)
 			.replaceAll(":h", hora)
-			.replaceAll(":m", minuts);
+			.replaceAll(":m", minuts)
+			.replaceAll(":M", M)
+			.replaceAll(":s", segund);
 	}
 
 	if (!t && h) {
@@ -74,10 +83,10 @@ export function formatDate({
 	}
 
 	if (!h && t) {
-		return `${hora}:${minuts}`;
+		return `${hora}:${minuts}${s ? ":" + s : ""} ${M}`;
 	}
 
-	return `${date} at ${hora}:${minuts}`;
+	return `${date} at ${hora}:${minuts}${s ? ":" + s : ""} ${M}`;
 }
 
 export const Currency = new Intl.NumberFormat("en-US", {
