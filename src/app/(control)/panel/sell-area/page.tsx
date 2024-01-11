@@ -48,7 +48,7 @@ const ErrorLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<>
 			<main className="[grid-area:main] flex flex-col">{children}</main>
-			<aside className="[grid-area:aside] min-h-screen overflow-y-auto overflow-x-hidden"></aside>
+			<aside className="[grid-area:aside]"></aside>
 		</>
 	);
 };

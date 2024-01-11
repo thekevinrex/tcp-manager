@@ -19,10 +19,12 @@ function Products({
 	searchParams?: {
 		q?: string;
 		page?: number;
+		max?: number;
 	};
 }) {
 	const currentPage = Number(searchParams?.page) || 1;
 	const query = searchParams?.q || "";
+	const max = Number(searchParams?.max) || 5;
 
 	return (
 		<>
@@ -38,15 +40,18 @@ function Products({
 						<Filter name="Search products..." />
 					</header>
 
-					<Suspense key={query + currentPage} fallback={<DataTableSkeleton />}>
-						<ListProducts query={query} page={currentPage} />
+					<Suspense
+						key={query + currentPage + max}
+						fallback={<DataTableSkeleton />}
+					>
+						<ListProducts max={max} query={query} page={currentPage} />
 					</Suspense>
 				</section>
 			</main>
 
-			<aside className="[grid-area:aside] h-auto lg:min-h-screen sticky top-0 overflow-y-auto overflow-x-hidden">
-				<Organization />
+			<aside className="[grid-area:aside]">
 				<CreateProduct />
+				<Organization />
 			</aside>
 		</>
 	);

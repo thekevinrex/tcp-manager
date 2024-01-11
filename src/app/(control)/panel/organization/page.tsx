@@ -23,12 +23,11 @@ export default function OrganizationPage() {
 				</section>
 			</main>
 
-			<aside className="[grid-area:aside] h-auto lg:min-h-screen overflow-y-auto overflow-x-hidden">
-				<Organization />
-
+			<aside className="[grid-area:aside]">
 				<Suspense fallback={<CardSkeleton />}>
 					<ActiveArea />
 				</Suspense>
+				<Organization />
 			</aside>
 		</>
 	);

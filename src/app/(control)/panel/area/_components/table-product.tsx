@@ -150,7 +150,7 @@ const TableBodyRow = ({
 						placeholder="Cant"
 						disabled={pending}
 						type="number"
-						className="max-w-xs"
+						className="max-w-xs min-w-[70px]"
 						onChange={(e) => {
 							if (handleChange) handleChange(e.target.value, row.id);
 						}}

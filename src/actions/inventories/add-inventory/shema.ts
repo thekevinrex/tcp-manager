@@ -18,7 +18,7 @@ export const CreateInventory = z.object({
 			required_error: "Cant is required",
 			invalid_type_error: "Cant is required",
 		})
-		.gt(1, "Cant must be greater than 1"),
+		.gt(0, "Cant must be greater than 0"),
 });
 
 export type InputType = z.infer<typeof CreateInventory>;

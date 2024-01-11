@@ -6,11 +6,13 @@ import { InventoriesTable } from "./_components/inventories-table";
 export async function ListInventories({
 	query,
 	page = 1,
+	max,
 }: {
 	query: string;
 	page: number;
+	max: number;
 }) {
-	const response = await getAllInventories({ query, page, max: 5 });
+	const response = await getAllInventories({ query, page, max });
 
 	if (response?.error || !response.data) {
 		return <FetchFailedError error={response.error} />;
@@ -19,7 +21,7 @@ export async function ListInventories({
 	return (
 		<div className="flex flex-col space-y-5">
 			<InventoriesTable inventories={response.data} />
-			<PaginationComponent page={page} total={response?.total || 0} max={5} />
+			<PaginationComponent page={page} total={response?.total || 0} max={max} />
 		</div>
 	);
 }

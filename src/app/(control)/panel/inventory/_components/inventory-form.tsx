@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import {
@@ -18,10 +18,12 @@ import { useAction } from "@/hooks/useAction";
 
 export function InventoryForm({ products }: { products: DataType[] }) {
 	const form = useRef<HTMLFormElement>(null);
+	const [product, setProduct] = useState("");
 
 	const { execute, fieldErrors } = useAction(createInventory, {
 		onSuccess: () => {
 			form.current?.reset();
+			setProduct("");
 			toast.success("Inventory added successfully");
 		},
 		onError(error) {
@@ -32,9 +34,8 @@ export function InventoryForm({ products }: { products: DataType[] }) {
 	const onSubmit = (formdata: FormData) => {
 		const cant = Number(formdata.get("cant"));
 		const cost = Number(formdata.get("cost"));
-		const product = Number(formdata.get("product"));
 
-		execute({ cant, cost, product });
+		execute({ cant, cost, product: Number(product) });
 	};
 
 	return (
@@ -45,7 +46,12 @@ export function InventoryForm({ products }: { products: DataType[] }) {
 			</CardHeader>
 			<CardContent>
 				<form action={onSubmit} className="flex flex-col gap-5" ref={form}>
-					<InventoryBody products={products} errors={fieldErrors} />
+					<InventoryBody
+						product={product}
+						setProduct={(product: string) => setProduct(product)}
+						products={products}
+						errors={fieldErrors}
+					/>
 				</form>
 			</CardContent>
 		</Card>

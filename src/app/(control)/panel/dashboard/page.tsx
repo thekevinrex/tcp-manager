@@ -43,7 +43,7 @@ export default function Dashboard({
 
 					<Separator className="my-10" />
 
-					<div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
+					<div className="grid md:grid-cols-2 grid-cols-1 gap-5">
 						<Suspense fallback={<CardSkeleton />}>
 							<TopProducts limit={currentLimit} />
 						</Suspense>
@@ -54,11 +54,11 @@ export default function Dashboard({
 				</section>
 			</main>
 
-			<aside className="[grid-area:aside] h-auto lg:min-h-screen overflow-y-auto overflow-x-hidden">
-				<Organization />
+			<aside className="[grid-area:aside]">
 				<Suspense fallback={<CardSkeleton />}>
 					<ActiveArea />
 				</Suspense>
+				<Organization />
 			</aside>
 		</>
 	);

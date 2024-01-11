@@ -9,9 +9,13 @@ import {
 } from "@/lib/types";
 import { SellArea } from "@prisma/client";
 
-export async function getAllSellAreas(): Promise<
-	ReturnFetch<SellAreaWithTotalSells[]>
-> {
+export async function getAllSellAreas({
+	page = 1,
+	max = 10,
+}: {
+	page?: number;
+	max?: number;
+}): Promise<ReturnFetch<SellAreaWithTotalSells[]>> {
 	const { userId, orgId } = auth();
 
 	if (!userId || !orgId) {
@@ -19,23 +23,32 @@ export async function getAllSellAreas(): Promise<
 	}
 
 	try {
-		const Areas = await db.sellArea.findMany({
-			where: {
-				org: orgId,
-			},
-			orderBy: {
-				id: "desc",
-			},
-			include: {
-				_count: {
-					select: {
-						Sells: true,
+		const [Areas, total] = await db.$transaction([
+			db.sellArea.findMany({
+				where: {
+					org: orgId,
+				},
+				take: max,
+				skip: (page - 1) * max,
+				orderBy: {
+					id: "desc",
+				},
+				include: {
+					_count: {
+						select: {
+							Sells: true,
+						},
 					},
 				},
-			},
-		});
+			}),
+			db.sellArea.count({
+				where: {
+					org: orgId,
+				},
+			}),
+		]);
 
-		return { data: Areas };
+		return { data: Areas, total };
 	} catch (error: any) {
 		return { error: error.message };
 	}

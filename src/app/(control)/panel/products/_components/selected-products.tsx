@@ -1,6 +1,6 @@
 import { Table } from "@tanstack/react-table";
 import { useRef, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ export function SelectedProducts({
 	const selecteds = table.getSelectedRowModel().rows;
 
 	return (
-		<div className="flex flex-col p-5 mb-5 border rounded-md space-y-3">
+		<div className="flex flex-col p-5 mb-5 border rounded-md space-y-3 relative">
 			{/* Title */}
 			<span className="text-lg font-semibold">{`Selected - ${selecteds.length}`}</span>
 			{/* Selected Products actions */}
@@ -36,6 +36,11 @@ export function SelectedProducts({
 					<EditButton product={selecteds[0].original} table={table} />
 				)}
 			</div>
+
+			<X
+				className="absolute top-1 right-4 cursor-pointer z-10"
+				onClick={() => table.resetRowSelection()}
+			/>
 		</div>
 	);
 }

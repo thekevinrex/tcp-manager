@@ -73,25 +73,36 @@
 	body {
 		@apply bg-background text-foreground;
 	}
-}
 
-.layouts-container {
-	display: grid;
-	grid-template-areas:
-		"header header aside"
-		"main main aside";
-
-	grid-template-columns: 1fr 1fr minmax(300px, 400px);
-	grid-template-rows: 60px auto;
-	align-items: start;
-}
-
-@media (max-width: 1450px) {
 	.layouts-container {
+		display: grid;
 		grid-template-areas:
-			"header header header"
-			"main main main"
-			"aside aside aside";
+			"header aside"
+			"main aside";
+
+		grid-template-columns: 1fr minmax(280px, 400px);
+		grid-template-rows: 60px auto;
+		align-items: start;
+	}
+
+	.layouts-container > header,
+	.layouts-container > aside,
+	.layouts-container > main {
+		@apply w-full max-w-full;
+	}
+
+	@media (max-width: 1280px) {
+		.layouts-container {
+			grid-template-areas:
+				"header"
+				"main"
+				"aside";
+			grid-template-columns: 100%;
+		}
+	}
+
+	body aside {
+		@apply grid grid-cols-1 md:grid-cols-2 xl:sticky xl:top-0 xl:grid-cols-1 gap-6 items-start;
 	}
 }
 

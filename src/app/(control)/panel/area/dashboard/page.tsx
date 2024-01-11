@@ -4,7 +4,17 @@ import { DataTableSkeleton } from "@/components/skeletons/data-table";
 
 import { SellAreas } from "./sell-areas";
 
-export default function AreaDashboard() {
+export default function AreaDashboard({
+	searchParams,
+}: {
+	searchParams: {
+		page?: number;
+		max?: number;
+	};
+}) {
+	const page = Number(searchParams.page) || 1;
+	const max = Number(searchParams.max) || 10;
+
 	return (
 		<section>
 			<header className="flex flex-col space-y-3 mb-5">
@@ -18,8 +28,8 @@ export default function AreaDashboard() {
 				</p>
 			</header>
 
-			<Suspense fallback={<DataTableSkeleton />}>
-				<SellAreas />
+			<Suspense key={page + max} fallback={<DataTableSkeleton />}>
+				<SellAreas max={max} page={page} />
 			</Suspense>
 		</section>
 	);

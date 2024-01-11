@@ -40,19 +40,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		status,
 		prices: {
 			deleteMany: {},
+			createMany: {
+				data: prices
+					? prices.map((price) => {
+							return { value: price.value, cant: price.cant };
+					  })
+					: [],
+			},
 		},
 	};
-
-	if (prices) {
-		CreateData.prices = {
-			createMany: {
-				data:
-					prices?.map((price) => {
-						return { value: price.value, cant: price.cant };
-					}) || [],
-			},
-		};
-	}
 
 	const supabase = await supabaseServerClient();
 

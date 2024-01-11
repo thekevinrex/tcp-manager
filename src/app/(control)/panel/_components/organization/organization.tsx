@@ -19,7 +19,7 @@ export function Organization() {
 	}
 
 	return (
-		<Card className="mb-6">
+		<Card>
 			<CardHeader>
 				<CardTitle>Organization</CardTitle>
 				<CardDescription>

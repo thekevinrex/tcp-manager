@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Pencil } from "lucide-react";
+import { Pencil, X } from "lucide-react";
 import Link from "next/link";
 import { FinalizeArea } from "../../area/_components/finalice-area";
 import { SellArea } from "@prisma/client";
@@ -22,12 +22,20 @@ export const AreaInfo = ({
 			<h2>{formatDate({ f: createdAt, format: "Empezo el :d at :t" })}</h2>
 
 			<div className="flex justify-between w-full py-5">
-				<Input
-					placeholder="Search products..."
-					onChange={(e) => handleSearch(e.target.value)}
-					value={search}
-					name="search"
-				/>
+				<div className="w-full flex items-center relative">
+					<Input
+						placeholder="Search products..."
+						onChange={(e) => handleSearch(e.target.value)}
+						value={search}
+						name="search"
+					/>
+					{search && (
+						<X
+							className="absolute right-4 z-10 cursor-pointer"
+							onClick={() => handleSearch("")}
+						/>
+					)}
+				</div>
 
 				<div className="flex space-x-3 ml-3">
 					<Link href={"/panel/area/edit"}>

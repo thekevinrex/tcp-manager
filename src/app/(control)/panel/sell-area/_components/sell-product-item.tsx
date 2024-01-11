@@ -68,7 +68,7 @@ export function SellProductItem({
 
 	return (
 		<article className="flex flex-col py-2 gap-5">
-			<header className="flex justify-between">
+			<header className="flex justify-between items-center">
 				<h3 className="text-base font-semibold text-pretty tracking-tight">
 					{name}
 				</h3>
@@ -157,8 +157,10 @@ const PriceBadge = ({
 			open={open}
 			openChange={(open) => setOpen(open)}
 			trigger={
-				<DialogTrigger>
-					<Badge variant={"green"}>Price : {price}</Badge>
+				<DialogTrigger asChild>
+					<Badge variant={"green"} className="shrink-0 cursor-pointer">
+						Price : {price}
+					</Badge>
 				</DialogTrigger>
 			}
 			dialogClass="sm:max-w-[550px]"

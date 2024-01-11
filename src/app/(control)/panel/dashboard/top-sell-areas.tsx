@@ -18,8 +18,8 @@ export async function TopSellAreas({ limit }: { limit: number }) {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Top products</CardTitle>
-				<CardDescription>Los productos con mas recaudacion</CardDescription>
+				<CardTitle>Top sell areas</CardTitle>
+				<CardDescription>The sell areas with more revenue</CardDescription>
 			</CardHeader>
 			<CardContent className="flex flex-col space-y-5">
 				{response.data && response.data.length > 0 ? (

@@ -10,11 +10,14 @@ import { useFormStatus } from "react-dom";
 export function InventoryBody({
 	products,
 	errors,
+	product,
+	setProduct,
 }: {
 	products: DataType[];
 	errors?: Record<string, string[] | undefined>;
+	product: string;
+	setProduct: (product: string) => void;
 }) {
-	const [product, setProduct] = useState("");
 	const { pending: loading } = useFormStatus();
 	return (
 		<>
@@ -42,7 +45,6 @@ export function InventoryBody({
 
 			<label className="text-sm font-semibold">
 				Select the product to
-				<input type="hidden" name="product" value={product} />
 				<Combobox
 					data={products}
 					trigger={

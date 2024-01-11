@@ -20,6 +20,7 @@ export default async function AreaSells({
 	searchParams: {
 		q?: string;
 		page?: number;
+		max?: number;
 	};
 }) {
 	const { orgId } = auth();
@@ -36,13 +37,16 @@ export default async function AreaSells({
 
 	const currentPage = Number(searchParams.page) || 1;
 	const query = searchParams.q || "";
-	const max = 10;
+	const max = Number(searchParams.max) || 10;
 
 	return (
 		<div className="flex flex-col space-y-5">
 			<Filter name="search sells per product..." />
 
-			<Suspense key={query + currentPage} fallback={<DataTableSkeleton />}>
+			<Suspense
+				key={query + currentPage + max}
+				fallback={<DataTableSkeleton />}
+			>
 				<AreaSellAll
 					area={areaResponse.data}
 					query={query}

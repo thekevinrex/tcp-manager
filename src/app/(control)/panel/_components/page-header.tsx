@@ -69,7 +69,7 @@ export const PageHeader = () => {
 
 	return (
 		<nav className="w-full h-full flex">
-			<div className="w-full h-full flex flex-row place-items-center justify-between px-3">
+			<div className="w-full h-full flex flex-row place-items-center justify-between px-2 xl:px-3 gap-2">
 				<div className="justify-self-start flex gap-3 items-center">
 					<div className="flex lg:hidden">
 						<Button variant={"ghost"} onClick={() => setOpen(!open)}>
@@ -84,7 +84,7 @@ export const PageHeader = () => {
 					</ClerkLoading>
 				</div>
 
-				<div className=" justify-between hidden lg:flex items-center gap-3">
+				<div className=" justify-between hidden lg:flex items-center gap-2">
 					<Button
 						onClick={() => setOpen(false)}
 						variant={"/panel/dashboard" === pathname ? "default" : "secondary"}

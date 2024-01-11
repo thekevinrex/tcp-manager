@@ -19,6 +19,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 	const { description, name, price, status, prices } = data;
 
+	const productName = await db.product.findFirst({
+		where: {
+			name,
+			org: orgId,
+		},
+	});
+
+	if (productName) {
+		return { error: "That product is already in the organization" };
+	}
+
 	const CreateData: Prisma.ProductCreateInput = {
 		by_user: userId,
 		org: orgId,

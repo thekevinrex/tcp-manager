@@ -92,7 +92,7 @@ export function Chart({
 				</Tabs>
 			</div>
 
-			<div className="w-full flex border rounded-md px-3  pt-10">
+			<div className="w-full flex border rounded-md md:px-3  pt-10">
 				<ResponsiveContainer width="100%" height={350}>
 					<BarChart data={charData}>
 						<XAxis

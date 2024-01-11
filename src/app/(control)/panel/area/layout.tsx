@@ -9,11 +9,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 		<>
 			<main className="[grid-area:main] flex flex-col">{children}</main>
 
-			<aside className="[grid-area:aside] min-h-screen overflow-y-auto overflow-x-hidden">
-				<Organization />
+			<aside className="[grid-area:aside]">
 				<Suspense fallback={<CardSkeleton />}>
 					<ActiveArea />
 				</Suspense>
+				<Organization />
 			</aside>
 		</>
 	);

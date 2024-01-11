@@ -28,6 +28,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		return { error: "Area not found" };
 	}
 
+	if (area.endedAt === null) {
+		return { error: "You cant not delete the active sell area" };
+	}
+
 	try {
 		const deleted = await db.sellArea.delete({
 			where: {

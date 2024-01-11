@@ -295,8 +295,7 @@ export function SellArea({
 				</section>
 			</main>
 
-			<aside className="[grid-area:aside] overflow-y-auto overflow-x-hidden sticky top-0 block ">
-				<Organization />
+			<aside className="[grid-area:aside]">
 				{area && (
 					<SellForm
 						over={isOver}
@@ -306,6 +305,7 @@ export function SellArea({
 						area={area}
 					/>
 				)}
+				<Organization />
 			</aside>
 		</DndContext>
 	);
@@ -319,17 +319,21 @@ const NoResultSearch = ({
 	return (
 		<div className="w-full min-h-[500px] flex justify-center items-center">
 			{areaProducts.length > 0 ? (
-				<div className="flex flex-col items-center justify-center">
-					<span>There are no products aviable in this sell area</span>
+				<span className="text-xl font-semibold tracking-widest ">
+					No products available to show
+				</span>
+			) : (
+				<div className="flex flex-col items-center justify-center space-y-5">
+					<span className="text-xl font-semibold tracking-widest ">
+						There are no products aviable in this sell area
+					</span>
 
 					<Link href={`/panel/area/edit`}>
 						<Button variant={"secondary"}>
-							<Edit2 /> Edit sell area
+							<Edit2 className="mr-2" /> Edit sell area
 						</Button>
 					</Link>
 				</div>
-			) : (
-				"No products available to show"
 			)}
 		</div>
 	);
