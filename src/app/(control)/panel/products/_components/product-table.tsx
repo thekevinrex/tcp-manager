@@ -160,7 +160,7 @@ export const columns: ColumnDef<ProductsWithPrices>[] = [
 			return (
 				<div className="flex items-center justify-center">
 					<div className="flex flex-col w-auto items-end space-y-2">
-						<div className="font-semibold text-lg text-green-500">
+						<div className="font-semibold text-base text-green-500">
 							{formatCurrency(amount)}
 						</div>
 						{row.original.prices && row.original.prices?.length > 0 ? (
@@ -174,6 +174,21 @@ export const columns: ColumnDef<ProductsWithPrices>[] = [
 								})}
 							</div>
 						) : null}
+					</div>
+				</div>
+			);
+		},
+	},
+	{
+		accessorKey: "ss",
+		header: () => {
+			return <div className="text-center">Can earn</div>;
+		},
+		cell: ({ row }) => {
+			return (
+				<div className="text-center">
+					<div className="font-semibold text-xl text-green-500">
+						{formatCurrency(row.original.aviable * row.original.price)}
 					</div>
 				</div>
 			);

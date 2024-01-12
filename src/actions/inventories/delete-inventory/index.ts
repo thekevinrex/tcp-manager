@@ -31,19 +31,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	const area = await getActiveArea();
 
 	if (area.data) {
-		const areaProduct = await db.sellAreaProduct.count({
-			where: {
-				productId: inventory.productId,
-				areaId: area.data.id,
-			},
-		});
-
-		if (areaProduct > 0) {
-			return {
-				error:
-					"You cant delete a inventory of a product that is in the sell area",
-			};
-		}
+		return {
+			error: "You cant delete a inventory if there is a active sell area",
+		};
 	}
 
 	try {
@@ -65,7 +55,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			}),
 		]);
 
-		revalidatePath("/inventory");
+		revalidatePath("/panel/inventory");
 		return { data: inventory };
 	} catch {
 		return { error: "An error ocurred" };

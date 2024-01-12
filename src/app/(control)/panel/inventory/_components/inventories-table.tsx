@@ -1,9 +1,5 @@
 "use client";
 
-import { Loader2, Trash2 } from "lucide-react";
-import toast from "react-hot-toast";
-import { useState } from "react";
-
 import {
 	Table,
 	TableBody,
@@ -12,14 +8,12 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { AlertModal } from "@/components/dialog";
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { InventoryWithProduct } from "@/lib/types";
-import { useAction } from "@/hooks/useAction";
-import { deleteInventory } from "@/actions/inventories/delete-inventory";
+
+import { EditInventory } from "./edit-inventory";
+import { DeleteBotton } from "./delete-inventory";
 
 export function InventoriesTable({
 	inventories,
@@ -37,6 +31,7 @@ export function InventoriesTable({
 						<TableHead>Cost</TableHead>
 						<TableHead>Total</TableHead>
 						<TableHead>Date</TableHead>
+						<TableHead>Actions</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -53,7 +48,10 @@ export function InventoriesTable({
 										{formatDate({ f: row.createdAt, t: false })}
 									</TableCell>
 									<TableCell>
-										<DeleteBotton inventory={row} />
+										<div className="flex gap-x-2">
+											<EditInventory inventory={row} />
+											<DeleteBotton inventory={row} />
+										</div>
 									</TableCell>
 								</TableRow>
 							);
@@ -70,33 +68,3 @@ export function InventoriesTable({
 		</div>
 	);
 }
-
-const DeleteBotton = ({ inventory }: { inventory: InventoryWithProduct }) => {
-	const { execute, isLoading: loading } = useAction(deleteInventory, {
-		onSuccess: () => {
-			toast.success("Inventory deleted successfully");
-		},
-		onError: (error) => {
-			toast.error(error);
-		},
-	});
-
-	const handleAction = () => {
-		execute({ id: inventory.id });
-	};
-
-	return (
-		<AlertModal
-			title={"Delete inventory"}
-			description="Are you sure you want to delete the inventory, if yoy delete the inventory the product aviable cant is going to decrease in the cant of the inventory?"
-			trigger={
-				<AlertDialogTrigger asChild>
-					<Button variant="destructive" disabled={loading}>
-						{loading ? <Loader2 className="animate-spin" /> : <Trash2 />}
-					</Button>
-				</AlertDialogTrigger>
-			}
-			onAction={handleAction}
-		/>
-	);
-};
