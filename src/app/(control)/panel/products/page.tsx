@@ -8,6 +8,8 @@ import { Filter } from "@/components/filter";
 import { DataTableSkeleton } from "@/components/skeletons/data-table";
 
 import { Organization } from "../_components/organization/organization";
+import { CardListSkeleton } from "@/components/skeletons/card-list";
+import { ProductsStats } from "./products-stats";
 
 export const metadata: Metadata = {
 	title: "List of products",
@@ -36,6 +38,10 @@ function Products({
 						</h1>
 
 						<p>The list of all the products aviable</p>
+
+						<Suspense fallback={<CardListSkeleton />}>
+							<ProductsStats />
+						</Suspense>
 
 						<Filter name="Search products..." />
 					</header>

@@ -112,3 +112,22 @@ export async function getAllProductsWithPrices(): Promise<
 		return { error: "An error ocurred" };
 	}
 }
+
+export async function getProductsStats(): Promise<
+	ReturnFetch<{ total: number; total_can_earn: number }>
+> {
+	const { orgId, userId } = auth();
+
+	if (!orgId || !userId) {
+		return { error: "Unauthorized" };
+	}
+
+	try {
+		const products: Array<{ total: number; total_can_earn: number }> =
+			await db.$queryRaw`select count(*), sum (aviable * price) from products where org = ${orgId}`;
+
+		return { data: products[0] };
+	} catch {
+		return { error: "An error ocurred" };
+	}
+}

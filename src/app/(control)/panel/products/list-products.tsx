@@ -21,7 +21,7 @@ export async function ListProducts({
 
 	return (
 		<div className="flex flex-col space-y-5">
-			<DataProducts products={response?.data} />
+			<DataProducts products={response.data} />
 			<PaginationComponent page={page} max={max} total={response?.total || 0} />
 		</div>
 	);
