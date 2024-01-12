@@ -124,7 +124,7 @@ export async function getProductsStats(): Promise<
 
 	try {
 		const products: Array<{ total: number; total_can_earn: number }> =
-			await db.$queryRaw`select count(*), sum (aviable * price) from products where org = ${orgId}`;
+			await db.$queryRaw`select count(*) as total, sum (aviable * price) as total_can_earn from products where org = ${orgId}`;
 
 		return { data: products[0] };
 	} catch {
