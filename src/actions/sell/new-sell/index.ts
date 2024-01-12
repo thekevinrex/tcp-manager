@@ -17,11 +17,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		return { error: "User not authenticated or not in a organization" };
 	}
 
-	const { selecteds, id } = data;
+	const { selecteds, id: areaId } = data;
 
 	const area = await db.sellArea.findUnique({
 		where: {
-			id,
+			id: areaId,
 			org: orgId,
 		},
 	});
@@ -68,19 +68,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		for (const product of products) {
 			const { id, sells, total: added } = product;
 
-			const areaProduct = await db.sellAreaProduct.findUnique({
+			const areaProduct = await db.product.findUnique({
 				where: {
 					id,
 				},
 				include: {
-					product: {
-						include: {
-							prices: true,
-							inventories: {
-								orderBy: {
-									id: "asc",
-								},
-							},
+					prices: true,
+					inventories: {
+						orderBy: {
+							id: "asc",
 						},
 					},
 				},
@@ -96,7 +92,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				return {
 					error:
 						"No can sell more than what is available in product :" +
-						areaProduct.product.name,
+						areaProduct.name,
 				};
 			}
 
@@ -110,7 +106,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				inventories: Array<any>;
 			}> = [];
 
-			for (const inventory of areaProduct.product.inventories) {
+			for (const inventory of areaProduct.inventories) {
 				if (inventory.selled >= inventory.cant) {
 					continue;
 				}
@@ -184,23 +180,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			transactions.push(
 				db.product.update({
 					where: {
-						id: areaProduct.productId,
+						id,
 					},
 					data: {
 						aviable: {
 							decrement: added,
-						},
-						areaProducts: {
-							update: {
-								where: {
-									id: areaProduct.id,
-								},
-								data: {
-									aviable: {
-										decrement: added,
-									},
-								},
-							},
 						},
 						inventories: {
 							updateMany: inventoriesUpdate,
@@ -213,8 +197,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				transactions.push(
 					db.sell.create({
 						data: {
-							areaId: areaProduct.areaId,
-							productId: areaProduct.productId,
+							areaId: areaId,
+							productId: id,
 							cant: sell.added,
 							inventories: {
 								createMany: {
@@ -225,7 +209,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 								sell.price !== null
 									? sell.price
 									: calcPriceBreakdown({
-											product: areaProduct.product,
+											product: areaProduct,
 											total: added,
 									  }),
 						},

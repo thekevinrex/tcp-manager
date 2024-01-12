@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Edit } from "lucide-react";
+import { BarChart3, Edit, ListMinus } from "lucide-react";
 
 import {
 	Card,
@@ -17,6 +17,7 @@ import { formatDate } from "@/lib/utils";
 import { getActiveArea } from "@/fetchs/sell-area";
 import { getProductSelledArea } from "@/fetchs/sells";
 import { ActiveAreaStats } from "./active-area-stats";
+import { CreateArea } from "../area/_components/create-area";
 
 export async function ActiveArea() {
 	const response = await getActiveArea();
@@ -35,9 +36,7 @@ export async function ActiveArea() {
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<Link href="/panel/area/create">
-						<Button>Create sell area</Button>
-					</Link>
+					<CreateArea />
 				</CardContent>
 			</Card>
 		);
@@ -72,11 +71,28 @@ export async function ActiveArea() {
 					)}
 
 					<div className="flex justify-between gap-3">
-						<Link href={"/panel/area/edit"} className="shrink-0">
-							<Button type="button" variant={"secondary"}>
-								<Edit />
-							</Button>
-						</Link>
+						<Button
+							type="button"
+							variant={"secondary"}
+							asChild
+							className="shrink-0"
+						>
+							<Link href={`/panel/area/dashboard/${response.data.id}`}>
+								<BarChart3 />
+							</Link>
+						</Button>
+
+						<Button
+							variant={"secondary"}
+							asChild
+							className="shrink-0"
+							type="button"
+						>
+							<Link href={`/panel/area/dashboard/${response.data.id}/sells`}>
+								<ListMinus />
+							</Link>
+						</Button>
+
 						<div className="w-full flex flex-1 flex-grow">
 							<FinalizeArea area={response.data} />
 						</div>

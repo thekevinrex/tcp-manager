@@ -35,9 +35,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			},
 			data: {
 				endedAt: new Date(),
-				Products: {
-					deleteMany: {},
-				},
 			},
 		});
 

@@ -1,5 +1,5 @@
 import { ActionState } from "@/lib/create-safe-action";
-import { Inventory } from "@prisma/client";
+import { Product } from "@prisma/client";
 import { z } from "zod";
 
 export const CreateInventory = z.object({
@@ -22,4 +22,4 @@ export const CreateInventory = z.object({
 });
 
 export type InputType = z.infer<typeof CreateInventory>;
-export type ReturnType = ActionState<InputType, Inventory>;
+export type ReturnType = ActionState<InputType, Product>;

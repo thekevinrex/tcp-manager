@@ -77,10 +77,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		revalidatePath("/panel/inventory");
 
-		return { data: inventory };
-	} catch (err: any) {
-		// return { error: "An error ocurred" };
-		return { error: err.message };
+		return { data: Inventory };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 };
 

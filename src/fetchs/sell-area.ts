@@ -138,60 +138,6 @@ export async function getArea(areaId: number): Promise<ReturnFetch<SellArea>> {
 	}
 }
 
-export async function getAreaProducts(
-	area: SellArea
-): Promise<ReturnFetch<SellAreaProductWithProduct[]>> {
-	if (!area || !area.id) {
-		return { error: "No area founded" };
-	}
-
-	try {
-		const areaProducts = await db.sellAreaProduct.findMany({
-			where: {
-				areaId: area.id,
-			},
-			include: {
-				product: {
-					include: {
-						prices: true,
-					},
-				},
-			},
-		});
-
-		return { data: areaProducts };
-	} catch {
-		return { error: "An error ocurred" };
-	}
-}
-
-export async function getAllAreaProducts(
-	area: SellArea
-): Promise<ReturnFetch<ProductsWithPrices[]>> {
-	if (!area || !area.id) {
-		return { error: "No area founded" };
-	}
-
-	try {
-		const products = await db.product.findMany({
-			where: {
-				areaProducts: {
-					every: {
-						areaId: area.id,
-					},
-				},
-			},
-			include: {
-				prices: true,
-			},
-		});
-
-		return { data: products };
-	} catch {
-		return { error: "An error ocurred" };
-	}
-}
-
 export async function getTopProducts(limit: number): Promise<
 	ReturnFetch<
 		{

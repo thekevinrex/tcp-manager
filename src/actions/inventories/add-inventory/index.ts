@@ -7,7 +7,6 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
 import { CreateInventory, InputType, ReturnType } from "./shema";
-import { Prisma } from "@prisma/client";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
 	const { userId, orgId } = auth();
@@ -18,18 +17,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 	const { cant, cost, product: productId } = data;
 
-	const CreateData: Prisma.InventoryCreateInput = {
-		cant: cant,
-		total: cost,
-		Product: {
-			connect: {
-				id: productId,
-			},
-		},
-	};
-
 	const product = await db.product.findFirst({
 		where: {
+			org: orgId,
 			id: productId,
 		},
 	});
@@ -39,15 +29,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	}
 
 	try {
-		const [inventory, product] = await db.$transaction([
-			db.inventory.create({
-				data: CreateData,
-			}),
-
+		const [product] = await db.$transaction([
 			db.product.update({
 				data: {
 					aviable: {
 						increment: cant,
+					},
+					inventories: {
+						create: {
+							cant,
+							total: cost,
+						},
 					},
 				},
 				where: {
@@ -57,7 +49,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		]);
 
 		revalidatePath("/panel/inventory");
-		return { data: inventory };
+		return { data: product };
 	} catch {
 		return { error: "An error ocurred" };
 	}

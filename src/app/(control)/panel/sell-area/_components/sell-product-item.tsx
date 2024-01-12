@@ -5,14 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { SellAreaProductWithProduct } from "@/lib/types";
+import { ProductsWithPrices } from "@/lib/types";
 import { calcPriceBreakdown } from "@/lib/utils";
 import { SelectedFn, SelectedType } from "../sell-area";
-import { AlertModal } from "@/components/dialog";
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Modal } from "@/components/modal";
 import { DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
 
 export function SellProductItem({
 	areaProduct,
@@ -20,20 +17,19 @@ export function SellProductItem({
 	selected,
 	selecteds,
 }: {
-	areaProduct: SellAreaProductWithProduct;
+	areaProduct: ProductsWithPrices;
 	selected: SelectedType;
 	onUpdateSelected: SelectedFn;
 	selecteds: SelectedType[];
 }) {
-	const { aviable, id } = areaProduct;
-	const { name } = areaProduct.product;
+	const { aviable, id, name } = areaProduct;
 	const { added, price: selectedPrice, uuid } = selected;
 
 	const [total, setTotal] = useState(added);
 	const [finalPrice, setFinalPrice] = useState(
 		selectedPrice !== null
 			? selectedPrice
-			: calcPriceBreakdown({ total: added, product: areaProduct.product })
+			: calcPriceBreakdown({ total: added, product: areaProduct })
 	);
 
 	const alreadySelected = selecteds.filter(
@@ -56,9 +52,7 @@ export function SellProductItem({
 		setTotal(add);
 
 		if (selectedPrice === null) {
-			setFinalPrice(
-				calcPriceBreakdown({ total: add, product: areaProduct.product })
-			);
+			setFinalPrice(calcPriceBreakdown({ total: add, product: areaProduct }));
 		}
 
 		onUpdateSelected({ total: add, uuid });
@@ -72,7 +66,7 @@ export function SellProductItem({
 		setFinalPrice(
 			selectedPrice !== null
 				? selectedPrice
-				: calcPriceBreakdown({ total: added, product: areaProduct.product })
+				: calcPriceBreakdown({ total: added, product: areaProduct })
 		);
 	}, [areaProduct, selectedPrice, added]);
 

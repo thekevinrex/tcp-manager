@@ -18,7 +18,7 @@ import { FormErrors } from "@/components/error/FormErrors";
 import { calcPriceBreakdown, cn } from "@/lib/utils";
 import { SellProductItem } from "./sell-product-item";
 
-import { SellAreaProductWithProduct } from "@/lib/types";
+import { ProductsWithPrices } from "@/lib/types";
 import { SelectedFn, SelectedType } from "../sell-area";
 
 import { useAction } from "@/hooks/useAction";
@@ -34,7 +34,7 @@ export function SellForm({
 	over: boolean;
 	selecteds: SelectedType[];
 	onUpdateSelected: SelectedFn;
-	areaProducts: SellAreaProductWithProduct[];
+	areaProducts: ProductsWithPrices[];
 	area: SellArea;
 }) {
 	const uuid = useMemo(() => crypto.randomUUID(), []);
@@ -49,7 +49,7 @@ export function SellForm({
 	useEffect(() => {
 		let posibleTotal = 0;
 		for (const selected of selecteds) {
-			const product = areaProducts.find((p) => p.id === selected.id)?.product;
+			const product = areaProducts.find((p) => p.id === selected.id);
 
 			if (!product) continue;
 

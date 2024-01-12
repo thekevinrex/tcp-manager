@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Edit2 } from "lucide-react";
 import { DndContext, DragOverlay, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
-import { SellArea, SellAreaProduct } from "@prisma/client";
+import { SellArea } from "@prisma/client";
 
-import { SellAreaProductWithProduct } from "@/lib/types";
+import { ProductsWithPrices } from "@/lib/types";
 import { MouseSensor } from "@/lib/sensors";
 
 import { Button } from "@/components/ui/button";
@@ -37,7 +36,7 @@ export function SellArea({
 	areaProducts,
 }: {
 	area: SellArea;
-	areaProducts: SellAreaProductWithProduct[];
+	areaProducts: ProductsWithPrices[];
 }) {
 	// Sensor for the drag and drop
 	const sensors = useSensors(useSensor(MouseSensor));
@@ -49,7 +48,7 @@ export function SellArea({
 	const [added, setAdded] = useState<any[]>([]);
 
 	// The active product bing draged
-	const [active, setActive] = useState<SellAreaProductWithProduct | null>(null);
+	const [active, setActive] = useState<ProductsWithPrices | null>(null);
 
 	// If the drag and drop active element is over the sell form
 	const [isOver, setIsOver] = useState(false);
@@ -202,7 +201,7 @@ export function SellArea({
 		setShowProducts(
 			areaProducts
 				.filter((apro) => {
-					return regex.test(apro.product.name);
+					return regex.test(apro.name);
 				})
 				.map((prod) => {
 					return prod.id;
@@ -308,7 +307,6 @@ export function SellArea({
 						area={area}
 					/>
 				)}
-				<Organization />
 			</aside>
 		</DndContext>
 	);
@@ -317,7 +315,7 @@ export function SellArea({
 const NoResultSearch = ({
 	areaProducts,
 }: {
-	areaProducts: SellAreaProduct[];
+	areaProducts: ProductsWithPrices[];
 }) => {
 	return (
 		<div className="w-full min-h-[500px] flex justify-center items-center">
@@ -327,14 +325,13 @@ const NoResultSearch = ({
 				</span>
 			) : (
 				<div className="flex flex-col items-center justify-center space-y-5">
-					<span className="text-xl font-semibold tracking-widest ">
+					<p className="text-xl font-semibold tracking-widest ">
 						There are no products aviable in this sell area
-					</span>
+					</p>
+					<p>Add new products</p>
 
-					<Link href={`/panel/area/edit`}>
-						<Button variant={"secondary"}>
-							<Edit2 className="mr-2" /> Edit sell area
-						</Button>
+					<Link href={`/panel/products`}>
+						<Button variant={"secondary"}>Products</Button>
 					</Link>
 				</div>
 			)}

@@ -1,11 +1,14 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+"use client";
+
 import { useEffect, useState } from "react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { SellAreaProductWithProduct } from "@/lib/types";
+
 import { SupabaseImage } from "@/components/Image";
+import { ProductsWithPrices } from "@/lib/types";
 
 export function ProductDraggableItem({
 	areaProduct,
@@ -13,13 +16,12 @@ export function ProductDraggableItem({
 	added = 0,
 	addProduct,
 }: {
-	areaProduct: SellAreaProductWithProduct;
+	areaProduct: ProductsWithPrices;
 	onAdded?: (add: number) => void;
 	added?: number;
 	addProduct?: (productId: number) => void;
 }) {
-	const { id, aviable } = areaProduct;
-	const { name, image } = areaProduct.product;
+	const { id, aviable, name, image } = areaProduct;
 
 	const [selected, setSelected] = useState(added);
 

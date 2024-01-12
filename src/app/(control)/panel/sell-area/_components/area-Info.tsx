@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Pencil, X } from "lucide-react";
+import { BarChart3, ListMinus, Pencil, X } from "lucide-react";
 import Link from "next/link";
 import { FinalizeArea } from "../../area/_components/finalice-area";
 import { SellArea } from "@prisma/client";
@@ -15,7 +15,7 @@ export const AreaInfo = ({
 	search: string;
 	handleSearch: (value: string) => void;
 }) => {
-	const { createdAt } = area;
+	const { createdAt, id } = area;
 
 	return (
 		<div className="flex flex-col">
@@ -38,9 +38,15 @@ export const AreaInfo = ({
 				</div>
 
 				<div className="flex space-x-3 ml-3">
-					<Link href={"/panel/area/edit"}>
-						<Button type="button" className="gap-2" variant={"secondary"}>
-							<Pencil /> Edit
+					<Link href={`/panel/area/dashboard/${id}`}>
+						<Button variant={"secondary"}>
+							<BarChart3 />
+						</Button>
+					</Link>
+
+					<Link href={`/panel/area/dashboard/${id}/sells`}>
+						<Button variant={"secondary"}>
+							<ListMinus />
 						</Button>
 					</Link>
 

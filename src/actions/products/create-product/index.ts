@@ -78,7 +78,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			data: CreateData,
 		});
 
-		revalidatePath("/products");
+		revalidatePath("/panel/products");
+
 		return { data: created };
 	} catch {
 		return { error: "An error ocurred" };

@@ -28,6 +28,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	for (const product of products) {
 		const productImage = await db.product.findUnique({
 			where: {
+				org: orgId,
 				id: product,
 			},
 			select: {
@@ -55,7 +56,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		await supabase.storage.from("products").remove(images);
 
-		revalidatePath("/products");
+		revalidatePath("/panel/products");
 
 		return { data: products };
 	} catch {

@@ -53,15 +53,7 @@ export function AreasTable({ areas }: { areas: SellAreaWithTotalSells[] }) {
 												</Button>
 											</Link>
 
-											{area.endedAt ? (
-												<DeleteArea area={area} />
-											) : (
-												<Link href={"/panel/area/edit"} className="shrink-0">
-													<Button type="button" variant={"secondary"}>
-														<Edit /> Edit
-													</Button>
-												</Link>
-											)}
+											{area.endedAt && <DeleteArea area={area} />}
 										</div>
 									</TableCell>
 								</TableRow>

@@ -1,11 +1,9 @@
-import {
-	getActiveArea,
-	getAllAreaProducts,
-	getAreaProducts,
-} from "@/fetchs/sell-area";
-import { SellArea } from "./sell-area";
+import { getActiveArea } from "@/fetchs/sell-area";
+import { getAllProductsWithPrices } from "@/fetchs/products";
+
 import { FetchFailedError } from "@/components/error/FetchFailed";
-import { NoAreaCreated } from "./_components/no-area-created";
+import { SellArea } from "./sell-area";
+import { CreateArea } from "../area/_components/create-area";
 
 export default async function Page() {
 	const areaResponse = await getActiveArea();
@@ -21,12 +19,20 @@ export default async function Page() {
 	if (!areaResponse.data) {
 		return (
 			<ErrorLayout>
-				<NoAreaCreated />
+				<div className="h-full flex justify-center items-center space-y-5 flex-col min-h-[450px]">
+					<h2 className="text-2xl font-bold tracking-widest uppercase text-pretty">
+						Area no created
+					</h2>
+
+					<p>To be able to sells products create a sell area</p>
+
+					<CreateArea />
+				</div>
 			</ErrorLayout>
 		);
 	}
 
-	const areaProducts = await getAreaProducts(areaResponse.data);
+	const areaProducts = await getAllProductsWithPrices();
 
 	if (areaProducts.error) {
 		return (

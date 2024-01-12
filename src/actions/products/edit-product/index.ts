@@ -88,7 +88,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			await supabase.storage.from("products").remove([product.image]);
 		}
 
-		revalidatePath("/products");
+		revalidatePath("/panel/products");
 		return { data: updated };
 	} catch {
 		return { error: "An error ocurred" };
