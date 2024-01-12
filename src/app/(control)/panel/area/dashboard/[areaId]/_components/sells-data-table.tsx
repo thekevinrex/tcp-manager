@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 import {
 	ColumnDef,
@@ -51,8 +51,24 @@ export const columns: ColumnDef<SellWithProduct>[] = [
 		enableHiding: false,
 	},
 	{
-		accessorKey: "name",
-		header: "Name",
+		accessorKey: "Product.name",
+		header: ({ column }) => (
+			<Button
+				variant="ghost"
+				onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+			>
+				Name
+				{column.getIsSorted() ? (
+					column.getIsSorted() === "asc" ? (
+						<ArrowDown className="ml-2 h-4 w-4" />
+					) : (
+						<ArrowUp className="ml-2 h-4 w-4" />
+					)
+				) : (
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				)}
+			</Button>
+		),
 		cell: ({ row }) => {
 			return (
 				<span className="text-lg font-semibold capitalize tracking-tight">
@@ -80,7 +96,15 @@ export const columns: ColumnDef<SellWithProduct>[] = [
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
 						Price
-						<ArrowUpDown className="ml-2 h-4 w-4" />
+						{column.getIsSorted() ? (
+							column.getIsSorted() === "asc" ? (
+								<ArrowDown className="ml-2 h-4 w-4" />
+							) : (
+								<ArrowUp className="ml-2 h-4 w-4" />
+							)
+						) : (
+							<ArrowUpDown className="ml-2 h-4 w-4" />
+						)}
 					</Button>
 				</div>
 			);

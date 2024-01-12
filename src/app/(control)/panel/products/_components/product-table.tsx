@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 import {
 	ColumnDef,
@@ -60,7 +60,25 @@ export const columns: ColumnDef<ProductsWithPrices>[] = [
 	},
 	{
 		accessorKey: "name",
-		header: "Name",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+				>
+					Name
+					{column.getIsSorted() ? (
+						column.getIsSorted() === "asc" ? (
+							<ArrowDown className="ml-2 h-4 w-4" />
+						) : (
+							<ArrowUp className="ml-2 h-4 w-4" />
+						)
+					) : (
+						<ArrowUpDown className="ml-2 h-4 w-4" />
+					)}
+				</Button>
+			);
+		},
 		cell: ({ row }) => {
 			return (
 				<div className="capitalize flex flex-row items-center gap-5">
@@ -123,7 +141,15 @@ export const columns: ColumnDef<ProductsWithPrices>[] = [
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
 						Price
-						<ArrowUpDown className="ml-2 h-4 w-4" />
+						{column.getIsSorted() ? (
+							column.getIsSorted() === "asc" ? (
+								<ArrowDown className="ml-2 h-4 w-4" />
+							) : (
+								<ArrowUp className="ml-2 h-4 w-4" />
+							)
+						) : (
+							<ArrowUpDown className="ml-2 h-4 w-4" />
+						)}
 					</Button>
 				</div>
 			);
