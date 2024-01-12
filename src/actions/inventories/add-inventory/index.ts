@@ -58,8 +58,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		revalidatePath("/inventory");
 		return { data: inventory };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 };
 

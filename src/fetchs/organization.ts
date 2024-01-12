@@ -20,7 +20,7 @@ export async function getActualOrganization(): Promise<
 		});
 
 		return { data: org };
-	} catch (err: any) {
-		return { error: err.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }

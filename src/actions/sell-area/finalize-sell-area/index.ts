@@ -44,8 +44,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		revalidatePath("/panel/area/dashboard");
 
 		return { data: updated };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 };
 

@@ -102,7 +102,9 @@ export function SellArea({
 		let toAdd = added[productId] ? added[productId] : 0;
 
 		// Check if is aviable && incrise the selected element total
-		const alreadySelected = selectedElements.find((pro) => pro.id == productId);
+		const alreadySelected = selectedElements.find(
+			(pro) => pro.id == productId && pro.price === null
+		);
 
 		if (toAdd <= 0) {
 			toAdd = 1;
@@ -139,6 +141,8 @@ export function SellArea({
 				},
 			]);
 		}
+
+		handleAddedProducts(0, productId);
 	};
 
 	// handle the changes in wich the user incriese the add cant of the product
@@ -161,7 +165,6 @@ export function SellArea({
 	}: SelectedFnParams): void => {
 		if (total === undefined) {
 			if (price !== undefined) {
-				console.log(price);
 				const selected = selectedElements.find((e) => e.id === productId);
 				if (selected) {
 					selected.price = price;

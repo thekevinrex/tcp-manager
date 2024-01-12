@@ -167,14 +167,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			);
 		}
 
-		db.$transaction(transactions);
+		await db.$transaction(transactions);
 
-		revalidatePath(`/panel/area/dashboard/${area.id}/sells`);
 		revalidatePath("/panel/sell-area");
 
 		return { data: [] };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 };
 

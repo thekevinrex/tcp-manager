@@ -44,8 +44,8 @@ export async function getAreaSells(
 			}),
 		]);
 		return { data: sells, total };
-	} catch (err: any) {
-		return { error: err.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -77,7 +77,7 @@ export async function getProductSelledArea(area: SellArea) {
 			}),
 		]);
 		return { data: sells, total };
-	} catch (err: any) {
-		return { error: err.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }

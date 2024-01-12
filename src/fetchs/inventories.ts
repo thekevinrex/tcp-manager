@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs";
-import supabaseClient from "@/lib/supabaseClient";
 import { InventoryWithProduct, ReturnFetch } from "@/lib/types";
-import { Inventory, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import db from "@/lib/db";
 
 export async function getAllInventories({
@@ -49,7 +48,7 @@ export async function getAllInventories({
 
 		return { data: inventories, total };
 	} catch (e: any) {
-		return { error: e };
+		return { error: "An error occurred" };
 	}
 }
 

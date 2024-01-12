@@ -157,7 +157,7 @@ const PriceBadge = ({
 			open={open}
 			openChange={(open) => setOpen(open)}
 			trigger={
-				<DialogTrigger asChild>
+				<DialogTrigger>
 					<Badge variant={"green"} className="shrink-0 cursor-pointer">
 						Price : {price}
 					</Badge>

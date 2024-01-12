@@ -49,8 +49,8 @@ export async function getAllSellAreas({
 		]);
 
 		return { data: Areas, total };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -83,8 +83,8 @@ export async function getAllSellsAreaProducts(
 		});
 
 		return { data: Areas };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -104,8 +104,8 @@ export async function getActiveArea(): Promise<ReturnFetch<SellArea>> {
 		});
 
 		return { data: Area };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -133,8 +133,8 @@ export async function getArea(areaId: number): Promise<ReturnFetch<SellArea>> {
 		}
 
 		return { data: area };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -160,8 +160,8 @@ export async function getAreaProducts(
 		});
 
 		return { data: areaProducts };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -187,8 +187,8 @@ export async function getAllAreaProducts(
 		});
 
 		return { data: products };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -231,8 +231,8 @@ export async function getTopProducts(limit: number): Promise<
 				5;`;
 
 		return { data: response };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -275,7 +275,7 @@ export async function getTopSellAreas(limit: number): Promise<
 	  5`;
 
 		return { data: response };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }

@@ -80,8 +80,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		revalidatePath("/products");
 		return { data: created };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 };
 

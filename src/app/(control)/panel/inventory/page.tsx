@@ -39,12 +39,12 @@ export default function Inventory({
 
 						<p>The list of all the added inventories in the last mounth</p>
 
+						<Suspense fallback={<CardListSkeleton />}>
+							<InventoriesStats />
+						</Suspense>
+
 						<Filter name="Search inventories by product" />
 					</header>
-
-					<Suspense fallback={<CardListSkeleton />}>
-						<InventoriesStats />
-					</Suspense>
 
 					<Suspense
 						key={query + currentPage + max}

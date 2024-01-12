@@ -52,8 +52,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		});
 
 		return { data: Organization };
-	} catch (error: any) {
-		return { error: error.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 };
 

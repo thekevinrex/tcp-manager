@@ -57,8 +57,8 @@ export async function fetchAllProducts({
 		]);
 
 		return { data: products, total };
-	} catch (e: any) {
-		return { error: e };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -80,8 +80,8 @@ export async function getProductsBasic(): Promise<ReturnFetch<Product[]>> {
 		});
 
 		return { data: products };
-	} catch (e: any) {
-		return { error: e };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }
 
@@ -108,7 +108,7 @@ export async function getAllProductsWithPrices(): Promise<
 		});
 
 		return { data: products };
-	} catch (e: any) {
-		return { error: e };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 }

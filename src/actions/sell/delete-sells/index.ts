@@ -98,8 +98,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		revalidatePath(`/panel/area/dashboard/${area.data.id}/sells`);
 
 		return { data: [] };
-	} catch (err: any) {
-		return { error: err.message };
+	} catch {
+		return { error: "An error ocurred" };
 	}
 };
 
