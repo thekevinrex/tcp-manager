@@ -54,7 +54,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			},
 		});
 
-		revalidatePath("/panel/area/dashboard");
+		revalidatePath("/panel/sell-area");
 
 		return { data: Area };
 	} catch {

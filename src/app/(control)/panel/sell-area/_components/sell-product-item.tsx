@@ -18,14 +18,16 @@ export function SellProductItem({
 	areaProduct,
 	onUpdateSelected,
 	selected,
+	selecteds,
 }: {
 	areaProduct: SellAreaProductWithProduct;
 	selected: SelectedType;
 	onUpdateSelected: SelectedFn;
+	selecteds: SelectedType[];
 }) {
 	const { aviable, id } = areaProduct;
 	const { name } = areaProduct.product;
-	const { added, price: selectedPrice } = selected;
+	const { added, price: selectedPrice, uuid } = selected;
 
 	const [total, setTotal] = useState(added);
 	const [finalPrice, setFinalPrice] = useState(
@@ -34,13 +36,21 @@ export function SellProductItem({
 			: calcPriceBreakdown({ total: added, product: areaProduct.product })
 	);
 
+	const alreadySelected = selecteds.filter(
+		(sele) => sele.id === id && sele.uuid !== uuid
+	);
+
+	const trueAviable =
+		aviable -
+		(alreadySelected?.reduce((acc, item) => acc + item.added, 0) || 0);
+
 	const handleAdded = (add: number) => {
 		if (add < 0) {
 			add = 0;
 		}
 
-		if (add > aviable) {
-			add = aviable;
+		if (add > trueAviable) {
+			add = trueAviable;
 		}
 
 		setTotal(add);
@@ -51,7 +61,7 @@ export function SellProductItem({
 			);
 		}
 
-		onUpdateSelected({ total: add, productId: id });
+		onUpdateSelected({ total: add, uuid });
 	};
 
 	useEffect(() => {
@@ -73,7 +83,7 @@ export function SellProductItem({
 					{name}
 				</h3>
 				<PriceBadge
-					areaProduct={areaProduct}
+					uuid={uuid}
 					price={finalPrice}
 					onUpdate={onUpdateSelected}
 				/>
@@ -104,7 +114,7 @@ export function SellProductItem({
 						onClick={(e) => {
 							e.stopPropagation();
 							e.preventDefault();
-							if (total < aviable) handleAdded(total + 1);
+							if (total < trueAviable) handleAdded(total + 1);
 						}}
 						type="button"
 						className="w-[25px] p-0 shrink-0"
@@ -129,11 +139,11 @@ export function SellProductItem({
 }
 
 const PriceBadge = ({
-	areaProduct,
+	uuid,
 	price,
 	onUpdate,
 }: {
-	areaProduct: SellAreaProductWithProduct;
+	uuid: string;
 	price: number;
 	onUpdate: SelectedFn;
 }) => {
@@ -141,12 +151,12 @@ const PriceBadge = ({
 	const [open, setOpen] = useState(false);
 
 	const handleAction = () => {
-		onUpdate({ price: customPrice, productId: areaProduct.id });
+		onUpdate({ price: customPrice, uuid });
 		setOpen(false);
 	};
 
 	const handleResetAction = () => {
-		onUpdate({ price: null, productId: areaProduct.id });
+		onUpdate({ price: null, uuid });
 		setOpen(false);
 	};
 

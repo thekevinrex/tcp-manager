@@ -19,17 +19,18 @@ import { ProductDraggableItem } from "./_components/product-draggable-item";
 import { SellForm } from "./_components/sell-form";
 import { AreaInfo } from "./_components/area-Info";
 
-export type SelectedType = { id: number; added: number; price: number | null };
+export type SelectedType = {
+	uuid: string;
+	id: number;
+	added: number;
+	price: number | null;
+};
 export type SelectedFnParams = {
-	productId?: number;
+	uuid?: string;
 	total?: number;
 	price?: number | null;
 };
-export type SelectedFn = ({
-	productId,
-	total,
-	price,
-}: SelectedFnParams) => void;
+export type SelectedFn = ({ total, price, uuid }: SelectedFnParams) => void;
 
 export function SellArea({
 	area,
@@ -95,6 +96,17 @@ export function SellArea({
 		}
 	};
 
+	// handle the changes in wich the user incriese the add cant of the product
+	const handleAddedProducts = (total: number, productId?: number): void => {
+		if (!productId) {
+			return;
+		}
+
+		added[productId] = total;
+
+		setAdded([...added]);
+	};
+
 	// add a product to the sell form
 	// add a product to the selected product list
 
@@ -102,8 +114,8 @@ export function SellArea({
 		let toAdd = added[productId] ? added[productId] : 0;
 
 		// Check if is aviable && incrise the selected element total
-		const alreadySelected = selectedElements.find(
-			(pro) => pro.id == productId && pro.price === null
+		const alreadySelected = selectedElements.filter(
+			(pro) => pro.id == productId
 		);
 
 		if (toAdd <= 0) {
@@ -117,55 +129,43 @@ export function SellArea({
 			return;
 		}
 
-		if (alreadySelected) {
-			if (toAdd + alreadySelected.added > aviable) {
-				toAdd = aviable;
-			} else {
-				toAdd += alreadySelected.added;
-			}
+		const trueAviable =
+			aviable -
+			(alreadySelected?.reduce((acc, item) => {
+				return acc + item.added;
+			}, 0) || 0);
 
-			alreadySelected.added = toAdd;
-
-			setSelectedElements([...selectedElements]);
-		} else {
-			if (toAdd > aviable) {
-				toAdd = aviable;
-			}
-
-			setSelectedElements([
-				...selectedElements,
-				{
-					id: productId,
-					added: toAdd,
-					price: null,
-				},
-			]);
+		if (toAdd > trueAviable) {
+			toAdd = trueAviable;
 		}
 
-		handleAddedProducts(0, productId);
-	};
-
-	// handle the changes in wich the user incriese the add cant of the product
-	const handleAddedProducts = (total: number, productId?: number): void => {
-		if (!productId) {
+		if (toAdd === 0) {
 			return;
 		}
 
-		added[productId] = total;
+		setSelectedElements([
+			...selectedElements,
+			{
+				uuid: crypto.randomUUID(),
+				id: productId,
+				added: toAdd,
+				price: null,
+			},
+		]);
 
-		setAdded([...added]);
+		handleAddedProducts(0, productId);
 	};
 
 	// handle the cuantity of each selected product
 	// if the cuantity is 0 the product is deleted from the list
 	const handleUpdateSelected = ({
 		total,
-		productId,
+		uuid,
 		price,
 	}: SelectedFnParams): void => {
 		if (total === undefined) {
 			if (price !== undefined) {
-				const selected = selectedElements.find((e) => e.id === productId);
+				const selected = selectedElements.find((e) => e.uuid === uuid);
 				if (selected) {
 					selected.price = price;
 				}
@@ -177,14 +177,14 @@ export function SellArea({
 		}
 
 		if (total === 0) {
-			if (!productId) {
+			if (!uuid) {
 				setSelectedElements([]);
 				return;
 			}
 			// Eliminate the selected product
-			setSelectedElements(selectedElements.filter((e) => e.id !== productId));
+			setSelectedElements(selectedElements.filter((e) => e.uuid !== uuid));
 		} else {
-			const selected = selectedElements.find((e) => e.id === productId);
+			const selected = selectedElements.find((e) => e.uuid === uuid);
 			if (selected) {
 				selected.added = total;
 			}

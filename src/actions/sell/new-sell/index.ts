@@ -9,7 +9,6 @@ import db from "@/lib/db";
 import { NewSell, InputType, ReturnType } from "./shema";
 import { Prisma } from "@prisma/client";
 import { calcPriceBreakdown } from "@/lib/utils";
-import { Berkshire_Swash } from "next/font/google";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
 	const { userId, orgId } = auth();
@@ -35,11 +34,39 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		return { error: "Add at least one item to the sell list" };
 	}
 
+	const products: Array<{
+		id: number;
+		total: number;
+		sells: Array<{ added: number; price: number | null }>;
+	}> = [];
+
+	for (const selected of selecteds) {
+		const product = products.find((p) => p.id === selected.id);
+
+		if (product) {
+			product.total += selected.added;
+
+			const productSell = product.sells.find((s) => s.price === selected.price);
+
+			if (productSell) {
+				productSell.added += selected.added;
+			} else {
+				product.sells.push({ added: selected.added, price: selected.price });
+			}
+		} else {
+			products.push({
+				id: selected.id,
+				total: selected.added,
+				sells: [{ added: selected.added, price: selected.price }],
+			});
+		}
+	}
+
 	try {
 		let transactions = [];
 
-		for (const selected of selecteds) {
-			const { added, id, price } = selected;
+		for (const product of products) {
+			const { id, sells, total: added } = product;
 
 			const areaProduct = await db.sellAreaProduct.findUnique({
 				where: {
@@ -75,9 +102,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 			// Se wich inventories update
 			// itarate for each inventory until is filled
-			let selled = 0;
+
 			const inventoriesUpdate: Prisma.InventoryUpdateArgs[] = [];
-			const sellOnInventory = [];
+			const createSells: Array<{
+				price: number | null;
+				added: number;
+				inventories: Array<any>;
+			}> = [];
 
 			for (const inventory of areaProduct.product.inventories) {
 				if (inventory.selled >= inventory.cant) {
@@ -85,35 +116,69 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				}
 
 				const inventoryToSell = inventory.cant - inventory.selled;
-				const canSell = added - selled;
 
-				if (canSell <= 0) {
+				let selled = 0;
+
+				for (const sell of sells) {
+					const canSell = inventoryToSell - selled;
+
+					if (canSell <= 0) {
+						break;
+					}
+
+					const createdSelled = createSells.find((s) => s.price === sell.price);
+					let toSell = canSell;
+
+					if (createdSelled) {
+						if (createdSelled.added === sell.added) {
+							continue;
+						}
+
+						if (canSell > sell.added - createdSelled.added) {
+							toSell = sell.added - createdSelled.added;
+						}
+
+						createdSelled.added += toSell;
+						createdSelled.inventories.push({
+							cant: toSell,
+							inventoryId: inventory.id,
+							price: inventory.total,
+						});
+					} else {
+						if (canSell > sell.added) {
+							toSell = sell.added;
+						}
+
+						createSells.push({
+							price: sell.price,
+							added: toSell,
+							inventories: [
+								{
+									cant: toSell,
+									inventoryId: inventory.id,
+									price: inventory.total,
+								},
+							],
+						});
+					}
+
+					selled += toSell;
+				}
+
+				if (selled > 0) {
+					inventoriesUpdate.push({
+						data: {
+							selled: {
+								increment: selled,
+							},
+						},
+						where: {
+							id: inventory.id,
+						},
+					});
+				} else {
 					break;
 				}
-
-				let toSell = inventoryToSell;
-				if (inventoryToSell > canSell) {
-					toSell = canSell;
-				}
-
-				selled += toSell;
-
-				inventoriesUpdate.push({
-					data: {
-						selled: {
-							increment: toSell,
-						},
-					},
-					where: {
-						id: inventory.id,
-					},
-				});
-
-				sellOnInventory.push({
-					cant: toSell,
-					inventoryId: inventory.id,
-					price: inventory.total,
-				});
 			}
 
 			transactions.push(
@@ -137,34 +202,36 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 								},
 							},
 						},
-						selleds: {
-							create: {
-								cant: added,
-								price:
-									price !== null
-										? price
-										: calcPriceBreakdown({
-												product: areaProduct.product,
-												total: added,
-										  }),
-								Area: {
-									connect: {
-										id: areaProduct.areaId,
-									},
-								},
-								inventories: {
-									createMany: {
-										data: sellOnInventory,
-									},
-								},
-							},
-						},
 						inventories: {
 							updateMany: inventoriesUpdate,
 						},
 					},
 				})
 			);
+
+			for (const sell of createSells) {
+				transactions.push(
+					db.sell.create({
+						data: {
+							areaId: areaProduct.areaId,
+							productId: areaProduct.productId,
+							cant: sell.added,
+							inventories: {
+								createMany: {
+									data: sell.inventories,
+								},
+							},
+							price:
+								sell.price !== null
+									? sell.price
+									: calcPriceBreakdown({
+											product: areaProduct.product,
+											total: added,
+									  }),
+						},
+					})
+				);
+			}
 		}
 
 		await db.$transaction(transactions);
@@ -173,7 +240,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		return { data: [] };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: "An error occurred" };
 	}
 };
 

@@ -6,6 +6,7 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
 import { EditSellArea, InputType, ReturnType } from "./shema";
+import { revalidatePath } from "next/cache";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
 	const { userId, orgId } = auth();
@@ -87,6 +88,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				},
 			},
 		});
+
+		revalidatePath("/panel/sell-area");
 
 		return { data: Area };
 	} catch {

@@ -43,7 +43,7 @@ export default function Dashboard({
 
 					<Separator className="my-10" />
 
-					<div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+					<div className="grid md:grid-cols-2 grid-cols-1 gap-5 items-start">
 						<Suspense fallback={<CardSkeleton />}>
 							<TopProducts limit={currentLimit} />
 						</Suspense>

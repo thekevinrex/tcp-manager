@@ -107,7 +107,8 @@ export function SellForm({
 
 								return (
 									<SellProductItem
-										key={selected.id}
+										selecteds={selecteds}
+										key={selected.uuid}
 										onUpdateSelected={onUpdateSelected}
 										selected={selected}
 										areaProduct={product}
