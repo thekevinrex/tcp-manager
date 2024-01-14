@@ -1,0 +1,417 @@
+{
+	"dashboard": {
+		"dashboard": "Dashboard",
+		"last_areas": "Ultimas {lasts} areas",
+		"select_last_areas": "Selecciona la cantidad de areas",
+
+		"sells": "Ventas",
+		"earned": "Ganancias",
+
+		"operations": "Operaciones",
+		"cant_sell_items": "Cantidad de unidades vendidas",
+		"total_sells": "Total Ventas",
+		"total_earn": "Total Ganancias",
+
+		"top_products": "Mejores productos",
+		"top_products_des": "Un listado con los 5 mejores productos en cuanto a total ventas y total de ganancias",
+
+		"top_sell_areas": "Mejores areas de venta",
+		"top_sell_areas_des": "Un listado con los 5 mejores areas de venta en cuanto a total ventas y total de ganancias",
+
+		"no_data": "No hay suficiente informacion para mostrar"
+	},
+
+	"areas": {
+		"active_sell_area": "Area de venta activa",
+		"active_sell_area_des": "Aqui se muestra la informacion de la area de venta activa, mostrando el total de ventas y el total de ganancias",
+
+		"no_active_area": "No hay area de venta activa",
+		"no_active_area_des": "Si no tienes un area de venta active no puedes vender ningún producto",
+
+		"finalize": "Finalizar",
+		"date_time": "Empezo el {date} a las {time}",
+		"date_time_f": "Empezo el :d a las :t",
+
+		"sells": "Ventas",
+		"earned": "Ganancias",
+		"cant": "Cantidad",
+		"total": "Total",
+
+		"area_finalized_successfully": "La area de venta finalizó correctamente",
+		"alert_finalize_title": "Estas seguro que desea finalizar el area de venta activa?",
+		"alert_finalize_description": "Si finalizas el área toda la información sobre el área activa se va a archivar hasta que se elimine, esta acción no se puede deshacer",
+
+		"area_created_successfully": "Area de venta creada correctamente",
+		"area_create_title": "Crear area de venta",
+		"area_create_description": "Estas seguro que deseas crear una nueva area de venta?",
+
+		"sell_area": "Area de venta",
+		"sell_area_des": "El lugar donde se efectual las ventas, añade productos al cajon de ventas para poder realizar una venta",
+
+		"sell_area_no_products": "No hay productos disponibles para mostrar en el area de ventas.",
+		"add_product": "Añade un producto",
+
+		"aviable": "Aviable: {aviable}",
+		"add": "Añadir",
+
+		"sell_area_search_no_results": "No se encontraron resultados",
+		"sell_area_search": "Buscar productos...",
+
+		"areas_dashboard": "Areas de ventas",
+		"areas_dashboard_des": "Listado de areas de ventas ",
+		"no_sell_areas": "No hay areas de ventas creadas",
+
+		"area_deleted_successfully": "Area de venta eliminada correctamente",
+		"area_delete_title": "Eliminar area de venta",
+		"area_delete_des": "Si eliminas el área de venta, se eliminará toda la información sobre el área, esto incluye todas las ventas y las estadisticas, esta acción no se puede deshacer.",
+
+		"started": "Empezo el",
+		"ended": "Termino el",
+		"actions": "Acciones",
+		"active": "Activa",
+		"stadistics": "Estadisticas",
+
+		"sells_unit": "Total unidades vendidas",
+		"total_sells": "Total Ventas",
+		"total_earn": "Total Ganancias",
+
+		"sell_area_info": "Informacion del area de venta",
+		"sell_area_info_des": "Toda la informacion relacionada a la area de venta, ventas, y estadisticas",
+
+		"sell_stats_products": "Estadisticas de los productos",
+		"sell_stats_products_des": "Listado de todos los productos vendidos en esta área de venta, con el total de ventas por producto y la ganancia",
+		"product": "Producto",
+
+		"sell_search": "Buscar ventas por productos..."
+	},
+
+	"alert": {
+		"cancel": "Cancelar",
+		"continue": "Continuar"
+	},
+
+	"organization": {
+		"organization": "Organización",
+		"organization_card_des": "Aqui se muestra la informacion de la organization en la cual estas",
+
+		"org_name": "Nombre de la organizacion",
+		"settings": "Configuraciones",
+
+		"organization_des": "Modifica las configuraciones publicas de tu organización",
+
+		"org_updated_successfully": "Configuraciones públicas modificádas correctamente",
+
+		"org_des": "Descripción de la organización",
+		"org_location": "Localización de la organización",
+		"org_phone": "Telefono de la organización",
+		"org_domicilio": "Domicilio",
+		"org_domicilio_des": "Determina si vas a hacer domicilio. <br /> Si decides hacer domicilio los usuarios podran hacer encargos de tus productos",
+		"org_domicilio_details": "Detalles del domicilio",
+		"org_visible": "Visibilidad",
+		"org_visible_des": "Determina si los usuarios pueden ver tu organizacion y tus productos",
+
+		"save": "Guardar"
+	},
+
+	"products": {
+		"product_list": "Listado de productos",
+		"product_list_des": "Un listado con todos los productos disponibles, de los cuales se muestra la disponibilidad actual, precio entre otros elementos",
+
+		"total_products": "Cantidad de productos",
+		"total_can_earn": "Cantidad maxima de ganancias",
+
+		"search": "Buscar productos...",
+
+		"name": "Nombre",
+		"aviable": "Disponibilidad",
+		"status": "Estado",
+		"price": "Precio",
+		"can_earn": "Ganancias",
+
+		"out_stock": "Sin disponibilidad",
+		"visible": "Visible",
+		"hidden": "Oculto",
+
+		"product_edited_successfully": "Producto editado correctamente",
+		"product_edit_title": "Editar producto",
+		"product_edit_des": "Realice cambios en el producto aquí. Haz clic en Guardar cuando hayas terminado.",
+		"edit": "Editar",
+		"save": "Guardar",
+
+		"product_created_successfully": "Producto añadido correctamente",
+		"add_product": "Añadir producto",
+		"add_product_des": "Agregue un nuevo producto a su organizacion, este producto es necesario para la página de publica y el área de venta",
+
+		"product_deleted_successfully": "Producto eliminado correctamente",
+		"product_delete_title": "Eliminar productos seleccionados",
+		"product_delete_title_all": "Eliminar todos los productos",
+		"product_delete_des": "¿Estás seguro de que quieres eliminar los productos?",
+
+		"product_name": "Nombre del producto",
+		"product_price": "Precio de producto",
+		"product_image": "Imagen del producto",
+		"product_des": "Descripción del producto",
+		"product_visible": "Estado del producto",
+		"product_visible_des": "Estado del producto, esto es importante para mostrar en la parte publica del sitio",
+
+		"price_breakdown": "Desglose de precios",
+		"add_price_breakdown": "Añadir desglose de precios",
+		"price_breakdown_des": "Puede agregar un desglose de precios para tener diferentes precios dependiendo de la cantidad",
+		"price_breakdown_cant": "Cantidad",
+		"price_breakdown_price": "Price",
+
+		"selected": "Seleccionados {selected}",
+		"select_all": "Seleccionar todos",
+		"select_row": "Seleccionar fila"
+	},
+
+	"pagination": {
+		"pagination_show": "Pagina {page} de {totalItems} total {total} filas",
+		"rows_page": "Filas por pagina",
+		"page": "Pagina {num}",
+		"next": "Siguiente",
+		"previous": "Anterior"
+	},
+
+	"inventories": {
+		"inventory": "Inventario",
+		"inventory_des": "Un listado con todos los inventarios añadidos",
+
+		"total_inventories": "Cantidad de inventarios",
+		"total_sells": "Total unidades vendidos",
+
+		"search": "Buscar inventarios por producto...",
+
+		"total_actual_invertido": "Inversion actual",
+		"total_invertido": "Inversion inicial",
+
+		"product": "Producto",
+		"selled": "Vendido",
+		"cant": "Cantidad inicial",
+		"cost": "Costo",
+		"total": "Total invertido",
+		"date": "Fecha",
+		"actions": "Acciones",
+
+		"no_inventories": "No hay inventarios añadidos",
+
+		"inventory_deleted_successfully": "Inventario eliminado correctamente",
+		"inventory_delete_title": "Eliminar inventario",
+		"inventory_delete_description": "¿Está seguro de que desea eliminar el inventario, si elimina el inventario, la disponibilidad de el producto va a disminuir en la cantidad restante del inventario?",
+
+		"inventory_updated_successfully": "Inventario editado correctamente",
+		"inventory_edit_title": "Editar inventario",
+		"inventory_edit_description": "Edite la cantidad y el costo del inventario, pero tenga cuidado de que cualquier cambio pueda tener un impacto grave en la estadística",
+
+		"inventory_cost": "Costo del inventario",
+		"inventory_cant": "Cantidad del inventario",
+		"inventory_update_sell_cost": "Modificar el costo de todas las ventas de este inventario?",
+
+		"important": "Importante!",
+		"inventory_update_cant": "Si actualiza la cantidad del inventario, no modificará ninguna venta, solo modificará la disponibilidad del producto de este inventario.",
+		"save": "Guardar",
+
+		"inventory_added_successfully": "Inventario añadido correctamente",
+		"inventory_add": "Añadir inventario",
+		"inventory_add_des": "Añade un nuevo inventario para aumentar la disponibilidad del producto seleccionado segun la cantidad introducida, y añade el costo del inventario para calcular la ganancias de las ventas",
+
+		"inventory_product": "Selecciona el producto",
+
+		"search_command": "Buscar...",
+		"empty_command": "No se encontraron resultados"
+	},
+
+	"sells": {
+		"sell_added_successfully": "Nueva venta realizada correctamente",
+		"sell_box": "Cajon de ventas",
+		"sell_box_des": "Arrastra o añade productos para realizar un venta",
+
+		"sell_price_title": "Precio de venta",
+		"sell_price_des": "Modifica el precio de venta del producto seleccionado",
+
+		"price": "Precio: {price}",
+		"sell_price": "Precio de venta",
+
+		"sell": "Vender",
+		"cant": "Cantidad",
+		"total": "Total: ",
+		"reset": "Restablecer",
+		"save": "Guardar",
+		"sell_add_product": "Arrastra y sualta o añade un producto aqui para vender",
+
+		"no_sells": "No se han realizado ninguna venta",
+		"product": "Producto",
+		"date": "Fecha",
+
+		"total_sell": "Venta total",
+
+		"sell_deleted_successfully": "Venta eliminada correctamente",
+		"sell_delete_title": "Eliminar ventas seleccionadas",
+		"sell_delete_title_all": "Eliminar todas las ventas",
+		"sell_delete_des": "Estas seguro que deseas eliminar las ventas seleccionadas?. Esta accion no se puede deshacer.",
+
+		"select_all": "Seleccionar todos",
+		"select_row": "Seleccionar fila",
+		"selected": "Seleccionados {selected}"
+	},
+
+	"header": {
+		"dashboard": "Dashboard",
+		"products": "Productos",
+		"inventories": "Inventarios",
+		"sell_area": "Area de venta",
+		"areas": "Areas",
+
+		"light": "Claro",
+		"dark": "Oscuro",
+		"system": "Sistema",
+
+		"public_settings": "Configuraciones publicas",
+
+		"search": "Buscar...",
+		"panel": "Panel",
+
+		"name": "TCP Manager",
+
+		"sign_in": "Entrar",
+		"sign_out": "Salir",
+		"solicitar_cuenta": "Solicitar cuenta"
+	},
+
+	"landing": {
+		"name": "TCP Manager",
+		"slogan": "Simplifica la gestión de inventarios y potencia tus ventas",
+
+		"features": {
+			"first": "Gestión de inventario en tiempo real",
+			"second": "Promoción de productos y organización",
+			"third": "Estadisticas en tiempo real",
+			"fourth": "Automatización de procesos"
+		},
+
+		"hero_action": "Solicita ahora!",
+		"features_title": "Las caracteristicas que necesitas para tu organización",
+		"features_description": "Hemos reunido las características esenciales que tu organización necesita para optimizar la gestión de inventarios, impulsar las ventas y tomar decisiones informadas. Desde la capacidad de agregar nuevos productos de manera fácil y rápida, hasta la posibilidad de realizar ventas de forma eficiente y obtener estadísticas detalladas sobre el rendimiento de tu negocio",
+
+		"features_list": {
+			"real_time_stats": {
+				"title": "Estadisticas en tiempo real",
+				"des": "Sigue en tiempo real el total de ventas y ganancias generadas para que tengas una visión clara y precisa del rendimiento de tu negocio.",
+				"key": {
+					"monitoring": {
+						"title": "Monitoreo instantáneo",
+						"des": "Obtén información actualizada al instante sobre las ventas realizadas, el inventario disponible y otras métricas importantes para tu negocio."
+					},
+					"any_place": {
+						"title": "Acceso desde cualquier lugar",
+						"des": "Nuestras estadísticas en tiempo real están disponibles en cualquier dispositivo con conexión a internet, lo que te permite acceder a ellas desde la comodidad de tu oficina, en el camino o desde cualquier lugar donde te encuentres"
+					}
+				}
+			},
+			"promocion": {
+				"title": "Promociona tus productos y organización",
+				"des": "Tienes la posibilidad de promocionar tu organización y productos en nuestra aplicación, alcanzando a una amplia audiencia y generando mayores oportunidades de venta",
+				"key": {
+					"profile": {
+						"title": "Página de organización personalizada",
+						"des": "Podras tener una página personalizada para tu organización, donde podrás resaltar información relevante como tu logo, descripción, ubicación y enlaces a tu sitio web o redes sociales"
+					},
+					"products": {
+						"title": "Listado y catálogo de productos",
+						"des": "Agrega tus productos al listado y catálogo de la aplicación, lo que te permitirá mostrar tus productos a los usuarios interesados ​​en tu sector. Podrás incluir imágenes, descripciones y precios de cada producto."
+					},
+					"metricas": {
+						"title": "Métricas de rendimiento",
+						"des": "Obtén información sobre el rendimiento de tus productos a través de nuestras métricas. Podrás ver el número de visitas, clics y conversiones que tus productos están generando, lo que te permitirá ajustar y mejorar tus estrategias de promoción."
+					}
+				}
+			},
+			"gestion_inventario": {
+				"title": "Gestion de inventario en tiempo real",
+				"des": "Permite mantener un control preciso y actualizado de tus inventarios, brindando información en tiempo real sobre la disponibilidad de tus productos",
+				"key": {
+					"auto_update": {
+						"title": "Actualización automática",
+						"des": "Los niveles de inventario se actualizan automaticamente con cada venta y compra que hagas. Esto te permite tener siempre la información más reciente de disponibilidad."
+					},
+					"stock": {
+						"title": "Control de stock en tiempo real",
+						"des": "Podrás ver al instante la disponibilidad de los productos, así como los que están por agotarse o necesitan reabastecimiento. Esto te ayudará a tomar decisiones informadas sobre las compras, evitar la escasez de productos y optimizar tus operaciones"
+					}
+				}
+			}
+		},
+
+		"features_images": {
+			"dashboard": {
+				"title": "Dashboard page",
+				"des": ""
+			}
+		},
+
+		"ready_to_start": "Listo para empezar?",
+		"solicitar_cuenta": "Solicitar cuenta",
+
+		"testimonials_title": "Testimonios",
+		"testimonials": {
+			"dra": {
+				"name": "Dr. Yillian Gómez Porcegue",
+				"ocupation": "Estomatóloga",
+				"alt": "Testimonio de la Dr. Yillian Gómez Porcegue",
+				"testimonio": "Antes, luchaba por mantener un control preciso de mis productos. Con esta aplicación, puedo realizar un seguimiento en tiempo real de mis existencias y obtener estadísticas detalladas sobre mis ventas. Lo mejor de todo es que puedo promocionar mis productos directamente desde la aplicación"
+			},
+			"tcp_transportador": {
+				"name": "Leodel González Pérez",
+				"ocupation": "TCP Importador",
+				"alt": "Testimonio de Leodel González Pérez",
+				"testimonio": "Desde que comencé a utilizar esta aplicación, todo ha cambiado. La gestión de inventario en tiempo real me permite tener un registro preciso de mis existencias. Además, las estadísticas en tiempo real me brindan información valiosa sobre las tendencias de ventas y el rendimiento de mis productos."
+			}
+		}
+	},
+
+	"footer": {
+		"copyright": "Diseñado y programado por Kevin González Gómez (2024) ©",
+		"slogan": "Simplifica la gestión de inventarios y potencia tus ventas",
+
+		"langs": "Idiomas",
+
+		"clients": "Clientes",
+		"products": "Productos",
+		"organizations": "Organizaciones",
+
+		"legal": "Legal",
+		"contact_us": "Contactanos",
+		"about_us": "Acerca de nosotros",
+		"terms_conds": "Terminos y condiciones",
+		"privacy": "Privacidad",
+
+		"panel": "Panel",
+		"dashboard": "Dashboard",
+		"sell_area": "Area de venta",
+		"inventories": "Inventarios",
+		"sign_in": "Entrar",
+		"sign_up": "Crear cuenta",
+		"solicitar_cuenta": "Solicitar cuenta",
+
+		"en": "Ingles",
+		"es": "Español"
+	},
+
+	"home": {
+		"explore_products": "Explora los productos",
+		"explore_organizations": "Explora las organizaciones",
+
+		"hero_section": {
+			"before_br": "The best offer on the market",
+			"after": "for your business"
+		},
+
+		"top_organizations": "Mejores organizaciones",
+		"top_products": "Mejores productos",
+
+		"see_more": "Ver más",
+
+		"out_stock": "Sin disponibilidad",
+		"aviable": "Disponible"
+	}
+}

@@ -1,9 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import db from "../lib/db";
 import {
-	ProductsWithPrices,
 	ReturnFetch,
-	SellAreaProductWithProduct,
 	SellAreaWithProductAndSells,
 	SellAreaWithTotalSells,
 } from "@/lib/types";

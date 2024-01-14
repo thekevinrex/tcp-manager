@@ -10,6 +10,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useTranslations } from "next-intl";
 
 interface Dialog {
 	trigger: React.ReactElement;
@@ -28,6 +29,8 @@ export function AlertModal({
 	onOpenChange,
 	onAction,
 }: Dialog) {
+	const _ = useTranslations("alert");
+
 	return (
 		<AlertDialog
 			open={open ? open : undefined}
@@ -40,8 +43,10 @@ export function AlertModal({
 					<AlertDialogDescription>{description}</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={onAction}>Continue</AlertDialogAction>
+					<AlertDialogCancel>{_("cancel")}</AlertDialogCancel>
+					<AlertDialogAction onClick={onAction}>
+						{_("continue")}
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

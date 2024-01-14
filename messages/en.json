@@ -1,0 +1,10 @@
+{
+	"Index": {
+		"title": "Hello world!"
+	},
+	"dashboard": {
+		"dashboard": "Dashboard",
+		"last_areas": "Last {lasts} sell areas",
+		"select_last_areas": "Select the cant of sell areas"
+	}
+}

@@ -1,12 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import {
-	ProductsWithPrices,
-	SellWithInventories,
-	SellWithProductAndInventories,
-} from "./types";
-import { Prisma } from "@prisma/client";
-import { date } from "zod";
+import { ProductsWithPrices, SellWithInventories } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -86,7 +80,7 @@ export function formatDate({
 		return `${hora}:${minuts}${s ? ":" + s : ""} ${M}`;
 	}
 
-	return `${date} at ${hora}:${minuts}${s ? ":" + s : ""} ${M}`;
+	return `${date} - ${hora}:${minuts}${s ? ":" + s : ""} ${M}`;
 }
 
 export const Currency = new Intl.NumberFormat("en-US", {

@@ -28,6 +28,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const ROWS = [1, 5, 10, 20, 30, 50, 100];
 
@@ -43,6 +44,7 @@ export const PaginationComponent = ({
 	const pathname = usePathname();
 	const params = useSearchParams();
 	const { replace } = useRouter();
+	const _ = useTranslations("pagination");
 
 	const generateLink = (page: number) => {
 		const url = new URLSearchParams(params);
@@ -77,7 +79,7 @@ export const PaginationComponent = ({
 		<div className="flex flex-col md:flex-row gap-5 md:justify-between items-center">
 			<div className="flex space-x-5 items-center w-full justify-center">
 				<div className="text-xs sm:text-sm tracking-widest font-bold shrink-0">
-					Page {page} of {totalItems} from {total} rows
+					{_("pagination_show", { page, totalItems, total })}
 				</div>
 
 				<div className="w-[1px] h-8 bg-slate-300 hidden sm:block"></div>
@@ -97,7 +99,7 @@ export const PaginationComponent = ({
 							})}
 						</SelectContent>
 					</Select>
-					<Label className="font-bold text-sm shrink-0">Rows per page</Label>
+					<Label className="font-bold text-sm shrink-0">{_("rows_page")}</Label>
 				</div>
 			</div>
 			<div>
@@ -105,7 +107,10 @@ export const PaginationComponent = ({
 					<PaginationContent>
 						{page > 1 && (
 							<PaginationItem>
-								<PaginationPrevious href={generateLink(page - 1)} />
+								<PaginationPrevious
+									title={_("previous")}
+									href={generateLink(page - 1)}
+								/>
 							</PaginationItem>
 						)}
 
@@ -131,7 +136,9 @@ export const PaginationComponent = ({
 									<DropdownMenuContent>
 										{[...Array(totalItems)].map((x, i) => (
 											<DropdownMenuItem key={i} asChild>
-												<Link href={generateLink(i + 1)}>Page {i + 1}</Link>
+												<Link href={generateLink(i + 1)}>
+													{_("page", { num: i + 1 })}
+												</Link>
 											</DropdownMenuItem>
 										))}
 									</DropdownMenuContent>
@@ -141,7 +148,10 @@ export const PaginationComponent = ({
 
 						{page < totalItems && (
 							<PaginationItem>
-								<PaginationNext href={generateLink(page + 1)} />
+								<PaginationNext
+									title={_("next")}
+									href={generateLink(page + 1)}
+								/>
 							</PaginationItem>
 						)}
 					</PaginationContent>

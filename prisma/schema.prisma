@@ -44,6 +44,7 @@ model Product {
   selleds Sell[]
   prices PriceBreakdown[]
   areaProducts SellAreaProduct[]
+  organization Organization @relation(fields: [org], references: [org], onDelete: Cascade) 
 
   @@map("products")
 }
@@ -145,6 +146,8 @@ model Organization {
   domicilio_details String?
 
   visible Boolean @default(false)
+
+  products Product[]
 
   @@map("organizations")
 }

@@ -15,17 +15,14 @@ export const STATUS_TYPES: Array<string> = [
 export const STATUS: Status[] = [
 	{
 		value: "hidden",
-		label: "Hidden",
 		bg: "bg-slate-600",
 	},
 	{
 		value: "visible",
-		label: "Visible",
 		bg: "bg-green-400",
 	},
 	{
 		value: "out_stock",
-		label: "Out of stock",
 		bg: "bg-red-500",
 	},
 ];

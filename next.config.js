@@ -1,15 +1,21 @@
+const withNextIntl = require("next-intl/plugin")();
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withNextIntl({
 	images: {
 		remotePatterns: [
 			{
 				protocol: "https",
 				hostname: "ntiaosvuiauxykortlzz.supabase.co",
 				port: "",
-				// pathname: '/account123/**',
+			},
+			{
+				protocol: "https",
+				hostname: "img.clerk.com",
+				port: "",
 			},
 		],
 	},
-};
+});
 
 module.exports = nextConfig;

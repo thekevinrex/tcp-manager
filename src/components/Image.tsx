@@ -68,3 +68,16 @@ export const SupabaseImage = ({
 		/>
 	);
 };
+
+export function ClerkImage({ src, alt, width, height, style }: ImageProps) {
+	return (
+		<Image
+			src={src || "/not_image.jpeg"}
+			alt={alt}
+			width={width}
+			height={height}
+			className="w-full h-full rounded-md"
+			style={style}
+		/>
+	);
+}

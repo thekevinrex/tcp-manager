@@ -4,7 +4,6 @@ export type StatusType = "hidden" | "visible" | "out_stock" | "admin";
 
 export type Status = {
 	value: StatusType;
-	label: string;
 	bg: string;
 };
 
