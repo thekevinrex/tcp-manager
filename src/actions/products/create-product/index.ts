@@ -32,8 +32,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 	const CreateData: Prisma.ProductCreateInput = {
 		by_user: userId,
-		org: orgId,
 		name,
+		organization: {
+			connect: {
+				org: orgId,
+			},
+		},
 		description,
 		price,
 		status,
