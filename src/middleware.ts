@@ -20,6 +20,10 @@ export default authMiddleware({
 		req.url.endsWith("/panel") ||
 		req.url.endsWith("/panel/solicitar"),
 	beforeAuth: (req) => {
+		if (req.nextUrl.pathname.startsWith("/api")) {
+			return;
+		}
+
 		return intlMiddleware(req);
 	},
 	afterAuth(auth, req, evt) {

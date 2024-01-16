@@ -22,19 +22,18 @@ export function ReelSkeleton({ max = 4 }: { max?: number }) {
 	);
 }
 
-const ReelSkeletonItem = () => (
+export const ReelSkeletonItem = () => (
 	<div className="mb-12 lg:mb-0">
 		<div className="relative mb-6 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20 bg-[50%]">
 			<Skeleton className="w-full max-h-[200px] h-auto min-h-[150px]" />
 		</div>
 		<h5 className="mb-4 text-lg font-bold">
-			<Skeleton className="w-[80%] h-12" />
+			<Skeleton className="w-[80%] h-8" />
 		</h5>
 
 		<div className="flex flex-col space-y-3 mt-5">
-			<Skeleton className="w-[70%] h-10" />
-			<Skeleton className="w-[50%] h-8" />
-			<Skeleton className="w-[40%] h-6" />
+			<Skeleton className="w-[60%] h-6" />
+			<Skeleton className="w-[60%] h-6" />
 		</div>
 	</div>
 );

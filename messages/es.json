@@ -412,6 +412,33 @@
 		"see_more": "Ver más",
 
 		"out_stock": "Sin disponibilidad",
-		"aviable": "Disponible"
+		"aviable": "Disponible",
+		"prices": "Precios",
+		"price": "Precio",
+
+		"product": "Producto",
+		"products": "Productos",
+		"products_page_des": "Explora nuestros productos para encontrar los que satisfagan tus necesidades",
+
+		"organizations": "Organizaciones",
+		"organizations_page_des": "Explora nuestras organizaciones",
+
+		"organization_products": "Productos de la organización",
+		"organization_products_des": "Explora los productos de la organización",
+
+		"contact_details": "Detalles de contacto",
+
+		"domicilio": "Domicilio",
+		"domicilio_yes": "Aceptamos domicilio",
+		"domicilio_no": "No estamos haciendo domicilio",
+		"domicilio_do": "Hacer encargo",
+
+		"fetch_error": "A occurrido un error",
+		"no_more": "No se encontraron mas resultados",
+
+		"filters_title": "Filtrar",
+		"filters_description": "Añade filtros para hacer busquedas mas precisas",
+		"filtrar": "Filtrar",
+		"close": "Cerrar"
 	}
 }

@@ -9,18 +9,10 @@ import { cn } from "@/lib/utils";
 type ImageProps = {
 	src: string | null;
 	alt: string;
-	width: number;
-	height: number;
 	style?: any;
 };
 
-export const SupabaseImage = ({
-	src,
-	alt,
-	width,
-	height,
-	style,
-}: ImageProps) => {
+export const SupabaseImage = ({ src, alt }: ImageProps) => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [image, setImage] = useState<string | null>(null);
 
@@ -50,34 +42,36 @@ export const SupabaseImage = ({
 	}, [src]);
 
 	if (loading || !image) {
-		return (
-			<Skeleton
-				className={cn(`w-[${width}px] h-[${height}px]`, "rounded-md")}
-			/>
-		);
+		return <Skeleton className={cn(`w-full h-full`, "rounded-md")} />;
 	}
 
 	return (
 		<Image
 			src={image}
 			alt={alt}
-			width={width}
-			height={height}
-			className="w-full h-full rounded-md"
-			style={style}
+			fill
+			sizes="(min-width: 808px) 50vw, 100vw"
+			style={{
+				objectFit: "fill", // cover, contain, none
+			}}
+			priority
+			className="rounded-md aspect-square"
 		/>
 	);
 };
 
-export function ClerkImage({ src, alt, width, height, style }: ImageProps) {
+export function ClerkImage({ src, alt }: ImageProps) {
 	return (
 		<Image
 			src={src || "/not_image.jpeg"}
 			alt={alt}
-			width={width}
-			height={height}
-			className="w-full h-full rounded-md"
-			style={style}
+			fill
+			sizes="(min-width: 808px) 50vw, 100vw"
+			style={{
+				objectFit: "fill", // cover, contain, none
+			}}
+			priority
+			className="rounded-md aspect-square"
 		/>
 	);
 }

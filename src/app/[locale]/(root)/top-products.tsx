@@ -4,9 +4,15 @@ import { getTopProducts } from "@/fetchs/shop/products";
 import { ProductsReel } from "./_components/products-reel";
 import { getTranslations } from "next-intl/server";
 
-export async function TopProducts() {
-	const response = await getTopProducts();
-	const _ = await getTranslations();
+export async function TopProducts({
+	max = 8,
+	more = true,
+}: {
+	max?: number;
+	more?: boolean;
+}) {
+	const response = await getTopProducts(max);
+	const _ = await getTranslations("home");
 
 	if (response.error || !response.data) {
 		return <FetchFailedError error={response.error} />;
@@ -15,7 +21,7 @@ export async function TopProducts() {
 	return (
 		<ProductsReel
 			title={_("top_products")}
-			more={{ href: "/products", label: _("see_more") }}
+			more={more ? { href: "/products", label: _("see_more") } : undefined}
 			products={response.data}
 		/>
 	);

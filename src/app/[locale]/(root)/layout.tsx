@@ -3,7 +3,7 @@ import { Header } from "./_components/header";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/page/footer";
 
-export default function ProductLayout({
+export default function HomeLayout({
 	children,
 	params: { locale },
 }: {

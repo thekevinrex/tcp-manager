@@ -8,12 +8,12 @@ export function Draggable({
 	id?: number | string;
 	children: React.ReactNode;
 }) {
-	const dragId = useMemo(() => (id ? id : crypto.randomUUID()), [id]);
+	const dragId = useMemo(() => crypto.randomUUID(), []);
 
 	const { attributes, listeners, setNodeRef, transform } = useDraggable({
 		id: `draggable-${dragId}`,
 		data: {
-			externalId: dragId,
+			externalId: id,
 		},
 	});
 

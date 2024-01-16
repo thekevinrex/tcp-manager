@@ -15,6 +15,14 @@ export type InventoryWithProduct = Prisma.InventoryGetPayload<{
 	include: { Product: true };
 }>;
 
+export type ProductsWithPricesAndOrg = Prisma.ProductGetPayload<{
+	include: { prices: true; organization: true };
+}>;
+
+export type OrganizationWithProducts = Prisma.OrganizationGetPayload<{
+	include: { products: true };
+}>;
+
 export type SellAreaProductWithProduct = Prisma.SellAreaProductGetPayload<{
 	include: { product: { include: { prices: true } } };
 }>;

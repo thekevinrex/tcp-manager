@@ -58,11 +58,9 @@ export function ProductDraggableItem({
 
 	return (
 		<article className="flex flex-col border bg-background rounded-md">
-			<div className="w-full h-[150px] flex rounded-md overflow-hidden">
+			<div className="w-full h-[150px] flex rounded-md overflow-hidden relative">
 				<SupabaseImage
 					src={image}
-					width={500}
-					height={300}
 					alt={name}
 					style={{ width: "100%", height: "auto" }}
 				/>

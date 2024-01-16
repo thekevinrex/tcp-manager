@@ -89,14 +89,9 @@ export function DataProducts({ products }: { products: ProductsWithPrices[] }) {
 			cell: ({ row }) => {
 				return (
 					<div className="capitalize flex flex-row items-center gap-5">
-						<picture className="w-[180px] h-[120px] flex items-center justify-center shrink-0">
-							<SupabaseImage
-								alt={row.original.name}
-								src={row.original.image}
-								width={180}
-								height={120}
-							/>
-						</picture>
+						<div className="w-[180px] h-[120px] flex shrink-0 relative">
+							<SupabaseImage alt={row.original.name} src={row.original.image} />
+						</div>
 						<div className="flex flex-col space-y-2 max-w-lg">
 							<span className="text-lg font-semibold capitalize tracking-tight">
 								{row.getValue("name")}
@@ -189,7 +184,7 @@ export function DataProducts({ products }: { products: ProductsWithPrices[] }) {
 			},
 		},
 		{
-			accessorKey: "price",
+			accessorKey: "earn",
 			header: () => {
 				return <div className="text-center">{_("can_earn")}</div>;
 			},
