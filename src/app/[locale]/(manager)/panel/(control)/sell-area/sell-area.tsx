@@ -4,6 +4,8 @@ import Link from "next/link";
 import { DndContext, DragOverlay, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
 import { SellArea } from "@prisma/client";
+import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 import { ProductsWithPrices } from "@/lib/types";
 import { MouseSensor } from "@/lib/sensors";
@@ -12,12 +14,13 @@ import { Button } from "@/components/ui/button";
 import { Draggable } from "@/components/draggable";
 import { Calculator } from "@/components/calculator";
 
-import Organization from "../_components/organization/organization";
-
 import { ProductDraggableItem } from "./_components/product-draggable-item";
 import { SellForm } from "./_components/sell-form";
 import { AreaInfo } from "./_components/area-Info";
-import { useTranslations } from "next-intl";
+
+import { useAction } from "@/hooks/useAction";
+import { newSell } from "@/actions/sell/new-sell";
+import { ProductDraggableDetails } from "./_components/product-draggable-details";
 
 export type SelectedType = {
 	uuid: string;
@@ -58,6 +61,8 @@ export function SellArea({
 
 	// The search input value
 	const [search, setSearch] = useState("");
+
+	const [loading, setLoading] = useState<boolean | number>(false);
 
 	// The products that are going to be show after the search
 	const [showProducts, setShowProducts] = useState<Array<number>>(
@@ -212,6 +217,29 @@ export function SellArea({
 		);
 	};
 
+	const { isLoading, execute } = useAction(newSell, {
+		onSuccess() {
+			toast.success(_("sell_added_successfully"));
+
+			setSelectedElements([]);
+			setAdded([]);
+		},
+		onError(error) {
+			toast.error(error);
+			setLoading(false);
+		},
+	});
+
+	const executeSell = ({ id, added }: { id: number; added: number }) => {
+		setLoading(id);
+		execute({ id: area.id, selecteds: [{ id, added, price: null }] });
+	};
+
+	const executeNewSell = (selecteds: SelectedType[]) => {
+		setLoading(true);
+		execute({ id: area.id, selecteds });
+	};
+
 	// An effect for when the user made a sell to update the area products
 	useEffect(() => {
 		setShowProducts(
@@ -220,8 +248,11 @@ export function SellArea({
 			})
 		);
 		setSearch("");
+		setLoading(false);
 		setAdded([]);
 	}, [areaProducts]);
+
+	const disabled = isLoading || loading !== false;
 
 	return (
 		<DndContext
@@ -241,17 +272,19 @@ export function SellArea({
 
 								<p>{_("sell_area_des")}</p>
 							</div>
-							<div>
-								<Calculator />
-							</div>
 						</div>
 
-						<AreaInfo search={search} handleSearch={handleSearch} area={area} />
+						<AreaInfo
+							disabled={disabled}
+							search={search}
+							handleSearch={handleSearch}
+							area={area}
+						/>
 					</header>
 
 					{showProducts.length > 0 ? (
 						<>
-							<div className="grid grid-cols-12 gap-5">
+							<div className="flex flex-col gap-5 w-full">
 								{showProducts.map((showProduct) => {
 									const product = areaProducts.find(
 										(pro) => pro.id === showProduct
@@ -262,35 +295,36 @@ export function SellArea({
 									}
 
 									return (
-										<div
+										<ProductDraggableItem
 											key={product.id}
-											className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3"
+											onAdded={(added: number) =>
+												handleAddedProducts(added, product.id)
+											}
+											added={
+												product.id && added[product.id] ? added[product.id] : 0
+											}
+											excecuteSell={executeSell}
+											loading={loading !== false && loading === product.id}
+											disabled={disabled}
+											areaProduct={product}
+											addProduct={addSelectedProduct}
 										>
 											<Draggable id={product.id}>
-												<ProductDraggableItem
-													onAdded={(added: number) =>
-														handleAddedProducts(added, product.id)
-													}
-													added={
-														product.id && added[product.id]
-															? added[product.id]
-															: 0
-													}
-													areaProduct={product}
-													addProduct={addSelectedProduct}
-												/>
+												<ProductDraggableDetails areaProduct={product} />
 											</Draggable>
-										</div>
+										</ProductDraggableItem>
 									);
 								})}
 							</div>
 
 							<DragOverlay>
 								{active ? (
-									<ProductDraggableItem
-										areaProduct={active}
-										added={added[active.id] || 0}
-									/>
+									<div className="flex flex-row border bg-background rounded-md items-center cursor-grabbing">
+										<ProductDraggableDetails
+											areaProduct={active}
+											added={added[active.id] || 0}
+										/>
+									</div>
 								) : null}
 							</DragOverlay>
 						</>
@@ -300,14 +334,16 @@ export function SellArea({
 				</section>
 			</main>
 
-			<aside className="[grid-area:aside]">
+			<aside className="[grid-area:aside] lg:sticky top-0">
 				{area && (
 					<SellForm
 						over={isOver}
 						areaProducts={areaProducts}
 						selecteds={selectedElements}
 						onUpdateSelected={handleUpdateSelected}
-						area={area}
+						loading={loading === true}
+						disabled={disabled}
+						newSell={executeNewSell}
 					/>
 				)}
 			</aside>

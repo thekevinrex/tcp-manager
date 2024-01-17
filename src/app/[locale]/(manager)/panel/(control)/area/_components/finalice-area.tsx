@@ -13,7 +13,13 @@ import { finalizeSellArea } from "@/actions/sell-area/finalize-sell-area";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-export function FinalizeArea({ area }: { area: SellArea }) {
+export function FinalizeArea({
+	area,
+	disabled,
+}: {
+	area: SellArea;
+	disabled?: boolean;
+}) {
 	const { push } = useRouter();
 	const _ = useTranslations("areas");
 
@@ -39,7 +45,7 @@ export function FinalizeArea({ area }: { area: SellArea }) {
 			trigger={
 				<AlertDialogTrigger asChild>
 					<Button
-						disabled={loading}
+						disabled={loading || disabled}
 						type="button"
 						className="flex justify-center w-full"
 					>

@@ -11,10 +11,12 @@ export const AreaInfo = ({
 	area,
 	search,
 	handleSearch,
+	disabled,
 }: {
 	area: SellArea;
 	search: string;
 	handleSearch: (value: string) => void;
+	disabled: boolean;
 }) => {
 	const _ = useTranslations("areas");
 	const { createdAt, id } = area;
@@ -29,6 +31,7 @@ export const AreaInfo = ({
 						placeholder={_("sell_area_search")}
 						onChange={(e) => handleSearch(e.target.value)}
 						value={search}
+						disabled={disabled}
 						name="search"
 					/>
 					{search && (
@@ -41,18 +44,18 @@ export const AreaInfo = ({
 
 				<div className="flex space-x-3 ml-3">
 					<Link href={`/panel/area/dashboard/${id}`}>
-						<Button variant={"secondary"}>
+						<Button variant={"secondary"} disabled={disabled}>
 							<BarChart3 />
 						</Button>
 					</Link>
 
 					<Link href={`/panel/area/dashboard/${id}/sells`}>
-						<Button variant={"secondary"}>
+						<Button variant={"secondary"} disabled={disabled}>
 							<ListMinus />
 						</Button>
 					</Link>
 
-					<FinalizeArea area={area} />
+					<FinalizeArea disabled={disabled} area={area} />
 				</div>
 			</div>
 		</div>

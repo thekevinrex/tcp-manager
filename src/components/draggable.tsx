@@ -1,5 +1,8 @@
+"use client";
+
 import { useDraggable } from "@dnd-kit/core";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 export function Draggable({
 	id,
@@ -9,16 +12,34 @@ export function Draggable({
 	children: React.ReactNode;
 }) {
 	const dragId = useMemo(() => crypto.randomUUID(), []);
+	const [mounted, setMounted] = useState(false);
 
-	const { attributes, listeners, setNodeRef, transform } = useDraggable({
+	const { attributes, listeners, setNodeRef } = useDraggable({
 		id: `draggable-${dragId}`,
 		data: {
 			externalId: id,
 		},
 	});
 
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	if (!mounted) {
+		return (
+			<div>
+				<Skeleton className="w-[200px] h-10 ml-4" />
+			</div>
+		);
+	}
+
 	return (
-		<div ref={setNodeRef} {...listeners} {...attributes}>
+		<div
+			ref={setNodeRef}
+			className="flex h-full"
+			{...listeners}
+			{...attributes}
+		>
 			{children}
 		</div>
 	);

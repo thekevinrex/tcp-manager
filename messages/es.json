@@ -48,6 +48,8 @@
 		"sell_area": "Area de venta",
 		"sell_area_des": "El lugar donde se efectual las ventas, añade productos al cajon de ventas para poder realizar una venta",
 
+		"sell_added_successfully": "Nueva venta realizada correctamente",
+
 		"sell_area_no_products": "No hay productos disponibles para mostrar en el area de ventas.",
 		"add_product": "Añade un producto",
 
@@ -87,7 +89,14 @@
 
 	"alert": {
 		"cancel": "Cancelar",
-		"continue": "Continuar"
+		"continue": "Continuar",
+		"reset": "Restablecer",
+
+		"calc": "Calculadora",
+		"calc_des": "Se utiliza para que introduscas la cantidad de cada denominacion y te muestre la cantidad total",
+
+		"calc_deno": "Introduce la cantidad de billetes de ${denominacion}",
+		"cant_deno": "Cantidad de ${denominacion}"
 	},
 
 	"organization": {
@@ -249,6 +258,8 @@
 		"sell_delete_title": "Eliminar ventas seleccionadas",
 		"sell_delete_title_all": "Eliminar todas las ventas",
 		"sell_delete_des": "Estas seguro que deseas eliminar las ventas seleccionadas?. Esta accion no se puede deshacer.",
+
+		"create_facture": "Crear factura",
 
 		"select_all": "Seleccionar todos",
 		"select_row": "Seleccionar fila",
@@ -449,6 +460,17 @@
 
 		"invalid_area_id": "Area de venta invalida",
 		"no_area_found": "No se encontró el area de venta",
-		"error_des": "Esto posiblemente occurio por culpa de la conexión. Refresque la página para resolver el problema, si esto no resuelve pongase en contacto con los administradores."
+		"error_des": "Esto posiblemente occurio por culpa de la conexión. Refresque la página para resolver el problema, si esto no resuelve pongase en contacto con los administradores.",
+
+		"sell_add_least_1": "Añade al menos un producto a la lista de venta",
+
+		"product_and_areaProduct_not_coincide": "Uno o mas de los elementos seleccionados es invalido",
+		"sell_and_selleds_not_coincide": "Uno o mas de los elementos seleccionados es invalido",
+
+		"product_invalid": "El producto es invalido",
+
+		"sell_product_aviable_more": "No se puede vender mas de lo que hay disponible del producto {name}",
+
+		"sell_delete_active_area": "Solo puedes eliminar ventas de la area de venta activa"
 	}
 }

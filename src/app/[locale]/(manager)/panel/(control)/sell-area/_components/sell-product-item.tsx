@@ -18,11 +18,13 @@ export function SellProductItem({
 	onUpdateSelected,
 	selected,
 	selecteds,
+	disabled: pending,
 }: {
 	areaProduct: ProductsWithPrices;
 	selected: SelectedType;
 	onUpdateSelected: SelectedFn;
 	selecteds: SelectedType[];
+	disabled: boolean;
 }) {
 	const _ = useTranslations("sells");
 
@@ -35,8 +37,6 @@ export function SellProductItem({
 			? selectedPrice
 			: calcPriceBreakdown({ total: added, product: areaProduct })
 	);
-
-	const { pending } = useFormStatus();
 
 	const alreadySelected = selecteds.filter(
 		(sele) => sele.id === id && sele.uuid !== uuid
@@ -85,6 +85,7 @@ export function SellProductItem({
 				<PriceBadge
 					uuid={uuid}
 					price={finalPrice}
+					disabled={pending}
 					onUpdate={onUpdateSelected}
 				/>
 			</header>
@@ -146,13 +147,15 @@ const PriceBadge = ({
 	uuid,
 	price,
 	onUpdate,
+	disabled: pending,
 }: {
 	uuid: string;
 	price: number;
 	onUpdate: SelectedFn;
+	disabled: boolean;
 }) => {
 	const _ = useTranslations("sells");
-	const { pending } = useFormStatus();
+
 	const [customPrice, setCustomPrice] = useState(price);
 	const [open, setOpen] = useState(false);
 

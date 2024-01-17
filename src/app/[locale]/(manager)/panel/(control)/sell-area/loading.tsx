@@ -1,7 +1,10 @@
 import { CardSkeleton } from "@/components/skeletons/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "next-intl";
 
 export default function Loading() {
+	const _ = useTranslations("areas");
+
 	return (
 		<>
 			<main className="[grid-area:main] flex flex-col">
@@ -10,50 +13,81 @@ export default function Loading() {
 						<div className="flex flex-row items-center justify-between">
 							<div className="flex flex-col gap-3">
 								<h1 className="text-4xl font-extrabold tracking-tight ">
-									Sell Area
+									{_("sell_area")}
 								</h1>
 
-								<p>The list of all the product ready to sell</p>
+								<p>{_("sell_area_des")}</p>
 							</div>
 						</div>
 					</header>
 
-					<div className="grid grid-cols-12 gap-5">
-						<div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 flex flex-col space-y-4">
-							<Skeleton className="w-full h-[150px]" />
-							<Skeleton className="w-[60%] h-5" />
-							<Skeleton className="w-[40%] h-3" />
-						</div>
-						<div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 flex flex-col space-y-4">
-							<Skeleton className="w-full h-[150px]" />
-							<Skeleton className="w-[60%] h-5" />
-							<Skeleton className="w-[40%] h-3" />
-						</div>
-						<div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 flex flex-col space-y-4">
-							<Skeleton className="w-full h-[150px]" />
-							<Skeleton className="w-[60%] h-5" />
-							<Skeleton className="w-[40%] h-3" />
-						</div>
-						<div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 flex flex-col space-y-4">
-							<Skeleton className="w-full h-[150px]" />
-							<Skeleton className="w-[60%] h-5" />
-							<Skeleton className="w-[40%] h-3" />
-						</div>
-						<div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 flex flex-col space-y-4">
-							<Skeleton className="w-full h-[150px]" />
-							<Skeleton className="w-[60%] h-5" />
-							<Skeleton className="w-[40%] h-3" />
-						</div>
-						<div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 flex flex-col space-y-4">
-							<Skeleton className="w-full h-[150px]" />
-							<Skeleton className="w-[60%] h-5" />
-							<Skeleton className="w-[40%] h-3" />
-						</div>
-						<div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 flex flex-col space-y-4">
-							<Skeleton className="w-full h-[150px]" />
-							<Skeleton className="w-[60%] h-5" />
-							<Skeleton className="w-[40%] h-3" />
-						</div>
+					<div className="flex flex-col gap-5">
+						<article className="flex w-full flex-col sm:flex-row border bg-background rounded-md sm:items-center justify-between gap-3 p-4">
+							<Skeleton className="w-[200px] h-10" />
+
+							<div className="flex items-center gap-x-3">
+								<Skeleton className="w-[100px] h-10" />
+
+								<Skeleton className="w-10 h-10" />
+
+								<Skeleton className="w-12 h-10" />
+							</div>
+						</article>
+						<article className="flex w-full flex-col sm:flex-row border bg-background rounded-md sm:items-center justify-between gap-3 p-4">
+							<Skeleton className="w-[200px] h-10" />
+
+							<div className="flex items-center gap-x-3">
+								<Skeleton className="w-[100px] h-10" />
+
+								<Skeleton className="w-10 h-10" />
+
+								<Skeleton className="w-12 h-10" />
+							</div>
+						</article>
+						<article className="flex w-full flex-col sm:flex-row border bg-background rounded-md sm:items-center justify-between gap-3 p-4">
+							<Skeleton className="w-[200px] h-10" />
+
+							<div className="flex items-center gap-x-3">
+								<Skeleton className="w-[100px] h-10" />
+
+								<Skeleton className="w-10 h-10" />
+
+								<Skeleton className="w-12 h-10" />
+							</div>
+						</article>
+						<article className="flex w-full flex-col sm:flex-row border bg-background rounded-md sm:items-center justify-between gap-3 p-4">
+							<Skeleton className="w-[200px] h-10" />
+
+							<div className="flex items-center gap-x-3">
+								<Skeleton className="w-[100px] h-10" />
+
+								<Skeleton className="w-10 h-10" />
+
+								<Skeleton className="w-12 h-10" />
+							</div>
+						</article>
+						<article className="flex w-full flex-col sm:flex-row border bg-background rounded-md sm:items-center justify-between gap-3 p-4">
+							<Skeleton className="w-[200px] h-10" />
+
+							<div className="flex items-center gap-x-3">
+								<Skeleton className="w-[100px] h-10" />
+
+								<Skeleton className="w-10 h-10" />
+
+								<Skeleton className="w-12 h-10" />
+							</div>
+						</article>
+						<article className="flex w-full flex-col sm:flex-row border bg-background rounded-md sm:items-center justify-between gap-3 p-4">
+							<Skeleton className="w-[200px] h-10" />
+
+							<div className="flex items-center gap-x-3">
+								<Skeleton className="w-[100px] h-10" />
+
+								<Skeleton className="w-10 h-10" />
+
+								<Skeleton className="w-12 h-10" />
+							</div>
+						</article>
 					</div>
 				</section>
 			</main>

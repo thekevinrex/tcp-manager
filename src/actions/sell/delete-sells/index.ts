@@ -8,12 +8,14 @@ import db from "@/lib/db";
 
 import { DeleteSells, InputType, ReturnType } from "./shema";
 import { getActiveArea } from "@/fetchs/sell-area";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
 	const { userId, orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		throw new Error("User not authenticated or not in a organization");
+		return { error: _("unauthorized") };
 	}
 
 	const { sells } = data;
@@ -25,81 +27,113 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	}
 
 	if (!area.data) {
-		return { error: "You can only delete sells of the active sell area" };
+		return { error: _("sell_delete_active_area") };
 	}
 
 	try {
-		const transactions = [];
+		const selleds = await db.sell.findMany({
+			where: {
+				id: {
+					in: sells,
+				},
+			},
+			include: {
+				inventories: true,
+			},
+		});
 
-		for (const sell of sells) {
-			const sellToDelete = await db.sell.findFirst({
+		if (selleds.length !== sells.length) {
+			return { error: _("sell_and_selleds_not_coincide") };
+		}
+
+		const productsUpdate: Array<{
+			id: number;
+			cant: number;
+			inventories: Array<{ id: number; cant: number }>;
+		}> = [];
+
+		for (const sell of selleds) {
+			if (sell.areaId !== area.data.id) {
+				return { error: _("sell_delete_active_area") };
+			}
+
+			const product = productsUpdate.find((p) => p.id === sell.productId);
+
+			const inventories = product ? product.inventories : [];
+
+			for (const inventory of sell.inventories) {
+				if (inventory.inventoryId === null) {
+					continue;
+				}
+
+				const alreadyInventory = inventories.find(
+					(i) => i.id === inventory.inventoryId
+				);
+
+				if (alreadyInventory) {
+					alreadyInventory.cant += inventory.cant;
+				} else {
+					inventories.push({
+						id: inventory.inventoryId,
+						cant: inventory.cant,
+					});
+				}
+			}
+
+			if (product) {
+				product.cant += sell.cant;
+				product.inventories = inventories;
+			} else {
+				productsUpdate.push({
+					id: sell.productId,
+					cant: sell.cant,
+					inventories,
+				});
+			}
+		}
+
+		await db.$transaction([
+			db.sell.deleteMany({
 				where: {
-					id: sell,
-					Product: {
-						org: orgId,
+					id: {
+						in: sells,
 					},
 				},
-				include: {
-					inventories: true,
-				},
-			});
+			}),
 
-			if (!sellToDelete) {
-				return { error: "Sell not found" };
-			}
-
-			if (sellToDelete.areaId !== area.data.id) {
-				return {
-					error: "Uno of the sells to delete dont belong to the active area",
-				};
-			}
-
-			const updateInventory = sellToDelete.inventories
-				.filter((invent) => invent.inventoryId !== null)
-				.map((inventorySell) => {
-					return {
-						where: {
-							id: inventorySell.inventoryId || 0,
-						},
-						data: {
-							selled: {
-								decrement: inventorySell.cant,
-							},
-						},
-					};
-				});
-
-			transactions.push(
-				db.product.update({
+			...productsUpdate.map((product) => {
+				return db.product.update({
 					where: {
-						id: sellToDelete.productId,
+						id: product.id,
 					},
 					data: {
 						aviable: {
-							increment: sellToDelete.cant,
+							increment: product.cant,
 						},
-
-						selleds: {
-							delete: {
-								id: sellToDelete.id,
-							},
-						},
-
 						inventories: {
-							updateMany: updateInventory,
+							updateMany: product.inventories.map((invent) => {
+								return {
+									data: {
+										selled: {
+											decrement: invent.cant,
+										},
+									},
+									where: {
+										id: invent.id,
+									},
+								};
+							}),
 						},
 					},
-				})
-			);
-		}
-
-		await db.$transaction(transactions);
+				});
+			}),
+		]);
 
 		revalidatePath(`/panel/area/dashboard/${area.data.id}/sells`);
 
 		return { data: [] };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

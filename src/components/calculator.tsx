@@ -4,16 +4,22 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Modal } from "./modal";
 import { DialogTrigger } from "./ui/dialog";
+import { useTranslations } from "next-intl";
+import { CalculatorIcon } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 export function Calculator() {
+	const _ = useTranslations("alert");
+
 	return (
 		<Modal
-			title={"Calculadora"}
-			description="Se utiliza para que introduscas la cantidad de cada denominacion y te
-            muestre la cantidad total"
+			title={_("calc")}
+			description={_("calc_des")}
 			trigger={
 				<DialogTrigger asChild>
-					<Button>Calculadora de denominaciones</Button>
+					<Button type="button">
+						<CalculatorIcon />
+					</Button>
 				</DialogTrigger>
 			}
 			dialogClass="sm:max-w-[550px]"
@@ -24,6 +30,7 @@ export function Calculator() {
 }
 
 export const CalculatorBody = () => {
+	const _ = useTranslations("alert");
 	const DENOMINACIONES = [5, 10, 20, 50, 100, 200, 500, 1000];
 
 	const [money, setMoney] = useState<{ value: number; denominacion: number }[]>(
@@ -56,12 +63,7 @@ export const CalculatorBody = () => {
 			newTotal += value * denominacion;
 		}
 
-		const currency = new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency: "USD",
-		});
-
-		setTotal(currency.format(newTotal));
+		setTotal(formatCurrency(newTotal));
 	}, [money]);
 
 	return (
@@ -72,7 +74,7 @@ export const CalculatorBody = () => {
 				</div>
 				<div>
 					<Button onClick={() => setMoney([])} variant={"ghost"}>
-						Reset
+						{_("reset")}
 					</Button>
 				</div>
 			</div>
@@ -80,7 +82,7 @@ export const CalculatorBody = () => {
 				{DENOMINACIONES.map((denominacion) => {
 					return (
 						<label key={denominacion} className="text-sm font-semibold">
-							{`Introduce la cantidad de billetes de $${denominacion}`}
+							{_("calc_deno", { denominacion })}
 							<Input
 								name={`d${denominacion}`}
 								type="number"
@@ -90,7 +92,7 @@ export const CalculatorBody = () => {
 								value={
 									money.find((n) => n.denominacion === denominacion)?.value || 0
 								}
-								placeholder={`Cantidad de $${denominacion}`}
+								placeholder={_("cant_deno", { denominacion })}
 							/>
 						</label>
 					);

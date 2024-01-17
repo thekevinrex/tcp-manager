@@ -9,12 +9,14 @@ import db from "@/lib/db";
 import { NewSell, InputType, ReturnType } from "./shema";
 import { Prisma } from "@prisma/client";
 import { calcPriceBreakdown } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
 	const { userId, orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
 	}
 
 	const { selecteds, id: areaId } = data;
@@ -27,21 +29,23 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	});
 
 	if (!area) {
-		return { error: "Area not found" };
+		return { error: _("no_area_found") };
 	}
 
 	if (selecteds.length <= 0) {
-		return { error: "Add at least one item to the sell list" };
+		return { error: _("sell_add_least_1") };
 	}
 
-	const products: Array<{
-		id: number;
-		total: number;
-		sells: Array<{ added: number; price: number | null }>;
-	}> = [];
+	const productsMap: {
+		[key: number]: {
+			id: number;
+			total: number;
+			sells: Array<{ added: number; price: number | null }>;
+		};
+	} = {};
 
 	for (const selected of selecteds) {
-		const product = products.find((p) => p.id === selected.id);
+		const product = productsMap[selected.id];
 
 		if (product) {
 			product.total += selected.added;
@@ -54,45 +58,50 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				product.sells.push({ added: selected.added, price: selected.price });
 			}
 		} else {
-			products.push({
+			productsMap[selected.id] = {
 				id: selected.id,
 				total: selected.added,
 				sells: [{ added: selected.added, price: selected.price }],
-			});
+			};
 		}
 	}
 
 	try {
 		let transactions = [];
+		const productsId = Object.keys(productsMap).map(Number);
 
-		for (const product of products) {
-			const { id, sells, total: added } = product;
-
-			const areaProduct = await db.product.findUnique({
-				where: {
-					id,
+		const areaProducts = await db.product.findMany({
+			where: {
+				id: {
+					in: productsId,
 				},
-				include: {
-					prices: true,
-					inventories: {
-						orderBy: {
-							id: "asc",
-						},
+			},
+			include: {
+				prices: true,
+				inventories: {
+					orderBy: {
+						id: "asc",
 					},
 				},
-			});
+			},
+		});
 
-			if (!areaProduct) {
+		if (areaProducts.length !== productsId.length) {
+			return { error: _("product_and_areaProduct_not_coincide") };
+		}
+
+		for (const areaProduct of areaProducts) {
+			const product = productsMap[areaProduct.id];
+
+			if (!product) {
 				return {
-					error: "Area product not found ",
+					error: _("product_invalid"),
 				};
 			}
 
-			if (areaProduct.aviable < added) {
+			if (areaProduct.aviable < product.total) {
 				return {
-					error:
-						"No can sell more than what is available in product :" +
-						areaProduct.name,
+					error: _("sell_product_aviable_more", { name: areaProduct.name }),
 				};
 			}
 
@@ -115,7 +124,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 				let selled = 0;
 
-				for (const sell of sells) {
+				for (const sell of product.sells) {
 					const canSell = inventoryToSell - selled;
 
 					if (canSell <= 0) {
@@ -180,11 +189,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			transactions.push(
 				db.product.update({
 					where: {
-						id,
+						id: areaProduct.id,
 					},
 					data: {
 						aviable: {
-							decrement: added,
+							decrement: product.total,
 						},
 						inventories: {
 							updateMany: inventoriesUpdate,
@@ -198,7 +207,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 					db.sell.create({
 						data: {
 							areaId: areaId,
-							productId: id,
+							productId: areaProduct.id,
 							cant: sell.added,
 							inventories: {
 								createMany: {
@@ -210,7 +219,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 									? sell.price
 									: calcPriceBreakdown({
 											product: areaProduct,
-											total: added,
+											total: product.total,
 									  }),
 						},
 					})
@@ -224,7 +233,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		return { data: [] };
 	} catch {
-		return { error: "An error occurred" };
+		return { error: _("error") };
 	}
 };
 
