@@ -18,6 +18,7 @@ export default async function Page({
 }) {
 	unstable_setRequestLocale(locale);
 	const areaResponse = await getActiveArea();
+
 	const _ = await getTranslations("areas");
 	const messages = await getMessages();
 
@@ -32,8 +33,8 @@ export default async function Page({
 	if (!areaResponse.data) {
 		return (
 			<ErrorLayout>
-				<div className="h-full flex justify-center items-center space-y-5 flex-col min-h-[450px]">
-					<h2 className="text-2xl font-bold tracking-widest uppercase text-pretty">
+				<div className="w-full flex justify-center items-center space-y-5 flex-col min-h-[450px]">
+					<h2 className="text-2xl font-bold tracking-widest uppercase text-pretty text-center">
 						{_("no_active_area")}
 					</h2>
 

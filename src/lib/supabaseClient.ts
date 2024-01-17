@@ -31,9 +31,7 @@ const supabaseClient = () => {
 
 	const supabase = createClient(supabaseUrl, supabaseKey);
 
-	if (process.env.NODE_ENV !== "production") {
-		global.supabase = supabase;
-	}
+	global.supabase = supabase;
 
 	return supabase;
 };

@@ -1,3 +1,6 @@
+import { getTranslations } from "next-intl/server";
+
+import { CardFetchError } from "@/components/error/CardFetchError";
 import {
 	Card,
 	CardContent,
@@ -7,14 +10,13 @@ import {
 } from "@/components/ui/card";
 import { getTopSellAreas } from "@/fetchs/sell-area";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { getTranslations } from "next-intl/server";
 
 export async function TopSellAreas({ limit }: { limit: number }) {
 	const response = await getTopSellAreas(limit);
 	const _ = await getTranslations("dashboard");
 
 	if (response.error) {
-		return;
+		return <CardFetchError error={response.error} />;
 	}
 
 	return (

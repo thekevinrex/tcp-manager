@@ -4,18 +4,18 @@ import {
 	useMessages,
 	useTranslations,
 } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 import { Separator } from "@/components/ui/separator";
 import { CardSkeleton } from "@/components/skeletons/card";
+import { DashbordChartAndCardsSkeleton } from "@/components/skeletons/dashboard-chart";
 
 import { Organization } from "../_components/organization/organization";
 import { ActiveArea } from "../_components/active-area";
 import { SellsChart } from "./sells-chart";
 import { TimeChange } from "./_components/time-change";
-import { DashbordChartAndCardsSkeleton } from "@/components/skeletons/dashboard-chart";
 import { TopProducts } from "./top-products";
 import { TopSellAreas } from "./top-sell-areas";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function Dashboard({
 	searchParams,
@@ -25,9 +25,11 @@ export default function Dashboard({
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(locale);
-	const currentLimit = Number(searchParams.limit) || 7;
+
 	const _ = useTranslations("dashboard");
 	const messages = useMessages();
+
+	const currentLimit = Number(searchParams.limit) || 7;
 
 	return (
 		<>
@@ -56,18 +58,18 @@ export default function Dashboard({
 					>
 						<SellsChart limit={currentLimit} />
 					</Suspense>
-
-					<Separator className="my-10" />
-
-					<div className="grid md:grid-cols-2 grid-cols-1 gap-5 items-start">
-						<Suspense fallback={<CardSkeleton />}>
-							<TopProducts limit={currentLimit} />
-						</Suspense>
-						<Suspense fallback={<CardSkeleton />}>
-							<TopSellAreas limit={currentLimit} />
-						</Suspense>
-					</div>
 				</section>
+
+				<Separator className="my-10" />
+
+				<div className="grid md:grid-cols-2 grid-cols-1 gap-5 items-start">
+					<Suspense fallback={<CardSkeleton />}>
+						<TopProducts limit={currentLimit} />
+					</Suspense>
+					<Suspense fallback={<CardSkeleton />}>
+						<TopSellAreas limit={currentLimit} />
+					</Suspense>
+				</div>
 			</main>
 
 			<aside className="[grid-area:aside]">

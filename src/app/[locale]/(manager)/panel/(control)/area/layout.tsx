@@ -1,10 +1,10 @@
 import { Suspense } from "react";
+import { NextIntlClientProvider, useMessages } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 import Organization from "../_components/organization/organization";
 import { CardSkeleton } from "@/components/skeletons/card";
 import { ActiveArea } from "../_components/active-area";
-import { NextIntlClientProvider, useMessages } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function Layout({
 	children,

@@ -6,6 +6,7 @@ import {
 	SellAreaWithTotalSells,
 } from "@/lib/types";
 import { SellArea } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 
 export async function getAllSellAreas({
 	page = 1,
@@ -15,9 +16,10 @@ export async function getAllSellAreas({
 	max?: number;
 }): Promise<ReturnFetch<SellAreaWithTotalSells[]>> {
 	const { userId, orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -48,7 +50,7 @@ export async function getAllSellAreas({
 
 		return { data: Areas, total };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
@@ -56,9 +58,10 @@ export async function getAllSellsAreaProducts(
 	limit?: number
 ): Promise<ReturnFetch<SellAreaWithProductAndSells[]>> {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -82,15 +85,16 @@ export async function getAllSellsAreaProducts(
 
 		return { data: Areas };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
 export async function getActiveArea(): Promise<ReturnFetch<SellArea>> {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -103,19 +107,20 @@ export async function getActiveArea(): Promise<ReturnFetch<SellArea>> {
 
 		return { data: Area };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
 export async function getArea(areaId: number): Promise<ReturnFetch<SellArea>> {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	if (!areaId) {
-		return { error: "Invalid area id" };
+		return { error: _("invalid_area_id") };
 	}
 
 	try {
@@ -127,12 +132,12 @@ export async function getArea(areaId: number): Promise<ReturnFetch<SellArea>> {
 		});
 
 		if (!area) {
-			return { error: "No area found" };
+			return { error: _("no_area_found") };
 		}
 
 		return { data: area };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
@@ -146,9 +151,10 @@ export async function getTopProducts(limit: number): Promise<
 	>
 > {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -176,7 +182,7 @@ export async function getTopProducts(limit: number): Promise<
 
 		return { data: response };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
@@ -190,9 +196,10 @@ export async function getTopSellAreas(limit: number): Promise<
 	>
 > {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -220,6 +227,6 @@ export async function getTopSellAreas(limit: number): Promise<
 
 		return { data: response };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }

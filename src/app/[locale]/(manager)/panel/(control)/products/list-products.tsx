@@ -1,10 +1,11 @@
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+
 import { FetchFailedError } from "@/components/error/FetchFailed";
 import { PaginationComponent } from "@/components/pagination";
 import { fetchAllProducts } from "@/fetchs/products";
 
 import { DataProducts } from "./_components/product-table";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 
 export async function ListProducts({
 	query,
@@ -18,7 +19,7 @@ export async function ListProducts({
 	const response = await fetchAllProducts({ query, page, max });
 	const messages = await getMessages();
 
-	if (response?.error || !response?.data) {
+	if (response.error || !response.data) {
 		return <FetchFailedError error={response.error} />;
 	}
 

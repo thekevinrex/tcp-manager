@@ -1,3 +1,4 @@
+import { CardFetchError } from "@/components/error/CardFetchError";
 import {
 	Card,
 	CardContent,
@@ -14,7 +15,7 @@ export async function TopProducts({ limit }: { limit: number }) {
 	const _ = await getTranslations("dashboard");
 
 	if (response.error) {
-		return;
+		return <CardFetchError error={response.error} />;
 	}
 
 	return (

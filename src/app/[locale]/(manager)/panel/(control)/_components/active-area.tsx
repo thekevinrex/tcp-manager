@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { BarChart3, ListMinus } from "lucide-react";
+import { getMessages, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 import {
 	Card,
@@ -11,18 +13,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { CardFetchError } from "@/components/error/CardFetchError";
 
-import { FinalizeArea } from "../area/_components/finalice-area";
 import { formatDate } from "@/lib/utils";
 
 import { getActiveArea } from "@/fetchs/sell-area";
 import { getProductSelledArea } from "@/fetchs/sells";
+
 import { ActiveAreaStats } from "./active-area-stats";
+import { FinalizeArea } from "../area/_components/finalice-area";
 import { CreateArea } from "../area/_components/create-area";
-import { getMessages, getTranslations } from "next-intl/server";
-import { NextIntlClientProvider } from "next-intl";
 
 export async function ActiveArea() {
 	const response = await getActiveArea();
+
 	const _ = await getTranslations("areas");
 	const messages = await getMessages();
 

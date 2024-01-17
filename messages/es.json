@@ -440,5 +440,15 @@
 		"filters_description": "Añade filtros para hacer busquedas mas precisas",
 		"filtrar": "Filtrar",
 		"close": "Cerrar"
+	},
+
+	"error": {
+		"unauthorized": "No tienes permiso para acceder",
+
+		"error": "Lo sentimos ha ocurrido un error",
+
+		"invalid_area_id": "Area de venta invalida",
+		"no_area_found": "No se encontró el area de venta",
+		"error_des": "Esto posiblemente occurio por culpa de la conexión. Refresque la página para resolver el problema, si esto no resuelve pongase en contacto con los administradores."
 	}
 }

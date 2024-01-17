@@ -1,17 +1,18 @@
+import { useTranslations } from "next-intl";
 import { CardListSkeleton } from "@/components/skeletons/card-list";
 import { DataTableSkeleton } from "@/components/skeletons/data-table";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function LoadingAreaStadistics() {
+	const _ = useTranslations("areas");
+
 	return (
 		<>
 			<CardListSkeleton />
 
 			<div className="flex flex-col space-y-2">
-				<h2 className="text-xl font-semibold">Stadistics of each product</h2>
+				<h2 className="text-xl font-semibold">{_("sell_stats_products")}</h2>
 				<p className="text-base text-muted-foreground">
-					This is the list of all the products selled in this sell area, with
-					the total of sell per product, and the aproximate earn of the product
+					{_("sell_stats_products_des")}
 				</p>
 
 				<DataTableSkeleton />

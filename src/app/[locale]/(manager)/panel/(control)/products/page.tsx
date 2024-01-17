@@ -1,5 +1,11 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import {
+	NextIntlClientProvider,
+	useMessages,
+	useTranslations,
+} from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 import { CreateProduct } from "./create-product";
 import { ListProducts } from "./list-products";
@@ -10,12 +16,6 @@ import { DataTableSkeleton } from "@/components/skeletons/data-table";
 import { Organization } from "../_components/organization/organization";
 import { CardListSkeleton } from "@/components/skeletons/card-list";
 import { ProductsStats } from "./products-stats";
-import {
-	NextIntlClientProvider,
-	useMessages,
-	useTranslations,
-} from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
 	title: "List of products",
@@ -33,12 +33,13 @@ function Products({
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(locale);
-	const currentPage = Number(searchParams?.page) || 1;
-	const query = searchParams?.q || "";
-	const max = Number(searchParams?.max) || 5;
 
 	const _ = useTranslations("products");
 	const messages = useMessages();
+
+	const currentPage = Number(searchParams?.page) || 1;
+	const query = searchParams?.q || "";
+	const max = Number(searchParams?.max) || 5;
 
 	return (
 		<>

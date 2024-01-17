@@ -1,8 +1,9 @@
 import { OrganizationList, Protect, SignedIn } from "@clerk/nextjs";
-
-import { PageHeader } from "./_components/page-header";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+
+import { PageHeader } from "./_components/page-header";
+import { Footer } from "@/components/page/footer";
 
 const ListOrg = () => {
 	return (
@@ -15,16 +16,18 @@ const ListOrg = () => {
 export default function ProductLayout({
 	children,
 	params: { locale },
+	sidebar,
 }: {
 	children: React.ReactNode;
 	params: { locale: string };
+	sidebar: React.ReactNode;
 }) {
 	unstable_setRequestLocale(locale);
 	const messages = useMessages();
 
 	return (
 		<Protect permission="org:dashboard:access" fallback={<ListOrg />}>
-			<div className="w-full layouts-container gap-6 p-0 sm:p-6">
+			<div className="w-full layouts-container gap-6 p-3 sm:p-5">
 				<header className="[grid-area:header] border rounded-md sticky top-0 left-0 bg-white dark:bg-slate-900 h-14 z-50">
 					<NextIntlClientProvider messages={{ header: messages.header }}>
 						<PageHeader />
@@ -32,6 +35,14 @@ export default function ProductLayout({
 				</header>
 
 				{children}
+
+				<NextIntlClientProvider
+					messages={{ footer: messages.footer, header: messages.header }}
+				>
+					<div className="w-full mt-10 [grid-area:footer]">
+						<Footer />
+					</div>
+				</NextIntlClientProvider>
 			</div>
 		</Protect>
 	);

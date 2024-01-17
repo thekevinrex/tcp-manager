@@ -1,5 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
+
 import { Input } from "@/components/ui/input";
 import {
 	Table,
@@ -11,8 +14,6 @@ import {
 } from "@/components/ui/table";
 import { SellWithProductAndInventories, StaticProductSells } from "@/lib/types";
 import { calcStadisticsSell, formatCurrency } from "@/lib/utils";
-import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
 
 export function SellsStadisticsTable({
 	sells,

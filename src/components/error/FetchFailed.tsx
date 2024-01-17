@@ -2,10 +2,20 @@
 
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
-export const FetchFailedError = ({ error }: { error?: string }) => {
-	const { refresh } = useRouter();
+export const FetchFailedError = ({
+	error,
+	reset,
+}: {
+	error?: string;
+	reset?: () => void;
+}) => {
+	const pathname = usePathname();
+
+	const message = pathname.startsWith("/en")
+		? "An error has occurred"
+		: "Lo sentimos ha occurrido un error";
 
 	return (
 		<div className="min-h-[550px] flex flex-col items-center justify-center space-y-5">
@@ -17,15 +27,14 @@ export const FetchFailedError = ({ error }: { error?: string }) => {
 			/>
 
 			<h1 className="font-bold tracking-widest text-3xl">
-				{error ? error : "An error occurred while fetching data"}
+				{error ? error : message}
 			</h1>
 
-			<p>
-				This probabily occurred becouse the conection, try to refresh the page
-				to solved or leave a comment in sugestions
-			</p>
-
-			<Button onClick={() => refresh()}>Reload page</Button>
+			{reset && (
+				<Button variant={"secondary"} onClick={() => reset()}>
+					Try again
+				</Button>
+			)}
 		</div>
 	);
 };

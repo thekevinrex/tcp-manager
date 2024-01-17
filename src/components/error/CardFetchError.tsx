@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+
 import {
 	Card,
 	CardContent,
@@ -10,20 +7,16 @@ import {
 	CardHeader,
 	CardTitle,
 } from "../ui/card";
+import { useTranslations } from "next-intl";
 
 export const CardFetchError = ({ error }: { error?: string }) => {
-	const { refresh } = useRouter();
+	const _ = useTranslations("error");
 
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>
-					{error ? error : "An error occurred while fetching data"}
-				</CardTitle>
-				<CardDescription>
-					This probabily occurred becouse the conection, try to refresh the page
-					to solved or leave a comment in sugestions
-				</CardDescription>
+				<CardTitle>{error ? error : _("error")}</CardTitle>
+				<CardDescription>{_("error_des")}</CardDescription>
 			</CardHeader>
 			<CardContent className="flex flex-col items-center justify-center">
 				<Image
@@ -32,7 +25,6 @@ export const CardFetchError = ({ error }: { error?: string }) => {
 					height={150}
 					alt="No conexion image"
 				/>
-				<Button onClick={() => refresh()}>Reload page</Button>
 			</CardContent>
 		</Card>
 	);

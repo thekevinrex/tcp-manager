@@ -6,12 +6,7 @@ export const OrganizationHeader = () => {
 	const _ = useTranslations("header");
 
 	return (
-		<OrganizationSwitcher
-			afterSelectPersonalUrl={"/"}
-			afterSelectOrganizationUrl={"/panel/dashboard"}
-			afterCreateOrganizationUrl={"/panel/dashboard"}
-			afterLeaveOrganizationUrl={"/panel/dashboard"}
-		>
+		<OrganizationSwitcher afterSelectPersonalUrl={"/"}>
 			<OrganizationSwitcher.OrganizationProfileLink
 				label={_("public_settings")}
 				url="/panel/organization"

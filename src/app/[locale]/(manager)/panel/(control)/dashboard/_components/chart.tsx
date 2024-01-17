@@ -8,11 +8,11 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
+import { useTranslations } from "next-intl";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SellAreaWithProductAndSells } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { useTranslations } from "next-intl";
 
 export function Chart({
 	data,
@@ -116,8 +116,6 @@ export function Chart({
 							radius={[4, 4, 0, 0]}
 							className="fill-primary"
 						/>
-
-						{/* <CartesianGrid stroke="#ccc" strokeDasharray="5 5" /> */}
 
 						<Tooltip cursor={false} content={customTooltip} />
 					</BarChart>

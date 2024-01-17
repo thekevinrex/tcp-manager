@@ -3,6 +3,7 @@ import { Prisma, Product } from "@prisma/client";
 
 import db from "@/lib/db";
 import { ProductsWithPrices, ReturnFetch } from "@/lib/types";
+import { getTranslations } from "next-intl/server";
 
 export async function fetchAllProducts({
 	query = "",
@@ -16,9 +17,10 @@ export async function fetchAllProducts({
 	ids?: Array<number>;
 }): Promise<ReturnFetch<ProductsWithPrices[]>> {
 	const { orgId, userId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId || !userId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	const where: Prisma.ProductWhereInput = {
@@ -58,15 +60,16 @@ export async function fetchAllProducts({
 
 		return { data: products, total };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
 export async function getProductsBasic(): Promise<ReturnFetch<Product[]>> {
 	const { orgId, userId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId || !userId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -81,7 +84,7 @@ export async function getProductsBasic(): Promise<ReturnFetch<Product[]>> {
 
 		return { data: products };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
@@ -89,9 +92,10 @@ export async function getAllProductsWithPrices(): Promise<
 	ReturnFetch<ProductsWithPrices[]>
 > {
 	const { orgId, userId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId || !userId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -109,7 +113,7 @@ export async function getAllProductsWithPrices(): Promise<
 
 		return { data: products };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
@@ -117,9 +121,10 @@ export async function getProductsStats(): Promise<
 	ReturnFetch<{ total: number; total_can_earn: number }>
 > {
 	const { orgId, userId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId || !userId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -128,6 +133,6 @@ export async function getProductsStats(): Promise<
 
 		return { data: products[0] };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }

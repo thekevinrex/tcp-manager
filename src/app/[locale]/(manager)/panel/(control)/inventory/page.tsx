@@ -1,5 +1,11 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import {
+	NextIntlClientProvider,
+	useMessages,
+	useTranslations,
+} from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 import { DataTableSkeleton } from "@/components/skeletons/data-table";
 import { Filter } from "@/components/filter";
@@ -10,12 +16,6 @@ import { AddInventory } from "./add-inventory";
 import { ListInventories } from "./list-inventories";
 import { CardListSkeleton } from "@/components/skeletons/card-list";
 import { InventoriesStats } from "./inventories-stats";
-import {
-	NextIntlClientProvider,
-	useMessages,
-	useTranslations,
-} from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
 	title: "Inventory Information",
@@ -33,12 +33,13 @@ export default function Inventory({
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(locale);
-	const currentPage = Number(searchParams?.page) || 1;
-	const query = searchParams?.q || "";
-	const max = Number(searchParams?.max) || 5;
 
 	const _ = useTranslations("inventories");
 	const messages = useMessages();
+
+	const currentPage = Number(searchParams?.page) || 1;
+	const query = searchParams?.q || "";
+	const max = Number(searchParams?.max) || 5;
 
 	return (
 		<>

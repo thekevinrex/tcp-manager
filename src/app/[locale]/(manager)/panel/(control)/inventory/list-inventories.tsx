@@ -17,7 +17,7 @@ export async function ListInventories({
 	const response = await getAllInventories({ query, page, max });
 	const messages = await getMessages();
 
-	if (response?.error || !response.data) {
+	if (response.error || !response.data) {
 		return <FetchFailedError error={response.error} />;
 	}
 

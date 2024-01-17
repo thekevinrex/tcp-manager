@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { AlignJustify, Home } from "lucide-react";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
 	ClerkLoaded,
 	ClerkLoading,
@@ -9,21 +12,18 @@ import {
 	SignedOut,
 	UserButton,
 } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
-
-import { OrganizationHeader } from "./organization/organization-header";
-
 import {
 	AvatarSkeleton,
 	Organizationskeleton,
 } from "@/components/skeletons/header";
-import { usePathname } from "next/navigation";
+
+import { OrganizationHeader } from "./organization/organization-header";
+
 import { cn } from "@/lib/utils";
-import { AlignJustify, Home } from "lucide-react";
-import { useState } from "react";
-import { useTranslations } from "next-intl";
 
 const AuthButton = () => {
 	return (

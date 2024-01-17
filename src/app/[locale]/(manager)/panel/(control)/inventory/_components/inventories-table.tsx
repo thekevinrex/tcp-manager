@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 import {
 	Table,
@@ -14,7 +15,6 @@ import { InventoryWithProduct } from "@/lib/types";
 
 import { EditInventory } from "./edit-inventory";
 import { DeleteBotton } from "./delete-inventory";
-import { useTranslations } from "next-intl";
 
 export function InventoriesTable({
 	inventories,

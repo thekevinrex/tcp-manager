@@ -3,6 +3,7 @@ import { SellArea } from "@prisma/client";
 
 import { ReturnFetch, SellWithProduct } from "@/lib/types";
 import db from "@/lib/db";
+import { getTranslations } from "next-intl/server";
 
 export async function getAreaSells(
 	area: SellArea,
@@ -11,9 +12,10 @@ export async function getAreaSells(
 	max: number = 5
 ): Promise<ReturnFetch<SellWithProduct[]>> {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -45,15 +47,16 @@ export async function getAreaSells(
 		]);
 		return { data: sells, total };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }
 
 export async function getProductSelledArea(area: SellArea) {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -78,6 +81,6 @@ export async function getProductSelledArea(area: SellArea) {
 		]);
 		return { data: sells, total };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }

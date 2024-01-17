@@ -2,14 +2,16 @@ import db from "@/lib/db";
 import { ReturnFetch } from "@/lib/types";
 import { auth } from "@clerk/nextjs";
 import { Organization } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 
 export async function getActualOrganization(): Promise<
 	ReturnFetch<Organization>
 > {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	try {
@@ -21,6 +23,6 @@ export async function getActualOrganization(): Promise<
 
 		return { data: org };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 }

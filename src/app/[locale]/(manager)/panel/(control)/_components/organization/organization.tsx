@@ -1,6 +1,9 @@
 "use client";
 
 import { useOrganization } from "@clerk/nextjs";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+
 import {
 	Card,
 	CardContent,
@@ -9,14 +12,14 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { CardSkeleton } from "@/components/skeletons/card";
 
 export function Organization() {
-	const { organization } = useOrganization();
+	const { organization, isLoaded } = useOrganization();
 	const _ = useTranslations("organization");
-	if (!organization) {
-		return;
+
+	if (!isLoaded || !organization) {
+		return <CardSkeleton />;
 	}
 
 	return (

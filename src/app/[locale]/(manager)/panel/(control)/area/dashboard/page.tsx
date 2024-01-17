@@ -1,10 +1,10 @@
 import { Suspense } from "react";
+import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 import { DataTableSkeleton } from "@/components/skeletons/data-table";
 
 import { SellAreas } from "./sell-areas";
-import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function AreaDashboard({
 	searchParams,
@@ -17,9 +17,10 @@ export default function AreaDashboard({
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(locale);
+	const _ = useTranslations("areas");
+
 	const page = Number(searchParams.page) || 1;
 	const max = Number(searchParams.max) || 10;
-	const _ = useTranslations("areas");
 
 	return (
 		<section>

@@ -31,6 +31,8 @@ export const useAction = <TInput, TOutput>(
 				const result = await action(input);
 
 				if (!result) {
+					setError("An error occurred");
+					options.onError?.("An error occurred");
 					return;
 				}
 

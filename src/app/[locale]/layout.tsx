@@ -16,6 +16,8 @@ import { unstable_setRequestLocale } from "next-intl/server";
 
 const fontSans = Inter({
 	subsets: ["latin"],
+	preload: true,
+	weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -56,6 +58,7 @@ export default function RootLayout({
 					<NextTopLoader />
 					<AuthProvider locale={locale}>{children}</AuthProvider>
 					<Toaster />
+
 					<Analytics />
 					<SpeedInsights />
 				</ThemeProvider>

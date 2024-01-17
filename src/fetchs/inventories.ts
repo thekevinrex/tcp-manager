@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { InventoryWithProduct, ReturnFetch } from "@/lib/types";
 import { Prisma } from "@prisma/client";
 import db from "@/lib/db";
+import { getTranslations } from "next-intl/server";
 
 export async function getAllInventories({
 	query,
@@ -13,9 +14,10 @@ export async function getAllInventories({
 	max?: number;
 }): Promise<ReturnFetch<InventoryWithProduct[]>> {
 	const { orgId, userId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId || !userId) {
-		return { error: "Unauthorized" };
+		return { error: _("unauthorized") };
 	}
 
 	const where: Prisma.InventoryWhereInput = {
@@ -47,8 +49,8 @@ export async function getAllInventories({
 		]);
 
 		return { data: inventories, total };
-	} catch (e: any) {
-		return { error: "An error occurred" };
+	} catch {
+		return { error: _("error") };
 	}
 }
 
@@ -63,6 +65,7 @@ export async function getInventoriesStats(): Promise<
 	ReturnFetch<InventoriesStats>
 > {
 	const { orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!orgId) {
 		return { error: "Unauthorized" };
@@ -76,6 +79,6 @@ export async function getInventoriesStats(): Promise<
 
 		return { data: stats[0] };
 	} catch {
-		return { error: "A error occurred" };
+		return { error: _("error") };
 	}
 }

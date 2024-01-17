@@ -2,13 +2,11 @@
 
 import { useMemo } from "react";
 import { CreditCard, DollarSign, Hash, TrendingUp } from "lucide-react";
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 import { calcStadisticsSell, formatCurrency } from "@/lib/utils";
 import { SellAreaWithProductAndSells } from "@/lib/types";
 import { CardStatItem } from "@/components/card-stat-item";
-import { useTranslations } from "next-intl";
 
 export function CardsStadistics({
 	data,

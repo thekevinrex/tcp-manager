@@ -1,17 +1,16 @@
 import { CreditCard, DollarSign, Hash, TrendingUp } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { CardStatItem } from "@/components/card-stat-item";
-import { FetchFailedError } from "@/components/error/FetchFailed";
 import { getInventoriesStats } from "@/fetchs/inventories";
 import { formatCurrency } from "@/lib/utils";
-import { getTranslations } from "next-intl/server";
 
 export async function InventoriesStats() {
 	const response = await getInventoriesStats();
 	const _ = await getTranslations("inventories");
 
 	if (response.error || !response.data) {
-		return <FetchFailedError error={response.error} />;
+		return;
 	}
 
 	const { total_cant, total_invert, total_left, total_selled } = response.data;
