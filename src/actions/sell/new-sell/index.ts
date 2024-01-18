@@ -147,7 +147,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 						createdSelled.inventories.push({
 							cant: toSell,
 							inventoryId: inventory.id,
-							price: inventory.total,
+							price: sell.price === 0 ? 0 : inventory.total,
 						});
 					} else {
 						if (canSell > sell.added) {
@@ -161,7 +161,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 								{
 									cant: toSell,
 									inventoryId: inventory.id,
-									price: inventory.total,
+									price: sell.price === 0 ? 0 : inventory.total,
 								},
 							],
 						});

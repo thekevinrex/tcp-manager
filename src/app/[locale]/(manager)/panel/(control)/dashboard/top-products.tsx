@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { CardFetchError } from "@/components/error/CardFetchError";
 import {
 	Card,
@@ -8,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import { getTopProducts } from "@/fetchs/sell-area";
 import { formatCurrency } from "@/lib/utils";
-import { getTranslations } from "next-intl/server";
 
 export async function TopProducts({ limit }: { limit: number }) {
 	const response = await getTopProducts(limit);

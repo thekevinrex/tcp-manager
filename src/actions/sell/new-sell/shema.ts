@@ -14,7 +14,7 @@ export const NewSell = z.object({
 				.number({
 					required_error: "Price is required",
 				})
-				.gt(1, "Price must be greater than 1")
+				.gte(0, "Price must be greater or equal to 0")
 				.nullable(),
 		})
 	),

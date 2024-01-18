@@ -57,12 +57,13 @@ export function SellForm({
 
 			if (!product) continue;
 
-			posibleTotal += selected.price
-				? selected.price * selected.added
-				: calcPriceBreakdown({
-						total: selected.added,
-						product,
-				  }) * selected.added;
+			posibleTotal +=
+				selected.price !== null
+					? selected.price * selected.added
+					: calcPriceBreakdown({
+							total: selected.added,
+							product,
+					  }) * selected.added;
 		}
 
 		setTotal(posibleTotal);

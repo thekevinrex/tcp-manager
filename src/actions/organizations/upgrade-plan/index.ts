@@ -62,12 +62,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 					plan: upgradeData.plan,
 				},
 			}),
-			db.organizationKeys.update({
+			db.organizationKeys.delete({
 				where: {
 					id: upgradeData.id,
-				},
-				data: {
-					org: orgId,
 				},
 			}),
 			db.organization.update({
