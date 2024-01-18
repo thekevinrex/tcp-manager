@@ -105,8 +105,46 @@
 
 		"org_name": "Nombre de la organizacion",
 		"settings": "Configuraciones",
+		"plan": "Plan",
 
-		"organization_des": "Modifica las configuraciones publicas de tu organización",
+		"organization_des": "",
+		"settings_des": "Modifica las configuraciones publicas de tu organización",
+		"plan_des": "Actualiza o revisa tu plan actual",
+
+		"deliveries": "Domicilios",
+		"deliveries_des": "Listado con los domicilios de la organización",
+
+		"organization_plan": "Plan de la organización",
+		"organization_settings": "Configuraciones de la organización",
+		"organization_deliveries": "Domicilios de la organización",
+
+		"current_plan": "Plan actual",
+
+		"free": "Gratis",
+		"pro": "TCP",
+		"unlimited": "MYPIME",
+
+		"max_products": "Cantidad de productos: {total}",
+		"cant_members": "Cantidad de miembros: {total}",
+		"unlimiteds": "Ilimitados",
+
+		"upgrade_plan": "Actualizar el plan",
+		"upgrade_des": "Actualiza tu plan mediante un código de plan.",
+		"upgrade_key": "Código para actualizar",
+
+		"no_transactions": "No se ha realizado ninguna transacción",
+
+		"actualizar": "Actualizar",
+
+		"key": "Código",
+		"money": "Pago",
+
+		"method": "Metodo",
+		"date": "Fecha",
+		"price": "Precio",
+
+		"transactions": "Transacciones",
+		"transactions_des": "Listado de todas las transacciones para la actualización del plan ",
 
 		"org_updated_successfully": "Configuraciones públicas modificádas correctamente",
 
@@ -126,6 +164,7 @@
 		"product_list": "Listado de productos",
 		"product_list_des": "Un listado con todos los productos disponibles, de los cuales se muestra la disponibilidad actual, precio entre otros elementos",
 
+		"no_products": "No hay productos",
 		"total_products": "Cantidad de productos",
 		"total_can_earn": "Cantidad maxima de ganancias",
 
@@ -462,15 +501,21 @@
 		"no_area_found": "No se encontró el area de venta",
 		"error_des": "Esto posiblemente occurio por culpa de la conexión. Refresque la página para resolver el problema, si esto no resuelve pongase en contacto con los administradores.",
 
+		"upgrade_plan_to_create_more_products": "Actualiza tu plan para poder crear nuevos productos",
+
 		"sell_add_least_1": "Añade al menos un producto a la lista de venta",
 
 		"product_and_areaProduct_not_coincide": "Uno o mas de los elementos seleccionados es invalido",
 		"sell_and_selleds_not_coincide": "Uno o mas de los elementos seleccionados es invalido",
 
 		"product_invalid": "El producto es invalido",
+		"product_name_exist": "Ese producto ya existe en la organización",
+		"failed_supabase_client": "A occurido un error con el servidor de las imagenes",
 
 		"sell_product_aviable_more": "No se puede vender mas de lo que hay disponible del producto {name}",
 
-		"sell_delete_active_area": "Solo puedes eliminar ventas de la area de venta activa"
+		"sell_delete_active_area": "Solo puedes eliminar ventas de la area de venta activa",
+
+		"invalid_key_code": "Código invalido"
 	}
 }

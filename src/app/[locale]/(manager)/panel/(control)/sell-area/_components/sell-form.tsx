@@ -20,6 +20,8 @@ import { ProductsWithPrices } from "@/lib/types";
 import { SelectedFn, SelectedType } from "../sell-area";
 import { Calculator } from "@/components/calculator";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { MAX_SELECTEDS } from "@/config/site";
 
 export function SellForm({
 	over,
@@ -92,7 +94,13 @@ export function SellForm({
 						over ? "border-green-500" : "",
 					])}
 				>
-					{over && <div className="inset-0 absolute z-50 bg-green-600/40" />}
+					<div className="absolute -top-3 left-0 z-40">
+						<Badge variant={"secondary"} className="h-6">
+							{selecteds.length} / {MAX_SELECTEDS}
+						</Badge>
+					</div>
+
+					{over && <div className="inset-0 absolute z-30 bg-green-600/40" />}
 
 					{selecteds && selecteds.length > 0 ? (
 						selecteds.map((selected) => {

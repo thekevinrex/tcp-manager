@@ -1,9 +1,10 @@
-import { OrganizationPublicForm } from "./_components/organization-public-form";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+
+import { OrganizationPublicForm } from "../_components/organization-public-form";
 import { FetchFailedError } from "@/components/error/FetchFailed";
 
 import { getActualOrganization } from "@/fetchs/organization";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 
 export async function OrganizationPublic() {
 	const org = await getActualOrganization();

@@ -43,7 +43,6 @@ model Product {
   inventories Inventory[]
   selleds Sell[]
   prices PriceBreakdown[]
-  areaProducts SellAreaProduct[]
   organization Organization @relation(fields: [org], references: [org], onDelete: Cascade) 
 
   @@map("products")
@@ -109,30 +108,17 @@ model SellArea {
   createdAt DateTime @default(now())
   endedAt DateTime? 
 
-  Products SellAreaProduct[]
   Sells Sell[]
 
   @@map("sell-areas")
 }
 
-model SellAreaProduct {
-
-  id Int @id @default(autoincrement())
-
-  productId Int 
-  areaId Int
-
-  aviable Int @default(0)
-
-  area SellArea @relation(fields: [areaId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@map("sell-area-products")
-}
 
 model Organization {
 
   org String @id
+
+  plan String @default("free")
 
   name String
   image String
@@ -148,6 +134,61 @@ model Organization {
   visible Boolean @default(false)
 
   products Product[]
+  transactions OrganizationTransactions[]
 
   @@map("organizations")
+}
+
+model OrganizationKeys {
+
+  id Int @id @default(autoincrement())
+
+  code String @default(uuid())
+
+  plan String @default("free")
+  price Int @default(0)
+
+  org String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("organizations_keys")
+}
+
+model OrganizationTransactions {
+  
+  id Int @id @default(autoincrement())
+
+  org String 
+  organization Organization @relation(fields: [org], references: [org], onDelete: Cascade)
+  
+  plan String @default("free")
+  method String
+  price Int 
+
+  createdAt DateTime @default(now())
+
+  @@map("organizations_transactions")
+}
+
+
+model Solicitudes {
+
+  id Int @id @default(autoincrement())
+  user String?
+
+  name String
+  des String?
+
+  org_type String
+
+  email String?
+  phone String?
+
+  key String @default(uuid())
+
+  updatedAt DateTime @updatedAt
+  
+  @@map("solicitudes")
 }

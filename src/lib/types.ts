@@ -23,10 +23,6 @@ export type OrganizationWithProducts = Prisma.OrganizationGetPayload<{
 	include: { products: true };
 }>;
 
-export type SellAreaProductWithProduct = Prisma.SellAreaProductGetPayload<{
-	include: { product: { include: { prices: true } } };
-}>;
-
 export type SellWithProduct = Prisma.SellGetPayload<{
 	include: {
 		Product: true;
@@ -45,7 +41,6 @@ export type SellAreaWithTotalSells = Prisma.SellAreaGetPayload<{
 
 export type SellAreaWithProductAndSells = Prisma.SellAreaGetPayload<{
 	include: {
-		Products: true;
 		Sells: {
 			include: {
 				inventories: true;

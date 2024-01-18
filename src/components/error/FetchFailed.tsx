@@ -4,13 +4,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 
-export const FetchFailedError = ({
-	error,
-	reset,
-}: {
-	error?: string;
-	reset?: () => void;
-}) => {
+export const FetchFailedError = ({ error }: { error?: string }) => {
 	const pathname = usePathname();
 
 	const message = pathname.startsWith("/en")
@@ -29,12 +23,6 @@ export const FetchFailedError = ({
 			<h1 className="font-bold tracking-widest text-3xl">
 				{error ? error : message}
 			</h1>
-
-			{reset && (
-				<Button variant={"secondary"} onClick={() => reset()}>
-					Try again
-				</Button>
-			)}
 		</div>
 	);
 };

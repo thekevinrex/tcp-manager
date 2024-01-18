@@ -26,3 +26,23 @@ export const STATUS: Status[] = [
 		bg: "bg-red-500",
 	},
 ];
+
+export const MAX_SELECTEDS = 8;
+
+export const MAX_PRODUCTS_FACTURE = 10;
+
+export const PLANS: Record<string, { max_products: number; members: number }> =
+	{
+		free: {
+			max_products: 5,
+			members: 1,
+		},
+		pro: {
+			max_products: 50,
+			members: 5,
+		},
+		unlimited: {
+			max_products: -1,
+			members: 20,
+		},
+	};

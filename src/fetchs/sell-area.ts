@@ -71,7 +71,6 @@ export async function getAllSellsAreaProducts(
 			},
 			take: limit ? limit : 7,
 			include: {
-				Products: true,
 				Sells: {
 					include: {
 						inventories: true,
@@ -162,23 +161,60 @@ export async function getTopProducts(limit: number): Promise<
 			name: string;
 			total_sells: number;
 			total_earns: number;
-		}> = await db.$queryRaw`with Areas as (
-				select id from "sell-areas" where org = ${orgId} order by id desc limit ${limit}
-			  )
-			  select
-				p.name,
-				sum(sl.cant * sl.price) as total_sells,
-				sum( (sl.price - si.price) * si.cant ) as total_earns
-			  from
-				products as p join sells as sl on p.id = sl."productId" join Areas as ar on sl."areaId" = ar.id
-				join "sells-inventories" as si on sl.id = si."sellId"
-			  group by
-				p.id
-			  order by
-				total_earns desc,
-				total_sells desc
-			  limit
-				5;`;
+		}> = await db.$queryRaw`with
+		Areas as (
+		  select
+			id
+		  from
+			"sell-areas"
+		  where
+			org = ${orgId}
+		  order by
+			id desc
+		  limit
+			${limit}
+		),
+		"SELLS" as (
+		  select
+			products.id as idd,
+			sum(sells.cant * sells.price) as total_sells
+		  from
+			sells
+			join products on sells."productId" = products.id
+			join Areas as ar on ar.id = sells."areaId"
+		  where
+			org = ${orgId}
+		  group by
+			products.id
+		),
+		earns as (
+		  select
+			products.id as ide,
+			sum((sll.price - sii.price) * sii.cant) as total_earns
+		  from
+			sells sll
+			join "sells-inventories" as sii on sii."sellId" = sll.id
+			join Areas as ar on ar.id = sll."areaId"
+			join products on sll."productId" = products.id
+		  where
+			org = ${orgId}
+		  group by
+			products.id
+		)
+	  select
+		p.name,
+		total_sells,
+		total_earns
+	  from
+		products as p
+		join "SELLS" as slss on slss.idd = p.id
+		join earns as ear on ear.ide = p.id
+	  order by
+		total_earns desc,
+		total_sells desc
+	  limit
+		5
+	  `;
 
 		return { data: response };
 	} catch {
@@ -207,26 +243,62 @@ export async function getTopSellAreas(limit: number): Promise<
 			createdAt: Date;
 			total_sells: number;
 			total_earns: number;
-		}> = await db.$queryRaw`with Areas as (
-				select id from "sell-areas" where org = ${orgId} order by id desc limit ${limit}
-			  )
-			  select
-	  sa."createdAt",
-	  sum(sl.cant * sl.price) as total_sells,
-	  sum( (sl.price - si.price) * si.cant ) as total_earns
-	from
-	  products as p join sells as sl on p.id = sl."productId" join Areas as ar on sl."areaId" = ar.id
-	  join "sells-inventories" as si on sl.id = si."sellId" join "sell-areas" as sa on sl."areaId" = sa.id
-	group by
-	  sa.id
-	order by
-	  total_earns desc,
-	  total_sells desc
-	limit
-	  5`;
+		}> = await db.$queryRaw`with
+		Areas as (
+		  select
+			id
+		  from
+			"sell-areas"
+		  where
+			org = ${orgId}
+		  order by
+			id desc
+		  limit
+			${limit}
+		),
+		"SELLS" as (
+		  select
+			saa.id as idd,
+			sum(cant * price) as total_sells
+		  from
+			sells
+			join "sell-areas" as saa on sells."areaId" = saa.id
+		  where
+			saa.org = ${orgId}
+		  group by
+			saa.id
+		),
+		earns as (
+		  select
+			saa.id as iad,
+			sum((sll.price - sii.price) * sii.cant) as total_earns
+		  from
+			sells sll
+			join "sells-inventories" as sii on sii."sellId" = sll.id
+			join "sell-areas" as saa on saa.id = sll."areaId"
+		  where
+			saa.org = ${orgId}
+		  group by
+			saa.id
+		)
+	  select
+		sa."createdAt",
+		total_sells,
+		total_earns
+	  from
+		"sell-areas" as sa
+		join Areas as a on sa.id = a.id
+		join "SELLS" on sa.id = "SELLS".idd
+		join earns on sa.id = earns.iad
+	  order by
+		total_earns desc,
+		total_sells desc
+	  limit
+		5;`;
 
 		return { data: response };
-	} catch {
-		return { error: _("error") };
+	} catch (arr: any) {
+		return { error: arr.message + " " + orgId };
+		// return { error: _("error") };
 	}
 }

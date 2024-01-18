@@ -9,25 +9,41 @@ import db from "@/lib/db";
 
 import { CreateProduct, InputType, ReturnType } from "./shema";
 import { Prisma } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
+import { PLANS } from "@/config/site";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
 	const { userId, orgId } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
 	}
 
 	const { description, name, price, status, prices } = data;
 
-	const productName = await db.product.findFirst({
+	const organization = await db.organization.findUnique({
 		where: {
-			name,
 			org: orgId,
+		},
+		include: {
+			_count: {
+				select: {
+					products: true,
+				},
+			},
 		},
 	});
 
-	if (productName) {
-		return { error: "That product is already in the organization" };
+	if (!organization) {
+		return { error: _("unauthorized") };
+	}
+
+	const plan = PLANS[organization.plan];
+	if (plan.max_products !== -1) {
+		if (organization._count.products >= plan.max_products) {
+			return { error: _("upgrade_plan_to_create_more_products") };
+		}
 	}
 
 	const CreateData: Prisma.ProductCreateInput = {
@@ -54,7 +70,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	const supabase = await supabaseClient();
 
 	if (!supabase) {
-		return { error: "Falied to load the supabase client" };
+		return { error: _("failed_supabase_client") };
 	}
 
 	const uuid = crypto.randomUUID();
@@ -71,7 +87,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			});
 
 		if (!data || error) {
-			return { error: error.message };
+			return { error: _("error") };
 		}
 
 		CreateData.image = data.path;
@@ -86,7 +102,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		return { data: created };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

@@ -1,14 +1,14 @@
-import { Suspense } from "react";
-import { ActiveArea } from "../_components/active-area";
-import { CardSkeleton } from "@/components/skeletons/card";
-import { OrganizationPublic } from "./organization-public";
-import Organization from "../_components/organization/organization";
-import {
-	NextIntlClientProvider,
-	useMessages,
-	useTranslations,
-} from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { Settings, Truck, Wallet } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+
+import {
+	Card,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 
 export default function OrganizationPage({
 	params: { locale },
@@ -17,36 +17,54 @@ export default function OrganizationPage({
 }) {
 	unstable_setRequestLocale(locale);
 	const _ = useTranslations("organization");
-	const messages = useMessages();
+
+	const LINKS = [
+		{
+			icon: <Wallet />,
+			label: _("plan"),
+			href: "/panel/organization/plan",
+			des: _("plan_des"),
+		},
+		{
+			icon: <Truck />,
+			label: _("deliveries"),
+			href: "/panel/organization/deliveries",
+			des: _("deliveries_des"),
+		},
+		{
+			icon: <Settings />,
+			label: _("settings"),
+			href: "/panel/organization/settings",
+			des: _("settings_des"),
+		},
+	];
+
 	return (
-		<>
-			<main className="[grid-area:main] flex flex-col">
-				<section>
-					<header className="flex flex-col space-y-3 mb-5">
-						<h1 className="text-4xl font-extrabold tracking-tight">
-							{_("organization")}
-						</h1>
+		<section>
+			<header className="flex flex-col space-y-3 mb-5">
+				<h1 className="text-2xl md:text-4xl font-extrabold tracking-tight">
+					{_("organization")}
+				</h1>
 
-						<p>{_("organization_des")}</p>
-					</header>
+				<p>{_("organization_des")}</p>
+			</header>
 
-					<Suspense fallback={"loading..."}>
-						<OrganizationPublic />
-					</Suspense>
-				</section>
-			</main>
-
-			<aside className="[grid-area:aside]">
-				<Suspense fallback={<CardSkeleton />}>
-					<ActiveArea />
-				</Suspense>
-
-				<NextIntlClientProvider
-					messages={{ organization: messages.organization }}
-				>
-					<Organization />
-				</NextIntlClientProvider>
-			</aside>
-		</>
+			<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+				{LINKS.map((link) => {
+					return (
+						<Link href={link.href} key={link.href}>
+							<Card className="hover:shadow-md">
+								<CardHeader>
+									<CardTitle className="gap-x-3 flex">
+										{link.icon} {link.label}
+									</CardTitle>
+									<CardDescription>{link.des}</CardDescription>
+								</CardHeader>
+							</Card>
+						</Link>
+					);
+				})}
+			</div>
+		</section>
 	);
 }

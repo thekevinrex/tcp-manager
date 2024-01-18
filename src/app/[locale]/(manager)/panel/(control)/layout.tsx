@@ -35,15 +35,15 @@ export default function ProductLayout({
 				</header>
 
 				{children}
-
-				<NextIntlClientProvider
-					messages={{ footer: messages.footer, header: messages.header }}
-				>
-					<div className="w-full mt-10 [grid-area:footer]">
-						<Footer />
-					</div>
-				</NextIntlClientProvider>
 			</div>
+
+			<NextIntlClientProvider
+				messages={{ footer: messages.footer, header: messages.header }}
+			>
+				<div className="w-full mt-10">
+					<Footer />
+				</div>
+			</NextIntlClientProvider>
 		</Protect>
 	);
 }

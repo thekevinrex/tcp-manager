@@ -21,6 +21,7 @@ import { AreaInfo } from "./_components/area-Info";
 import { useAction } from "@/hooks/useAction";
 import { newSell } from "@/actions/sell/new-sell";
 import { ProductDraggableDetails } from "./_components/product-draggable-details";
+import { MAX_SELECTEDS } from "@/config/site";
 
 export type SelectedType = {
 	uuid: string;
@@ -119,6 +120,10 @@ export function SellArea({
 
 	const addSelectedProduct = (productId: number) => {
 		let toAdd = added[productId] ? added[productId] : 0;
+
+		if (selectedElements.length >= MAX_SELECTEDS) {
+			return;
+		}
 
 		// Check if is aviable && incrise the selected element total
 		const alreadySelected = selectedElements.filter(
@@ -334,7 +339,7 @@ export function SellArea({
 				</section>
 			</main>
 
-			<aside className="[grid-area:aside] lg:sticky top-0">
+			<aside className="[grid-area:aside]">
 				{area && (
 					<SellForm
 						over={isOver}

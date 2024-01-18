@@ -78,8 +78,7 @@
 		display: grid;
 		grid-template-areas:
 			"header aside"
-			"main aside"
-			"footer footer";
+			"main aside";
 
 		grid-template-columns: 1fr minmax(280px, 400px);
 		grid-template-rows: 60px auto;
@@ -97,14 +96,13 @@
 			grid-template-areas:
 				"header"
 				"main"
-				"aside"
-				"footer";
+				"aside";
 			grid-template-columns: 100%;
 		}
 	}
 
 	body aside {
-		@apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-6 items-start;
+		@apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-6 items-start lg:sticky top-0;
 	}
 }
 
