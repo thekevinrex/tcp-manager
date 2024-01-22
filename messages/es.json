@@ -146,18 +146,26 @@
 		"transactions": "Transacciones",
 		"transactions_des": "Listado de todas las transacciones para la actualización del plan ",
 
-		"org_updated_successfully": "Configuraciones públicas modificádas correctamente",
+		"org_updated_successfully": "Organización modificada correctamente",
 
 		"org_des": "Descripción de la organización",
 		"org_location": "Localización de la organización",
 		"org_phone": "Telefono de la organización",
 		"org_domicilio": "Domicilio",
-		"org_domicilio_des": "Determina si vas a hacer domicilio. <br /> Si decides hacer domicilio los usuarios podran hacer encargos de tus productos",
+		"org_domicilio_des": "Determina si vas a hacer domicilio. Si decides hacer domicilio los usuarios podran hacer encargos de tus productos",
 		"org_domicilio_details": "Detalles del domicilio",
 		"org_visible": "Visibilidad",
 		"org_visible_des": "Determina si los usuarios pueden ver tu organizacion y tus productos",
 
-		"save": "Guardar"
+		"org_slug": "Slug url",
+		"org_image": "Imagen de la organización",
+
+		"save": "Guardar",
+
+		"no_organization": "Organización invalida",
+		"no_organization_des": "No se encontró la organización que deseas seleccionar o no perteneces.",
+		"no_organization_des_2": "Si perteneces a la organización y/o crees que esto es un error, por favor reporta esto a los administradores.",
+		"select_org": "Selecciona organización"
 	},
 
 	"products": {
@@ -325,6 +333,7 @@
 
 		"sign_in": "Entrar",
 		"sign_out": "Salir",
+		"sign_up": "Crear cuenta",
 		"solicitar_cuenta": "Solicitar cuenta"
 	},
 
@@ -426,6 +435,7 @@
 		"langs": "Idiomas",
 
 		"clients": "Clientes",
+		"home": "Inicio",
 		"products": "Productos",
 		"organizations": "Organizaciones",
 
@@ -439,6 +449,7 @@
 		"dashboard": "Dashboard",
 		"sell_area": "Area de venta",
 		"inventories": "Inventarios",
+		"organization": "Organización",
 		"sign_in": "Entrar",
 		"sign_up": "Crear cuenta",
 		"solicitar_cuenta": "Solicitar cuenta",
@@ -516,6 +527,34 @@
 
 		"sell_delete_active_area": "Solo puedes eliminar ventas de la area de venta activa",
 
-		"invalid_key_code": "Código invalido"
+		"invalid_key_code": "Código invalido",
+
+		"already_solicitud": "Ya existe una solicitud con ese correo electrónico"
+	},
+
+	"solicitar": {
+		"hero_section": {
+			"before_br": "The best offer on the market",
+			"after": "for your business"
+		},
+
+		"solicitar_des": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, itaque accusantium odio, soluta, corrupti aliquam quibusdam tempora at cupiditate quis eum maiores libero veritatis? Dicta facilis sint aliquid ipsum atque?",
+
+		"solicitar": "Solicitar cuenta",
+		"solicitar_card_des": "Rellena el formulario para hacer una solicitud para poder crearte una cuenta",
+
+		"name": "Nombre",
+		"proposito": "Propósito",
+		"org_type": "Tipo de organización",
+		"tcp": "TCP",
+		"cuenta_propia": "Cuenta propia",
+		"mypime": "Mypime",
+		"email": "Correo electrónico",
+		"phone": "Telefono",
+
+		"solicitud_created_successfully": "La solicitud ha sido enviada correctamente",
+
+		"need_solicitud_key": "Solicitar Código",
+		"need_solicitud_des": "Necesitas un código para crearte una cuenta, para poder obtener el código solicitalo a los administradores"
 	}
 }

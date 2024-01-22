@@ -9,8 +9,9 @@ export default function OrgSelection({
 	unstable_setRequestLocale(locale);
 	return (
 		<OrganizationList
-			afterSelectOrganizationUrl={"/panel/dashboard"}
-			afterCreateOrganizationUrl={"/panel/dashboard"}
+			afterSelectOrganizationUrl={"/panel/org-selection/:id"}
+			afterCreateOrganizationUrl={"/panel/org-selection/:id"}
+			skipInvitationScreen={true}
 			afterSelectPersonalUrl={"/"}
 		/>
 	);

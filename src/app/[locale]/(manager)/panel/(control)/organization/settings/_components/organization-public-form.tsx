@@ -44,7 +44,7 @@ export function OrganizationPublicForm({ org }: { org: Organization }) {
 	};
 
 	return (
-		<form action={onSubmit} className="flex flex-col w-full">
+		<form action={onSubmit} className="flex flex-col w-full gap-y-5">
 			<OrganizationBody
 				org={org}
 				errors={fieldErrors}

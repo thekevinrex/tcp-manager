@@ -1,7 +1,11 @@
 import db from "@/lib/db";
 import { ReturnFetch } from "@/lib/types";
 import { auth } from "@clerk/nextjs";
-import { Organization, OrganizationTransactions } from "@prisma/client";
+import {
+	Organization,
+	OrganizationTransactions,
+	Solicitudes,
+} from "@prisma/client";
 import { getTranslations } from "next-intl/server";
 
 export async function getActualOrganization(): Promise<
@@ -45,6 +49,24 @@ export async function getOrganizationTransactions(
 		});
 
 		return { data: transactions };
+	} catch {
+		return { error: _("error") };
+	}
+}
+
+export async function getSolicitudByKey(
+	key: string
+): Promise<ReturnFetch<Solicitudes>> {
+	const _ = await getTranslations("error");
+
+	try {
+		const solicitud = await db.solicitudes.findFirst({
+			where: {
+				key,
+			},
+		});
+
+		return { data: solicitud };
 	} catch {
 		return { error: _("error") };
 	}

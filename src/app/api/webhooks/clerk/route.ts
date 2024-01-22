@@ -2,6 +2,8 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import db from "@/lib/db";
+import { clerkClient } from "@clerk/nextjs";
+import { PLANS_USERS } from "@/config/site";
 
 export async function POST(req: Request) {
 	// You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -52,67 +54,134 @@ export async function POST(req: Request) {
 	const { id } = evt.data;
 	const eventType = evt.type;
 
-	const transactions = [];
+	if (eventType === "user.created") {
+		const user = evt.data;
+		const solicitudId = user.public_metadata.solicitud as number;
+
+		if (solicitudId) {
+			try {
+				const solicitud = await db.solicitudes.findUnique({
+					where: {
+						id: solicitudId,
+						user: null,
+					},
+				});
+
+				if (solicitud) {
+					const updated = await db.solicitudes.update({
+						where: {
+							id: solicitudId,
+						},
+						data: {
+							user: user.id,
+						},
+					});
+
+					const updatedUser = await clerkClient.users.updateUser(user.id, {
+						createOrganizationEnabled: true,
+						publicMetadata: {},
+					});
+				}
+			} catch (err: any) {
+				return new Response(err.message, {
+					status: 400,
+				});
+			}
+		}
+	}
 
 	if (eventType === "organization.created") {
-		transactions.push(
-			db.organization.create({
+		try {
+			const solicitud = await db.solicitudes.findFirst({
+				where: {
+					user: evt.data.created_by,
+				},
+			});
+
+			const org = await db.organization.create({
 				data: {
 					org: evt.data.id,
 					name: evt.data.name,
 					image: evt.data.image_url,
 					slug: evt.data.slug === null ? evt.data.id : evt.data.slug,
-				},
-			})
-		);
-	} else if (eventType === "organization.updated") {
-		try {
-			const org = await db.organization.findUnique({
-				where: {
-					org: evt.data.id,
+					plan:
+						solicitud &&
+						["mypime", "tcp"].includes(solicitud.org_type) &&
+						solicitud.aviable > 0
+							? "pro"
+							: "free",
+					phone: solicitud ? solicitud.phone : "",
+					email: solicitud ? solicitud.email : "",
 				},
 			});
 
-			transactions.push(
-				org !== null
-					? db.organization.update({
-							where: {
-								org: evt.data.id,
-							},
-							data: {
-								name: evt.data.name,
-								image: evt.data.image_url,
-								slug: evt.data.slug === null ? evt.data.id : evt.data.slug,
-							},
-					  })
-					: db.organization.create({
-							data: {
-								org: evt.data.id,
-								name: evt.data.name,
-								image: evt.data.image_url,
-								slug: evt.data.slug === null ? evt.data.id : evt.data.slug,
-							},
-					  })
-			);
+			if (solicitud) {
+				const newSolicitud = await db.solicitudes.update({
+					where: {
+						id: solicitud.id,
+					},
+					data: {
+						aviable: {
+							decrement: 1,
+						},
+					},
+				});
+
+				const totalOrg = await db.organization.count({
+					where: {
+						by_user: evt.data.created_by,
+					},
+				});
+
+				if (totalOrg >= PLANS_USERS[solicitud.org_type].max_org) {
+					const updatedUser = await clerkClient.users.updateUser(
+						evt.data.created_by,
+						{ createOrganizationEnabled: false }
+					);
+				}
+			}
 		} catch (err: any) {
 			return new Response(err.message, {
 				status: 400,
 			});
 		}
-	} else if (eventType === "organization.deleted" && evt.data.deleted) {
-		transactions.push(
-			db.organization.delete({
+	}
+
+	if (eventType === "organization.updated") {
+		try {
+			const updatedOrg = await db.organization.update({
 				where: {
 					org: evt.data.id,
 				},
-			})
-		);
+				data: {
+					name: evt.data.name,
+					image: evt.data.image_url,
+					slug: evt.data.slug === null ? evt.data.id : evt.data.slug,
+				},
+			});
+		} catch (err: any) {
+			return new Response(err.message, {
+				status: 400,
+			});
+		}
+	}
+
+	if (eventType === "organization.deleted") {
+		try {
+			const deleted = await db.organization.delete({
+				where: {
+					org: evt.data.id,
+				},
+			});
+		} catch (err: any) {
+			return new Response(err.message, {
+				status: 400,
+			});
+		}
 	}
 
 	console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
 	console.log("Webhook body:", body);
-
-	await db.$transaction(transactions);
 
 	return new Response("", { status: 200 });
 }

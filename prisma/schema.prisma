@@ -117,6 +117,7 @@ model SellArea {
 model Organization {
 
   org String @id
+  by_user String?
 
   plan String @default("free")
 
@@ -126,6 +127,7 @@ model Organization {
 
   description String?
   location String?
+  email String?
   phone String?
   
   domicilio Boolean @default(true)
@@ -179,14 +181,14 @@ model Solicitudes {
   user String?
 
   name String
-  des String?
-
   org_type String
+  email String
 
-  email String?
+  des String?
   phone String?
 
   key String @default(uuid())
+  aviable Int @default(1)
 
   updatedAt DateTime @updatedAt
   

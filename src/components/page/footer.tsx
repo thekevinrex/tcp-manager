@@ -21,8 +21,8 @@ export function Footer() {
 	}
 
 	const locales = [
-		{ label: _("en"), link: `/en${pathnameWithoutLocale}` },
-		{ label: _("es"), link: `/es${pathnameWithoutLocale}` },
+		{ label: _("en"), locale: "en", link: `/en${pathnameWithoutLocale}` },
+		{ label: _("es"), locale: "es", link: `/es${pathnameWithoutLocale}` },
 	];
 
 	return (
@@ -47,6 +47,7 @@ export function Footer() {
 						</FooterItem>
 
 						<FooterItem title={_("clients")}>
+							<FooterLinkItem label={_("home")} link="/" />
 							<FooterLinkItem label={_("products")} link="/products" />
 							<FooterLinkItem
 								label={_("organizations")}
@@ -68,9 +69,14 @@ export function Footer() {
 									label={_("inventories")}
 									link="/panel/inventory"
 								/>
+								<FooterLinkItem
+									label={_("organization")}
+									link="/panel/organization"
+								/>
 							</SignedIn>
 							<SignedOut>
 								<FooterLinkItem label={_("sign_in")} link="/sign-in" />
+								<FooterLinkItem label={_("sign_up")} link="/sign-up" />
 								<FooterLinkItem
 									label={_("solicitar_cuenta")}
 									link="/panel/solicitar"
@@ -146,10 +152,20 @@ const FooterItem = ({
 	);
 };
 
-const FooterLinkItem = ({ label, link }: { label: string; link: string }) => {
+const FooterLinkItem = ({
+	label,
+	link,
+	locale,
+}: {
+	label: string;
+	link: string;
+	locale?: string;
+}) => {
 	return (
 		<li className="">
-			<Link href={link}>{label}</Link>
+			<Link locale={locale} href={link}>
+				{label}
+			</Link>
 		</li>
 	);
 };

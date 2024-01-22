@@ -20,11 +20,17 @@ export const CardFetchError = ({ error }: { error?: string }) => {
 			</CardHeader>
 			<CardContent className="flex flex-col items-center justify-center">
 				<Image
-					src={"/no_conexion.png"}
+					src={"/no_conexion.svg"}
 					width={150}
 					height={150}
 					alt="No conexion image"
 				/>
+				<div className="text-xs text-center my-3 text-muted-foreground">
+					<a href="https://www.freepik.com/free-vector/offline-concept-illustration_18352146.htm">
+						Image by storyset
+					</a>{" "}
+					on Freepik
+				</div>
 			</CardContent>
 		</Card>
 	);

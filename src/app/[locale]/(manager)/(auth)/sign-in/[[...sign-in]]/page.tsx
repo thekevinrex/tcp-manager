@@ -9,15 +9,6 @@ export default function Page({
 	unstable_setRequestLocale(locale);
 
 	return (
-		<SignIn
-			path={`/${locale}/sign-in`}
-			appearance={{
-				elements: {
-					footer: {
-						display: "none",
-					},
-				},
-			}}
-		/>
+		<SignIn path={`/${locale}/sign-in`} afterSignInUrl={"/panel/dashboard"} />
 	);
 }

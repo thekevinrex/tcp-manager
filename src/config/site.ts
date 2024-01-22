@@ -31,6 +31,18 @@ export const MAX_SELECTEDS = 8;
 
 export const MAX_PRODUCTS_FACTURE = 10;
 
+export const PLANS_USERS: Record<string, { max_org: number }> = {
+	cuenta_propia: {
+		max_org: 1,
+	},
+	tcp: {
+		max_org: 3,
+	},
+	mypime: {
+		max_org: 10,
+	},
+};
+
 export const PLANS: Record<string, { max_products: number; members: number }> =
 	{
 		free: {

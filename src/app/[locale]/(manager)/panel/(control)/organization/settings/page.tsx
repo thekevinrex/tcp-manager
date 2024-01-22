@@ -1,10 +1,15 @@
 import { Suspense } from "react";
-import { useTranslations } from "next-intl";
+import {
+	NextIntlClientProvider,
+	useMessages,
+	useTranslations,
+} from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 import { FormSkeleton } from "@/components/skeletons/form";
 
 import { OrganizationPublic } from "./organization-public";
+import { OrganizationBasic } from "./organization-basic";
 
 export default function OrganizationSettings({
 	params: { locale },
@@ -14,20 +19,40 @@ export default function OrganizationSettings({
 	unstable_setRequestLocale(locale);
 
 	const _ = useTranslations("organization");
+	const messages = useMessages();
 
 	return (
-		<section>
-			<header className="flex flex-col space-y-3 mb-5">
-				<h1 className="text-2xl md:text-4xl font-extrabold tracking-tight">
-					{_("organization_settings")}
-				</h1>
+		<div className="flex flex-col gap-y-10">
+			<h1 className="text-2xl md:text-4xl font-extrabold tracking-tight">
+				{_("settings")}
+			</h1>
 
-				<p>{_("settings_des")}</p>
-			</header>
+			<section className="rounded-md border p-5">
+				<header className="flex flex-col space-y-3 mb-5">
+					<h1 className="text-lg md:text-xl font-extrabold tracking-tight">
+						{_("settings")}
+					</h1>
+				</header>
 
-			<Suspense fallback={<FormSkeleton />}>
-				<OrganizationPublic />
-			</Suspense>
-		</section>
+				<NextIntlClientProvider
+					messages={{ organization: messages.organization }}
+				>
+					<OrganizationBasic />
+				</NextIntlClientProvider>
+			</section>
+
+			<section className="rounded-md border p-5">
+				<header className="flex flex-col space-y-3 mb-5">
+					<h1 className="text-lg md:text-xl font-extrabold tracking-tight">
+						{_("organization_settings")}
+					</h1>
+
+					<p>{_("settings_des")}</p>
+				</header>
+				<Suspense fallback={<FormSkeleton />}>
+					<OrganizationPublic />
+				</Suspense>
+			</section>
+		</div>
 	);
 }

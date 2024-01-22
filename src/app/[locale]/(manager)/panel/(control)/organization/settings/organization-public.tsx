@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-import { OrganizationPublicForm } from "../_components/organization-public-form";
+import { OrganizationPublicForm } from "./_components/organization-public-form";
 import { FetchFailedError } from "@/components/error/FetchFailed";
 
 import { getActualOrganization } from "@/fetchs/organization";

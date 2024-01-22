@@ -4,7 +4,7 @@ export function FormSkeleton({ max = 6 }: { max?: number }) {
 	return (
 		<div className="flex flex-col gap-8">
 			{[...Array(max)].map((i, x) => (
-				<FormItemSkeleton key={i} />
+				<FormItemSkeleton key={x * max} />
 			))}
 		</div>
 	);

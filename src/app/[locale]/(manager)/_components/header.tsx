@@ -52,8 +52,8 @@ export function Header() {
 							<Link href={"/sign-in"}>{_("sign_in")}</Link>
 						</Button>
 					) : (
-						<Button variant={"outline"} asChild>
-							<Link href={"/panel/solicitar"}>{_("solicitar_cuenta")}</Link>
+						<Button variant={"link"} asChild>
+							<Link href={"/sign-up"}>{_("sign_up")}</Link>
 						</Button>
 					)}
 				</SignedOut>

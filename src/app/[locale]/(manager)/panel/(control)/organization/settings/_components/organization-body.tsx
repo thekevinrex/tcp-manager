@@ -29,7 +29,8 @@ export function OrganizationBody({
 
 	return (
 		<>
-			<ClerkFormRow id="org-des" label={_("org_des")}>
+			<label className="flex flex-col gap-y-2 text-xs">
+				{_("org_des")}
 				<Textarea
 					placeholder={_("org_des")}
 					name="description"
@@ -37,10 +38,11 @@ export function OrganizationBody({
 					disabled={pending}
 					defaultValue={org?.description || ""}
 				/>
-				<FormErrors errors={errors} id="description" />
-			</ClerkFormRow>
+			</label>
+			<FormErrors errors={errors} id="description" />
 
-			<ClerkFormRow id="org-location" label={_("org_location")}>
+			<label className="flex flex-col gap-y-2 text-xs">
+				{_("org_location")}
 				<Input
 					placeholder={_("org_location")}
 					name="location"
@@ -49,10 +51,11 @@ export function OrganizationBody({
 					disabled={pending}
 					defaultValue={org?.location || ""}
 				/>
-				<FormErrors errors={errors} id="location" />
-			</ClerkFormRow>
+			</label>
+			<FormErrors errors={errors} id="location" />
 
-			<ClerkFormRow id="org-phone" label={_("org_phone")}>
+			<label className="flex flex-col gap-y-2 text-xs">
+				{_("org_phone")}
 				<Input
 					placeholder={_("org_phone")}
 					name="phone"
@@ -61,10 +64,10 @@ export function OrganizationBody({
 					defaultValue={org?.phone || ""}
 					disabled={pending}
 				/>
-				<FormErrors errors={errors} id="phone" />
-			</ClerkFormRow>
+			</label>
+			<FormErrors errors={errors} id="phone" />
 
-			<div className="flex flex-row items-center justify-between rounded-lg border p-4 my-5">
+			<div className="flex flex-row items-center justify-between rounded-lg border p-4">
 				<div className="space-y-0.5">
 					<Label className="text-base" htmlFor="org-domicilio">
 						{_("org_domicilio")}
@@ -86,22 +89,22 @@ export function OrganizationBody({
 			</div>
 
 			{domicilio && (
-				<ClerkFormRow
-					id="org-domicilio-details"
-					label={_("org_domicilio_details")}
-				>
-					<Input
-						placeholder={_("org_domicilio_details")}
-						name="domicilio_details"
-						id="org-domicilio-details"
-						disabled={pending}
-						defaultValue={org?.domicilio_details || ""}
-					/>
+				<>
+					<label className="flex flex-col gap-y-2 text-xs">
+						{_("org_domicilio_details")}
+						<Input
+							placeholder={_("org_domicilio_details")}
+							name="domicilio_details"
+							id="org-domicilio-details"
+							disabled={pending}
+							defaultValue={org?.domicilio_details || ""}
+						/>
+					</label>
 					<FormErrors errors={errors} id="domicilio_details" />
-				</ClerkFormRow>
+				</>
 			)}
 
-			<div className="flex flex-row items-center justify-between rounded-lg border p-4 my-5">
+			<div className="flex flex-row items-center justify-between rounded-lg border p-4">
 				<div className="space-y-0.5">
 					<Label className="text-base" htmlFor="org-visible">
 						{_("org_visible")}
@@ -122,7 +125,7 @@ export function OrganizationBody({
 				</div>
 			</div>
 
-			<div className="mt-5 flex justify-end">
+			<div>
 				<Button disabled={pending}>
 					{pending ? <Loader2 className="animate-spin" /> : _("save")}
 				</Button>
@@ -130,20 +133,3 @@ export function OrganizationBody({
 		</>
 	);
 }
-
-const ClerkFormRow = ({
-	label,
-	id,
-	children,
-}: {
-	label: string;
-	id: string;
-	children: React.ReactNode;
-}) => {
-	return (
-		<div className="flex-col flex my-5">
-			<Label htmlFor={id}>{label}</Label>
-			{children}
-		</div>
-	);
-};

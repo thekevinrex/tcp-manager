@@ -19,7 +19,7 @@ export const SupabaseImage = ({ src, alt }: ImageProps) => {
 	useEffect(() => {
 		async function fetchImage(src: string | null) {
 			if (!src) {
-				setImage("/not_image.jpeg");
+				setImage("/not_image.svg");
 				setLoading(false);
 				return;
 			}
@@ -31,10 +31,10 @@ export const SupabaseImage = ({ src, alt }: ImageProps) => {
 				.getPublicUrl(src);
 
 			if (!response) {
-				setImage("/not_image.jpeg");
+				setImage("/not_image.svg");
 			}
 
-			setImage(response?.data.publicUrl || "/not_image.jpeg");
+			setImage(response?.data.publicUrl || "/not_image.svg");
 			setLoading(false);
 		}
 
@@ -63,7 +63,7 @@ export const SupabaseImage = ({ src, alt }: ImageProps) => {
 export function ClerkImage({ src, alt }: ImageProps) {
 	return (
 		<Image
-			src={src || "/not_image.jpeg"}
+			src={src || "/not_image.svg"}
 			alt={alt}
 			fill
 			sizes="(min-width: 808px) 50vw, 100vw"
