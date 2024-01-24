@@ -7,12 +7,18 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
 import { CreateInventory, InputType, ReturnType } from "./shema";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:inventories:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	const { cant, cost, product: productId } = data;
@@ -25,7 +31,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	});
 
 	if (!product) {
-		return { error: "Product not found" };
+		return { error: _("no_product") };
 	}
 
 	try {
@@ -51,7 +57,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		revalidatePath("/panel/inventory");
 		return { data: product };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

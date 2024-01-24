@@ -95,7 +95,7 @@ export function SellsStadisticsTable({
 											</span>
 										</TableCell>
 										<TableCell>
-											<span className="text-green-500 text-xl font-bold tracking-widest text-balance">
+											<span className=" text-lg font-semibold tracking-widest text-balance">
 												{product.sells}
 											</span>
 										</TableCell>
@@ -105,7 +105,7 @@ export function SellsStadisticsTable({
 											</span>
 										</TableCell>
 										<TableCell>
-											<span className="text-green-500 text-xl font-bold tracking-widest text-balance">
+											<span className="text-green-500 text-lg font-semibold tracking-widest text-balance">
 												{formatCurrency(product.earned)}
 											</span>
 										</TableCell>

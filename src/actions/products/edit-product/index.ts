@@ -9,12 +9,18 @@ import db from "@/lib/db";
 
 import { EditProduct, InputType, ReturnType } from "./shema";
 import { Prisma } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:products:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	const { id, description, name, price, status, prices } = data;
@@ -30,7 +36,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	});
 
 	if (!product) {
-		return { error: "Product not found" };
+		return { error: _("no_product") };
 	}
 
 	const CreateData: Prisma.ProductUpdateInput = {
@@ -53,7 +59,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	const supabase = await supabaseServerClient();
 
 	if (!supabase) {
-		return { error: "Falied to load the supabase client" };
+		return { error: _("failed_supabase_client") };
 	}
 
 	const uuid = crypto.randomUUID();
@@ -91,7 +97,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		revalidatePath("/panel/products");
 		return { data: updated };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

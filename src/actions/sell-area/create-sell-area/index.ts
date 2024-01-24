@@ -7,12 +7,18 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
 import { CreateSellArea, InputType, ReturnType } from "./shema";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:sells:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	try {
@@ -26,7 +32,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		return { data: Area };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

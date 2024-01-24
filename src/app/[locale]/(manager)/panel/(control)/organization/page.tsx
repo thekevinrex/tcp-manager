@@ -1,5 +1,5 @@
 import { unstable_setRequestLocale } from "next-intl/server";
-import { Settings, Truck, Wallet } from "lucide-react";
+import { Settings, Truck, Users, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
@@ -30,6 +30,12 @@ export default function OrganizationPage({
 			label: _("deliveries"),
 			href: "/panel/organization/deliveries",
 			des: _("deliveries_des"),
+		},
+		{
+			icon: <Users />,
+			label: _("members"),
+			href: "/panel/organization/members",
+			des: _("members_des"),
 		},
 		{
 			icon: <Settings />,

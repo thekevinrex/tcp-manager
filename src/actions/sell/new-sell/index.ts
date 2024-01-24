@@ -12,11 +12,14 @@ import { calcPriceBreakdown } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
 	const _ = await getTranslations("error");
-
 	if (!userId || !orgId) {
 		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:sells:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	const { selecteds, id: areaId } = data;

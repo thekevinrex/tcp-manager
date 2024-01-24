@@ -10,6 +10,12 @@ import { clerkClient } from "@clerk/nextjs";
 const handler = async (data: InputType): Promise<ReturnType> => {
 	const _ = await getTranslations("error");
 
+	const create_acount = false;
+
+	if (!create_acount) {
+		return { error: _("no_solicitudes_per_now") };
+	}
+
 	const { email, name, org_type, phone, proposito } = data;
 
 	const solicitud = await db.solicitudes.findFirst({
@@ -26,10 +32,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		const created = await db.solicitudes.create({
 			data: {
 				name,
+				email,
 				org_type,
+
 				phone,
 				des: proposito,
-				email,
 			},
 		});
 
@@ -37,8 +44,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			return { error: _("error") };
 		}
 
-		const redirectUrl = `http://localhost:3000/sign-up?solicitud=${created.key}`;
-		// "https://tcp-manager.vercel.app/sign-up?solicitud=" + created.key;
+		const host = process.env.HOST_URL || "http://localhost:3000";
+
+		const redirectUrl = `${host}/sign-up?solicitud=${created.key}`;
 
 		await clerkClient.invitations.createInvitation({
 			emailAddress: email,

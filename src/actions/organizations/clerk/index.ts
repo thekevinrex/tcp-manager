@@ -8,17 +8,21 @@ import { Organization, InputType, ReturnType } from "./shema";
 import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
 	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
 		return { error: _("unauthorized") };
 	}
 
+	if (!has({ permission: "org:settings:manage" })) {
+		return { error: _("no_permission") };
+	}
+
 	const { name, slug, formdata } = data;
 
 	try {
-		const file = data.formdata.get("image") as File;
+		const file = formdata.get("image") as File;
 
 		if (file !== null && file.size > 0) {
 			const logo = await clerkClient.organizations.updateOrganizationLogo(

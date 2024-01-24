@@ -62,7 +62,12 @@ const UpgradeBody = ({ errors }: { errors: any }) => {
 		<>
 			<label>
 				{_("upgrade_key")}
-				<Input disabled={pending} name="key" placeholder={_("upgrade_key")} />
+				<Input
+					disabled={pending}
+					required
+					name="key"
+					placeholder={_("upgrade_key")}
+				/>
 			</label>
 			<FormErrors id="key" errors={errors} />
 

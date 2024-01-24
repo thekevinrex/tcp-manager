@@ -5,6 +5,8 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import Organization from "../_components/organization/organization";
 import { CardSkeleton } from "@/components/skeletons/card";
 import { ActiveArea } from "../_components/active-area";
+import { Protect } from "@clerk/nextjs";
+import { NoPermission } from "@/components/page/no-permission";
 
 export default function Layout({
 	children,
@@ -19,7 +21,11 @@ export default function Layout({
 
 	return (
 		<>
-			<main className="[grid-area:main] flex flex-col">{children}</main>
+			<main className="[grid-area:main] flex flex-col">
+				<Protect permission="org:sells:read" fallback={<NoPermission />}>
+					{children}
+				</Protect>
+			</main>
 
 			<aside className="[grid-area:aside]">
 				<Suspense fallback={<CardSkeleton />}>

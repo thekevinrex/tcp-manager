@@ -16,6 +16,8 @@ import { DataTableSkeleton } from "@/components/skeletons/data-table";
 import { Organization } from "../_components/organization/organization";
 import { CardListSkeleton } from "@/components/skeletons/card-list";
 import { ProductsStats } from "./products-stats";
+import { Protect } from "@clerk/nextjs";
+import { NoPermission } from "@/components/page/no-permission";
 
 export const metadata: Metadata = {
 	title: "List of products",
@@ -44,28 +46,30 @@ function Products({
 	return (
 		<>
 			<main className="[grid-area:main] flex flex-col">
-				<section>
-					<header className="flex flex-col space-y-3 mb-5">
-						<h1 className="text-4xl font-extrabold tracking-tight">
-							{_("product_list")}
-						</h1>
+				<Protect permission="org:products:read" fallback={<NoPermission />}>
+					<section>
+						<header className="flex flex-col space-y-3 mb-5">
+							<h1 className="text-4xl font-extrabold tracking-tight">
+								{_("product_list")}
+							</h1>
 
-						<p>{_("product_list_des")}</p>
+							<p>{_("product_list_des")}</p>
 
-						<Suspense fallback={<CardListSkeleton />}>
-							<ProductsStats />
+							<Suspense fallback={<CardListSkeleton />}>
+								<ProductsStats />
+							</Suspense>
+
+							<Filter name={_("search")} />
+						</header>
+
+						<Suspense
+							key={query + currentPage + max}
+							fallback={<DataTableSkeleton />}
+						>
+							<ListProducts max={max} query={query} page={currentPage} />
 						</Suspense>
-
-						<Filter name={_("search")} />
-					</header>
-
-					<Suspense
-						key={query + currentPage + max}
-						fallback={<DataTableSkeleton />}
-					>
-						<ListProducts max={max} query={query} page={currentPage} />
-					</Suspense>
-				</section>
+					</section>
+				</Protect>
 			</main>
 
 			<aside className="[grid-area:aside]">
@@ -75,7 +79,9 @@ function Products({
 						products: messages.products,
 					}}
 				>
-					<CreateProduct />
+					<Protect permission="org:products:manage">
+						<CreateProduct />
+					</Protect>
 					<Organization />
 				</NextIntlClientProvider>
 			</aside>

@@ -21,8 +21,15 @@ import { getProductSelledArea } from "@/fetchs/sells";
 import { ActiveAreaStats } from "./active-area-stats";
 import { FinalizeArea } from "../area/_components/finalice-area";
 import { CreateArea } from "../area/_components/create-area";
+import { auth } from "@clerk/nextjs";
 
 export async function ActiveArea() {
+	const { has } = auth();
+
+	if (!has({ permission: "org:sells:manage" })) {
+		return;
+	}
+
 	const response = await getActiveArea();
 
 	const _ = await getTranslations("areas");

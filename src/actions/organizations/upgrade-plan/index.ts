@@ -11,12 +11,16 @@ import { getTranslations } from "next-intl/server";
 import { PLANS } from "@/config/site";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId, organization } = auth();
+	const { userId, orgId, organization, has } = auth();
 
 	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
 		return { error: _("unauthorized") };
+	}
+
+	if (!has({ role: "org:admin" })) {
+		return { error: _("no_permission") };
 	}
 
 	const { key } = data;

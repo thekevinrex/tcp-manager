@@ -16,6 +16,8 @@ import { AddInventory } from "./add-inventory";
 import { ListInventories } from "./list-inventories";
 import { CardListSkeleton } from "@/components/skeletons/card-list";
 import { InventoriesStats } from "./inventories-stats";
+import { Protect } from "@clerk/nextjs";
+import { NoPermission } from "@/components/page/no-permission";
 
 export const metadata: Metadata = {
 	title: "Inventory Information",
@@ -44,34 +46,38 @@ export default function Inventory({
 	return (
 		<>
 			<main className="[grid-area:main] flex flex-col">
-				<section>
-					<header className="flex flex-col space-y-3 mb-5">
-						<h1 className="text-4xl font-extrabold tracking-tight">
-							{_("inventory")}
-						</h1>
+				<Protect permission="org:inventories:read" fallback={<NoPermission />}>
+					<section>
+						<header className="flex flex-col space-y-3 mb-5">
+							<h1 className="text-4xl font-extrabold tracking-tight">
+								{_("inventory")}
+							</h1>
 
-						<p>{_("inventory_des")}</p>
+							<p>{_("inventory_des")}</p>
 
-						<Suspense fallback={<CardListSkeleton />}>
-							<InventoriesStats />
+							<Suspense fallback={<CardListSkeleton />}>
+								<InventoriesStats />
+							</Suspense>
+
+							<Filter name={_("search")} />
+						</header>
+
+						<Suspense
+							key={query + currentPage + max}
+							fallback={<DataTableSkeleton />}
+						>
+							<ListInventories query={query} max={max} page={currentPage} />
 						</Suspense>
-
-						<Filter name={_("search")} />
-					</header>
-
-					<Suspense
-						key={query + currentPage + max}
-						fallback={<DataTableSkeleton />}
-					>
-						<ListInventories query={query} max={max} page={currentPage} />
-					</Suspense>
-				</section>
+					</section>
+				</Protect>
 			</main>
 
 			<aside className="[grid-area:aside]">
-				<Suspense fallback={<CardSkeleton />}>
-					<AddInventory />
-				</Suspense>
+				<Protect permission="org:inventories:manage">
+					<Suspense fallback={<CardSkeleton />}>
+						<AddInventory />
+					</Suspense>
+				</Protect>
 
 				<NextIntlClientProvider
 					messages={{ organization: messages.organization }}

@@ -8,18 +8,24 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
 import { DeleteProduct, InputType, ReturnType } from "./shema";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		throw new Error("User not authenticated or not in a organization");
+		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:products:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	const supabase = await supabaseClient();
 
 	if (!supabase) {
-		return { error: "Falied to load the supabase client" };
+		return { error: _("failed_supabase_client") };
 	}
 
 	const { products } = data;
@@ -37,7 +43,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		});
 
 		if (!productImage) {
-			return { error: "Product not found" };
+			return { error: _("no_product") };
 		}
 
 		if (productImage.image && productImage.image !== "") {
@@ -60,7 +66,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		return { data: products };
 	} catch {
-		return { error: "An error occurred" };
+		return { error: _("error") };
 	}
 };
 

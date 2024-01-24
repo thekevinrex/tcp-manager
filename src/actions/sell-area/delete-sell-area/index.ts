@@ -7,12 +7,17 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
 import { DeleteSellArea, InputType, ReturnType } from "./shema";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
-
+	const { userId, orgId, has } = auth();
+	const _ = await getTranslations("error");
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:sells:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	const { id } = data;
@@ -25,11 +30,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	});
 
 	if (!area) {
-		return { error: "Area not found" };
+		return { error: _("no_area_found") };
 	}
 
 	if (area.endedAt === null) {
-		return { error: "You cant not delete the active sell area" };
+		return { error: _("delete_active_area") };
 	}
 
 	try {
@@ -43,7 +48,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		return { data: deleted };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

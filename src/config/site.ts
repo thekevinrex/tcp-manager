@@ -58,3 +58,12 @@ export const PLANS: Record<string, { max_products: number; members: number }> =
 			members: 20,
 		},
 	};
+
+export const ROLES = [
+	{ label: "org:admin", value: "org:admin" },
+	{ label: "org:almacenero", value: "org:almacenero" },
+	{ label: "org:marketing", value: "org:marketing" },
+	{ label: "org:seller", value: "org:seller" },
+	{ label: "org:economico", value: "org:economico" },
+	{ label: "org:delivery", value: "org:delivery" },
+];

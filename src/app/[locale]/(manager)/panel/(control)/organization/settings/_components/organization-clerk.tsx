@@ -40,7 +40,7 @@ export function OrganizationClerk({ errors }: { errors: any }) {
 				</div>
 			</div>
 
-			<label className="flex flex-col gap-y-2 text-sm">
+			<label className="flex flex-col gap-y-2 text-xs">
 				{_("org_name")}
 				<Input
 					disabled={pending}
@@ -51,7 +51,7 @@ export function OrganizationClerk({ errors }: { errors: any }) {
 			</label>
 			<FormErrors errors={errors} id="name" />
 
-			<label className="flex flex-col gap-y-2 text-sm">
+			<label className="flex flex-col gap-y-2 text-xs">
 				{_("org_slug")}
 				<Input
 					disabled={pending}

@@ -114,6 +114,41 @@
 		"deliveries": "Domicilios",
 		"deliveries_des": "Listado con los domicilios de la organización",
 
+		"members": "Miembros",
+		"members_des": "Ve quien puede acceder a tu organizacion y que roles tiene",
+
+		"organization_members": "Miembros de la organización",
+		"member": "Miembro",
+		"rol": "Rol",
+		"unido": "Unido el",
+		"actions": "Acciones",
+		"you": "Usted",
+		"no_members": "No hay miembros",
+		"no_invitations": "No hay invitaciones",
+		"invitations": "Invitaciones",
+		"invite": "Invitar",
+
+		"org:admin": "Administrador",
+		"org:marketing": "Marketing",
+		"org:seller": "Vendedor",
+		"org:almacenero": "Almacenero",
+		"org:economico": "Económico",
+		"org:delivery": "Repartidor",
+
+		"member_remove": "Quitar miembro",
+		"member_remove_des": "Deseas quitar este miembro de la organización",
+
+		"edit_member": "Editar miembro",
+		"edit_member_des": "Edita el rol del miembro que seleccionaste",
+
+		"pending": "Pendiente",
+		"accepted": "Aceptada",
+		"revoked": "Revokada",
+
+		"email": "Correo electrónico",
+		"invited": "Invitado el",
+		"status": "Estado",
+
 		"organization_plan": "Plan de la organización",
 		"organization_settings": "Configuraciones de la organización",
 		"organization_deliveries": "Domicilios de la organización",
@@ -147,6 +182,11 @@
 		"transactions_des": "Listado de todas las transacciones para la actualización del plan ",
 
 		"org_updated_successfully": "Organización modificada correctamente",
+		"invitations_revoked_successfully": "Invitacón revokada correctamente",
+		"invitation_sended_successfully": "Invitacón enviada correctamente",
+
+		"revoke_invitation": "Revocar invitación",
+		"revoke_invitation_des": "Estas seguro que deseas revokar esta invitación?",
 
 		"org_des": "Descripción de la organización",
 		"org_location": "Localización de la organización",
@@ -161,11 +201,18 @@
 		"org_image": "Imagen de la organización",
 
 		"save": "Guardar",
+		"cancel": "Cancelar",
+		"delete": "Eliminar",
 
 		"no_organization": "Organización invalida",
 		"no_organization_des": "No se encontró la organización que deseas seleccionar o no perteneces.",
 		"no_organization_des_2": "Si perteneces a la organización y/o crees que esto es un error, por favor reporta esto a los administradores.",
-		"select_org": "Selecciona organización"
+		"select_org": "Selecciona organización",
+		"error": "Lo sentimos ha ocurrido un error o no tienes los permisos para realizar este cambio",
+
+		"no_permission": "No tienes permiso para acceder aqui",
+		"no_permission_des": "Esto pasa por que tu rol dentro de la organización no te permite acceder aqui. Si crees que esto es un error ponte en contacto con los administradores de tu organización",
+		"actual_role": "Tu actual role es:"
 	},
 
 	"products": {
@@ -520,16 +567,27 @@
 		"sell_and_selleds_not_coincide": "Uno o mas de los elementos seleccionados es invalido",
 
 		"product_invalid": "El producto es invalido",
+		"no_product": "El producto es invalido",
+		"no_inventory": "El inventario es invalido",
 		"product_name_exist": "Ese producto ya existe en la organización",
 		"failed_supabase_client": "A occurido un error con el servidor de las imagenes",
 
 		"sell_product_aviable_more": "No se puede vender mas de lo que hay disponible del producto {name}",
 
 		"sell_delete_active_area": "Solo puedes eliminar ventas de la area de venta activa",
+		"inventory_delete_active_area": "No puedes eliminar inventarios mientras tienes un area de venta activa",
+		"inventory_edit_active_area": "No puedes editar inventarios mientras tienes un area de venta activa",
+		"delete_active_area": "No puedes eliminar el area de venta activa",
 
 		"invalid_key_code": "Código invalido",
 
-		"already_solicitud": "Ya existe una solicitud con ese correo electrónico"
+		"already_solicitud": "Ya existe una solicitud con ese correo electrónico",
+		"invitation_duplicate_record": "Ya existe una invitación con ese correo electrónico o ya es un miembro de la organización",
+
+		"no_permission": "No tienes permiso para realizar esta acción",
+		"no_organization": "Organización invalida",
+
+		"no_solicitudes_per_now": "No estámos aceptando solicitudes por el momento"
 	},
 
 	"solicitar": {

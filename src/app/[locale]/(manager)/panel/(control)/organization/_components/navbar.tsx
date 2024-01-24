@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Building, Settings, Truck, Wallet } from "lucide-react";
+import { Building, Settings, Truck, Users, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -21,6 +21,11 @@ export function Navbar() {
 			icon: <Truck />,
 			label: _("deliveries"),
 			href: "/panel/organization/deliveries",
+		},
+		{
+			icon: <Users />,
+			label: _("members"),
+			href: "/panel/organization/members",
 		},
 		{
 			icon: <Settings />,

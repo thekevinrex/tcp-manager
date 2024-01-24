@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { OrganizationBody } from "./organization-body";
-import { useAction } from "@/hooks/useAction";
-import { organization } from "@/actions/organization";
 import toast from "react-hot-toast";
 import { Organization } from "@prisma/client";
 import { useTranslations } from "next-intl";
+
+import { OrganizationBody } from "./organization-body";
+import { useAction } from "@/hooks/useAction";
+import { organization } from "@/actions/organizations/settings";
 
 export function OrganizationPublicForm({ org }: { org: Organization }) {
 	const _ = useTranslations("organization");

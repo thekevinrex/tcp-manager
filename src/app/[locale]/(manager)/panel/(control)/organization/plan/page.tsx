@@ -17,6 +17,8 @@ import { PLANS } from "@/config/site";
 import { Transactions } from "./_components/transactions";
 import { UpgradePlan } from "./_components/upgrade-plan";
 import { getActualOrganization } from "@/fetchs/organization";
+import { Protect } from "@clerk/nextjs";
+import { NoPermission } from "@/components/page/no-permission";
 
 export default async function OrganizationPlanPage({
 	params: { locale },
@@ -37,7 +39,7 @@ export default async function OrganizationPlanPage({
 	const org = response.data;
 
 	return (
-		<>
+		<Protect role="org:admin" fallback={<NoPermission />}>
 			<section>
 				<header className="flex flex-col space-y-3 mb-5">
 					<h1 className="text-2xl md:text-4xl font-extrabold tracking-tight">
@@ -87,6 +89,6 @@ export default async function OrganizationPlanPage({
 					<Transactions org={org} />
 				</Suspense>
 			</section>
-		</>
+		</Protect>
 	);
 }

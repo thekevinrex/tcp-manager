@@ -10,6 +10,8 @@ import {
 	unstable_setRequestLocale,
 } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { auth } from "@clerk/nextjs";
+import { NoPermission } from "@/components/page/no-permission";
 
 export default async function Page({
 	params: { locale },
@@ -17,6 +19,16 @@ export default async function Page({
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(locale);
+
+	const { has } = auth();
+
+	if (!has({ permission: "org:sells:manage" })) {
+		return (
+			<ErrorLayout>
+				<NoPermission />
+			</ErrorLayout>
+		);
+	}
 	const areaResponse = await getActiveArea();
 
 	const _ = await getTranslations("areas");

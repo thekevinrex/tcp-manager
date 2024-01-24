@@ -9,19 +9,25 @@ import db from "@/lib/db";
 import { EditInventory, InputType, ReturnType } from "./shema";
 import { Prisma } from "@prisma/client";
 import { getActiveArea } from "@/fetchs/sell-area";
+import { getTranslations } from "next-intl/server";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:inventories:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	const area = await getActiveArea();
 
 	if (area.data) {
 		return {
-			error: "You cant edit a inventory if there is a active sell area",
+			error: _("inventory_edit_active_area"),
 		};
 	}
 
@@ -37,7 +43,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	});
 
 	if (!inventory) {
-		return { error: "Inventory not found" };
+		return { error: _("no_inventory") };
 	}
 
 	const updateData: Prisma.InventoryUpdateArgs = {
@@ -79,7 +85,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		return { data: Inventory };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

@@ -1,18 +1,24 @@
 "use server";
 
 import { auth } from "@clerk/nextjs";
+import { getTranslations } from "next-intl/server";
 
 import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
 import { Organization, InputType, ReturnType } from "./shema";
-import { Prisma } from "@prisma/client";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-	const { userId, orgId } = auth();
+	const { userId, orgId, has } = auth();
+
+	const _ = await getTranslations("error");
 
 	if (!userId || !orgId) {
-		return { error: "User not authenticated or not in a organization" };
+		return { error: _("unauthorized") };
+	}
+
+	if (!has({ permission: "org:settings:manage" })) {
+		return { error: _("no_permission") };
 	}
 
 	const {
@@ -24,15 +30,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		visible,
 	} = data;
 
-	const UpdateData: Prisma.OrganizationUpdateInput = {
-		description,
-		phone,
-		location,
-		domicilio: domicilio,
-		domicilio_details,
-		visible,
-	};
-
 	try {
 		const org = await db.organization.findUnique({
 			where: {
@@ -41,19 +38,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		});
 
 		if (!org) {
-			return { error: "No organization found" };
+			return { error: _("no_organization") };
 		}
 
 		const Organization = await db.organization.update({
 			where: {
 				org: orgId,
 			},
-			data: UpdateData,
+			data: {
+				description,
+				phone,
+				location,
+				domicilio: domicilio,
+				domicilio_details,
+				visible,
+			},
 		});
 
 		return { data: Organization };
 	} catch {
-		return { error: "An error ocurred" };
+		return { error: _("error") };
 	}
 };
 

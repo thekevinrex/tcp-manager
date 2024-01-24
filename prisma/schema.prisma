@@ -187,6 +187,7 @@ model Solicitudes {
   des String?
   phone String?
 
+  type String @default("solicitud")
   key String @default(uuid())
   aviable Int @default(1)
 
