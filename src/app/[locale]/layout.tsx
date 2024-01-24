@@ -42,8 +42,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 	params: { locale: string };
 }) {
-	const defaultLocale = useLocale();
-	const locale = params.locale || defaultLocale;
+	const locale = params.locale || "es";
 	unstable_setRequestLocale(locale);
 
 	return (
