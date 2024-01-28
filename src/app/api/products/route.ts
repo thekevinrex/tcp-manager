@@ -1,6 +1,5 @@
 import db from "@/lib/db";
 import { Prisma } from "@prisma/client";
-import { z } from "zod";
 
 type SearchProduct = {
 	org: string;
@@ -8,6 +7,8 @@ type SearchProduct = {
 	max?: string;
 	order?: string;
 };
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
 	// Get the body
@@ -58,7 +59,6 @@ export async function POST(req: Request) {
 
 		return Response.json({ products }, { status: 200 });
 	} catch (err: any) {
-		console.log(JSON.stringify(err));
 		return new Response("An error ocurred", { status: 400 });
 	}
 }

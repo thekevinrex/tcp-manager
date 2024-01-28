@@ -45,6 +45,9 @@ export function SearchProducts({
 
 	const getProducts = () => {
 		fetch(`/api/products?page=${page}&q=${q}`, {
+			headers: {
+				"Content-Type": "application/json",
+			},
 			method: "POST",
 			body: JSON.stringify({
 				org,
@@ -70,7 +73,6 @@ export function SearchProducts({
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				setMore(false);
 				toast.error(_("fetch_error"));
 			});

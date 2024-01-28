@@ -22,7 +22,15 @@ export function SearchOrganizations({
 	const [page, setPage] = useState<number>(1);
 
 	const getOrganizations = () => {
-		fetch(`/api/organizations?page=${page}&q=${q}`)
+		fetch(`/api/organizations?page=${page}&q=${q}`, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: "POST",
+			body: JSON.stringify({
+				...filters,
+			}),
+		})
 			.then(async (response) => {
 				if (response.status !== 200) {
 					setMore(false);

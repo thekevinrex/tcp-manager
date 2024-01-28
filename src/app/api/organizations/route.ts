@@ -1,12 +1,7 @@
 import db from "@/lib/db";
 
-type SearchProduct = {
-	q?: string;
-	filters?: string;
-	lastId?: number;
-};
-
-export async function GET(req: Request) {
+export const dynamic = "force-dynamic";
+export async function POST(req: Request) {
 	// Get the body
 	const { searchParams } = new URL(req.url);
 

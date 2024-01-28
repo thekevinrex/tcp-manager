@@ -15,6 +15,8 @@ model Inventory {
   
   cant      Int     @default(0)
   total     Int     @default(0)
+  currency  String  @default("CUP")
+
   selled Int @default(0)
 
   archived  Boolean @default(false)
@@ -34,11 +36,18 @@ model Product {
   org       String
   
   name      String
-  image     String?
   price     Int
+
+  currency String @default("CUP")
+  categoryId Int?
+
   aviable   Int @default(0)
+  promoted  Int @default(0)
+  
   status    String 
   description String? @default("")
+  image     String?
+  image_url String?
 
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
@@ -56,9 +65,9 @@ model PriceBreakdown {
 
   cant Int
   value Int
+  currency String @default("CUP")
 
   productId Int 
-
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("prices")
@@ -70,9 +79,11 @@ model Sell {
 
   productId Int
   areaId Int
+  factureId Int?
 
   cant Int @default(0)
   price Int @default(0)
+  currency String @default("CUP")
 
   selledAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -81,7 +92,30 @@ model Sell {
   Area SellArea @relation(fields: [areaId], references: [id], onDelete: Cascade)
   inventories InventoryOnSell[]
 
+  Facture Facture? @relation(fields: [factureId], references: [id], onDelete: SetNull)
+
   @@map("sells")
+}
+
+model Facture {
+
+  id Int @id @default(autoincrement())
+
+  name String
+  phone String
+
+  areaId Int
+
+  products Json
+  paid Boolean @default(false)
+
+  Area SellArea @relation(fields: [areaId], references: [id], onDelete: Cascade)
+  Sells Sell[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("factures")
 }
 
 model InventoryOnSell {
@@ -96,6 +130,8 @@ model InventoryOnSell {
 
   cant Int
   price Int
+  currency String @default("CUP")
+  
   selledAt DateTime @default(now())
 
 
@@ -112,6 +148,7 @@ model SellArea {
   endedAt DateTime? 
 
   Sells Sell[]
+  Factures Facture[]
 
   @@map("sell-areas")
 }

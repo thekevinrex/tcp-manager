@@ -18,6 +18,8 @@ import {
 } from "./ui/drawer";
 import { useTranslations } from "next-intl";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { CopyLink } from "./copy-link";
 
 export function Share({ link }: { link: string }) {
 	const _ = useTranslations("home");
@@ -114,6 +116,11 @@ export function Share({ link }: { link: string }) {
 								<span className="sr-only">{share.name}</span>
 							</a>
 						))}
+					</div>
+
+					<div className="flex w-full max-w-md p-4 justify-between gap-x-3">
+						<Input readOnly placeholder={_("share")} value={link} />
+						<CopyLink link={link} />
 					</div>
 
 					<DrawerFooter className="flex flex-col gap-y-3 justify-center max-w-sm w-full">
