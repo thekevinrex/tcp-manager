@@ -7,6 +7,7 @@ import { ProductsWithPrices } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Products } from "@/actions/fetchs/products";
 
 export function SearchProducts({
 	org,
@@ -44,30 +45,24 @@ export function SearchProducts({
 	}
 
 	const getProducts = () => {
-		fetch(`/api/products?page=${page}&q=${q}`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-			method: "POST",
-			body: JSON.stringify({
-				org,
-				...filters,
-			}),
-		})
-			.then(async (response) => {
+		Products({ q, page, max: 10, filters, org })
+			.then((response) => {
 				if (response.status !== 200) {
 					setMore(false);
 					toast.error(_("fetch_error"));
 					return;
 				}
 
-				const json: { products: Array<ProductsWithPrices> } =
-					await response.json();
+				const products: Array<ProductsWithPrices> = response.products;
 
-				if (json.products.length === 0) {
+				if (products.length === 0) {
 					setMore(false);
 				} else {
-					setProducts((prev) => [...prev, ...json.products]);
+					setProducts((prev) => [...prev, ...products]);
+
+					if (products.length < 10) {
+						setMore(false);
+					}
 
 					setPage((prev) => prev + 1);
 				}

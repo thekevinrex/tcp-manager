@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { ReelSkeletonItem } from "@/components/skeletons/reel";
 import { OrganizationReelItem } from "@/components/page/organization-reel-item";
+import { Organizations } from "@/actions/fetchs/organizations";
 
 export function SearchOrganizations({
 	q,
@@ -22,29 +23,24 @@ export function SearchOrganizations({
 	const [page, setPage] = useState<number>(1);
 
 	const getOrganizations = () => {
-		fetch(`/api/organizations?page=${page}&q=${q}`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-			method: "POST",
-			body: JSON.stringify({
-				...filters,
-			}),
-		})
-			.then(async (response) => {
-				if (response.status !== 200) {
+		Organizations({ q, page, max: 10, filters })
+			.then((response) => {
+				if (response.status !== 200 || !response.organizations) {
 					setMore(false);
 					toast.error(_("fetch_error"));
 					return;
 				}
 
-				const json: { organizations: Array<Organization> } =
-					await response.json();
+				const organizations: Array<Organization> = response.organizations;
 
-				if (json.organizations.length === 0) {
+				if (organizations.length === 0) {
 					setMore(false);
 				} else {
-					setOrganizations((prev) => [...prev, ...json.organizations]);
+					setOrganizations((prev) => [...prev, ...organizations]);
+
+					if (organizations.length < 10) {
+						setMore(false);
+					}
 
 					setPage((prev) => prev + 1);
 				}
