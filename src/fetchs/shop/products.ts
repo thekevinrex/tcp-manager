@@ -4,6 +4,7 @@ import {
 	ProductsWithPricesAndOrg,
 	ReturnFetch,
 } from "@/lib/types";
+import { getTranslations } from "next-intl/server";
 
 export async function getTopProducts(
 	max: number = 8,
@@ -55,5 +56,29 @@ export async function getProduct(
 		return { data: products };
 	} catch {
 		return { error: "An error ocurred" };
+	}
+}
+
+export async function getOrganizationsProductsAviable(
+	orgId: string
+): Promise<ReturnFetch<ProductsWithPrices[]>> {
+	const _ = await getTranslations("error");
+
+	try {
+		const products = await db.product.findMany({
+			where: {
+				org: orgId,
+				aviable: {
+					gt: 0,
+				},
+			},
+			include: {
+				prices: true,
+			},
+		});
+
+		return { data: products };
+	} catch {
+		return { error: _("error") };
 	}
 }

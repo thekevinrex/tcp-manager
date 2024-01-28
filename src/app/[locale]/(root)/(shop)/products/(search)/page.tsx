@@ -13,14 +13,18 @@ export default function ProductsPage({
 	searchParams,
 }: {
 	params: { locale: string };
-	searchParams: { q?: string; filters?: string };
+	searchParams: { q?: string; order?: string; min?: string; max?: string };
 }) {
 	unstable_setRequestLocale(locale);
 
 	const messages = useMessages();
 
 	const search = searchParams.q ? searchParams.q : "";
-	const filters: string[] = [];
+	const filters = {
+		order: searchParams.order ? searchParams.order : null,
+		min: searchParams.min ? searchParams.min : null,
+		max: searchParams.max ? searchParams.max : null,
+	};
 
 	return (
 		<div className="flex flex-col w-full">

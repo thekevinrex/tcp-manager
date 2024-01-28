@@ -1,5 +1,5 @@
 import { NextIntlClientProvider, useMessages } from "next-intl";
-import { Header } from "../../_components/header";
+import { Header } from "./_components/header";
 import { Footer } from "@/components/page/footer";
 import { unstable_setRequestLocale } from "next-intl/server";
 

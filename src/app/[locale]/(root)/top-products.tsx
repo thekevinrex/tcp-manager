@@ -1,5 +1,4 @@
 import { FetchFailedError } from "@/components/error/FetchFailed";
-import { ReelSkeleton } from "@/components/skeletons/reel";
 import { getTopProducts } from "@/fetchs/shop/products";
 import { ProductsReel } from "./_components/products-reel";
 import { getTranslations } from "next-intl/server";

@@ -1,4 +1,5 @@
-import { SignIn } from "@clerk/nextjs";
+import { CardSkeleton } from "@/components/skeletons/card";
+import { ClerkLoaded, ClerkLoading, SignIn } from "@clerk/nextjs";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function Page({
@@ -9,6 +10,23 @@ export default function Page({
 	unstable_setRequestLocale(locale);
 
 	return (
-		<SignIn path={`/${locale}/sign-in`} afterSignInUrl={"/panel/dashboard"} />
+		<>
+			<ClerkLoaded>
+				<SignIn
+					path={`/${locale}/sign-in`}
+					appearance={{
+						elements: {
+							card: "shadow-none",
+						},
+					}}
+					afterSignInUrl={"/panel/dashboard"}
+				/>
+			</ClerkLoaded>
+			<ClerkLoading>
+				<div className="w-full max-w-[450px] h-full max-h-[450px]">
+					<CardSkeleton />
+				</div>
+			</ClerkLoading>
+		</>
 	);
 }

@@ -1,6 +1,6 @@
 "use client";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Organization } from "@prisma/client";
 import { useTranslations } from "next-intl";
@@ -47,6 +47,12 @@ export function SearchOrganizations({
 			});
 	};
 
+	useEffect(() => {
+		setMore(true);
+		setPage(1);
+		setOrganizations([]);
+	}, [q]);
+
 	return (
 		<InfiniteScroll
 			dataLength={organizations.length}
@@ -56,7 +62,7 @@ export function SearchOrganizations({
 			loader={<Loading />}
 			endMessage={<NoMore />}
 		>
-			<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+			<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center w-full">
 				{organizations.map((organization) => {
 					return (
 						<OrganizationReelItem key={organization.org} {...organization} />
@@ -68,7 +74,7 @@ export function SearchOrganizations({
 }
 
 const Loading = () => (
-	<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+	<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5 w-full">
 		{[...Array(4)].map((num, i) => {
 			return <ReelSkeletonItem key={i} />;
 		})}

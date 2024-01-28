@@ -3,6 +3,13 @@ import { Status, StatusType } from "@/lib/types";
 export const SITE = {
 	name: "TCP Manager",
 	description: "Application to help my father to manage his tcp transport shop",
+	creator: "Kevin González Gómez",
+	emails: "kevin.bisness010814@gmail.com",
+	country: "Cuba",
+	authors: {
+		name: "Kevin González Gómez",
+		url: "https://kevin-portafolio.netlify.app",
+	},
 };
 
 export const STATUS_TYPES: Array<string> = [

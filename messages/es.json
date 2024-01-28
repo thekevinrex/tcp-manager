@@ -363,6 +363,7 @@
 	"header": {
 		"dashboard": "Dashboard",
 		"products": "Productos",
+		"organizations": "Organizaciones",
 		"inventories": "Inventarios",
 		"sell_area": "Area de venta",
 		"areas": "Areas",
@@ -377,6 +378,8 @@
 		"panel": "Panel",
 
 		"name": "TCP Manager",
+		"description": "Aplicación de gestion de inventario para mejorar las ventas y simplificar la gestion",
+		"keywords": "inventario,gestion,ventas,simplificar,productos,ganancias,publicidad,tcp",
 
 		"sign_in": "Entrar",
 		"sign_out": "Salir",
@@ -506,12 +509,12 @@
 	},
 
 	"home": {
-		"explore_products": "Explora los productos",
-		"explore_organizations": "Explora las organizaciones",
+		"explore_products": "Explorar los productos",
+		"explore_organizations": "Explorar las organizaciones",
 
 		"hero_section": {
-			"before_br": "The best offer on the market",
-			"after": "for your business"
+			"before_br": "Explora los mejores productos de las ",
+			"after": "mejores organizaciones"
 		},
 
 		"top_organizations": "Mejores organizaciones",
@@ -527,27 +530,57 @@
 		"product": "Producto",
 		"products": "Productos",
 		"products_page_des": "Explora nuestros productos para encontrar los que satisfagan tus necesidades",
+		"product_no_visible": "El producto no es visible",
 
 		"organizations": "Organizaciones",
 		"organizations_page_des": "Explora nuestras organizaciones",
+		"org_no_visible": "Organización no visible",
 
 		"organization_products": "Productos de la organización",
 		"organization_products_des": "Explora los productos de la organización",
 
 		"contact_details": "Detalles de contacto",
+		"phone": "Telefono",
+		"email": "Correo electrónico",
+		"address": "Dirreccion",
+		"share_text": "Buenas, me interesa",
+
+		"domicilio_do_success": "La solicitud se realizó correctamente. Espere a que la organización confirme su domicilio",
 
 		"domicilio": "Domicilio",
 		"domicilio_yes": "Aceptamos domicilio",
 		"domicilio_no": "No estamos haciendo domicilio",
 		"domicilio_do": "Hacer encargo",
+		"domicilio_do_des": "Selecciona los productos que deseas encargar a la organización.",
 
 		"fetch_error": "A occurrido un error",
 		"no_more": "No se encontraron mas resultados",
+		"whatsapp": "Whatsapp",
 
 		"filters_title": "Filtrar",
+		"search_product": "Buscar producto...",
+		"search_organization": "Buscar organización...",
 		"filters_description": "Añade filtros para hacer busquedas mas precisas",
 		"filtrar": "Filtrar",
-		"close": "Cerrar"
+		"close": "Cerrar",
+		"cancel": "Cancelar",
+		"solicitar": "Solicitar",
+		"total": "Total: {total}",
+
+		"max": "Máximo",
+		"min": "Mínimo",
+
+		"orders": "Ordenar",
+		"price_asc": "Menor Precio",
+		"price_desc": "Mayor Precio",
+
+		"select_product": "Seleccionar producto",
+		"search_command": "Buscar...",
+		"empty_command": "No se encontraron resultados",
+		"add_product": "Selecciona al menos un producto",
+
+		"share": "Compartir",
+		"share_des": "Comparte con tus amigos y familiares"
 	},
 
 	"error": {
@@ -587,14 +620,17 @@
 		"no_permission": "No tienes permiso para realizar esta acción",
 		"no_organization": "Organización invalida",
 
-		"no_solicitudes_per_now": "No estámos aceptando solicitudes por el momento"
+		"no_solicitudes_per_now": "No estámos aceptando solicitudes por el momento",
+		"domicilio_limit": "Solo puedes solicitar domicilio a una organización cada {horas} horas",
+		"add_at_least_1": "Añade al menos un producto"
 	},
 
 	"solicitar": {
 		"hero_section": {
-			"before_br": "The best offer on the market",
-			"after": "for your business"
+			"before_br": "¡Solicita tu cuenta y simplifica la gestión de inventarios",
+			"after": "Hoy mismo!"
 		},
+		"hero_section_des": "Para poder crearte una cuenta necesitas un código de invitación. Una forma de obtenerlo es solicitandolo a los administradores",
 
 		"solicitar_des": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, itaque accusantium odio, soluta, corrupti aliquam quibusdam tempora at cupiditate quis eum maiores libero veritatis? Dicta facilis sint aliquid ipsum atque?",
 
@@ -613,6 +649,10 @@
 		"solicitud_created_successfully": "La solicitud ha sido enviada correctamente",
 
 		"need_solicitud_key": "Solicitar Código",
-		"need_solicitud_des": "Necesitas un código para crearte una cuenta, para poder obtener el código solicitalo a los administradores"
+		"need_solicitud_des": "Necesitas un código para crearte una cuenta, para poder obtener el código solicitalo a los administradores",
+
+		"org_type_help": "Para más información sobre el tipo de organización.",
+		"see_more_here": "Ver más aquí",
+		"pricing": "Precios"
 	}
 }

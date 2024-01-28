@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import Link from "@/components/link";
 
 export function Logo() {
 	const _ = useTranslations("header");

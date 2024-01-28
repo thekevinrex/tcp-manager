@@ -10,10 +10,10 @@ export function HeroSection() {
 	const _ = useTranslations("landing");
 
 	return (
-		<div className="flex w-full min-h-screen justify-center items-center bg-gradient-radial from-slate-200 dark:from-slate-700 dark:to-slate-900 to-slate-500">
+		<div className="flex w-full min-h-screen justify-center items-center ">
 			<div className="flex justify-center flex-col items-center space-y-5">
 				<header className="flex flex-col items-center space-y-5 justify-center">
-					<div className="text-3xl md:text-6xl px-4 text-white py-2 rounded-md bg-gradient-to-r dark:from-purple-800 dark:to-slate-600 from-purple-500 to-slate-600 pb-4 w-fit">
+					<div className="text-3xl md:text-6xl px-4 text-white py-2 rounded-md bg-gradient-to-r dark:from-purple-800 dark:to-slate-600 from-purple-600 to-purple-400 pb-4 w-fit">
 						{_("name")}
 					</div>
 					<h1 className="text-2xl md:text-5xl font-semibold tracking-wide text-pretty text-center max-w-screen-lg">

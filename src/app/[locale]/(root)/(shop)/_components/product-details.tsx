@@ -6,6 +6,7 @@ import { SupabaseImage } from "@/components/Image";
 
 import { ProductsWithPricesAndOrg } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
+import { Share } from "@/components/share";
 
 export function ProductDetails({
 	product,
@@ -24,6 +25,10 @@ export function ProductDetails({
 		return <Badge variant={"green"}>{_("aviable")}</Badge>;
 	};
 
+	const share = `${process.env.HOST_URL || "http://localhost:3000"}/products/${
+		product.id
+	}`;
+
 	return (
 		<section className="pt-8 pb-5 flex flex-col max-md:items-center md:flex-row gap-4">
 			<div className="relative w-[300px] flex mb-6 h-[300px] overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20 bg-[50%] flex-col shrink-0">
@@ -39,7 +44,11 @@ export function ProductDetails({
 					{product.description}
 				</p>
 
-				<div className="flex items-center">{badge()}</div>
+				<div className="flex items-center mb-4">{badge()}</div>
+
+				<div>
+					<Share link={share} />
+				</div>
 
 				<Separator className="my-3" />
 

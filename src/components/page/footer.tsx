@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Facebook, Github, Linkedin, Twitter } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/link";
 
 import { Logo } from "./logo";
 import { usePathname } from "next/navigation";

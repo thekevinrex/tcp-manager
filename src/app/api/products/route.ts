@@ -3,34 +3,23 @@ import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
 type SearchProduct = {
-	q?: string;
-	filters?: string;
-	lastId?: number;
+	org: string;
+	min?: string;
+	max?: string;
+	order?: string;
 };
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
 	// Get the body
 	const { searchParams } = new URL(req.url);
 
-	const shema = z.object({
-		lastId: z.number(),
-		max: z.number(),
-		q: z.string().nullable(),
-		orgId: z.string().nullable(),
-	});
+	const page = Number(searchParams.get("page")) || 1;
+	const pageSize = Number(searchParams.get("max")) || 10;
+	const q = String(searchParams.get("q"));
 
-	const result = shema.safeParse({
-		lastId: Number(searchParams.get("lastId")),
-		max: Number(searchParams.get("max")),
-		q: searchParams.get("q"),
-		orgId: searchParams.get("org"),
-	});
+	const body: SearchProduct = await req.json();
 
-	if (!result.success) {
-		return new Response("Invalid data", { status: 400 });
-	}
-
-	const { lastId, max, orgId, q } = result.data;
+	const { org, max, min, order } = body;
 
 	const where: Prisma.ProductWhereInput = {
 		status: {
@@ -39,8 +28,10 @@ export async function GET(req: Request) {
 		organization: {
 			visible: true,
 		},
-		id: {
-			gt: lastId ? lastId : 0,
+		org: org ? org : undefined,
+		price: {
+			gte: min ? parseInt(min) : undefined,
+			lte: max ? parseInt(max) : undefined,
 		},
 	};
 
@@ -51,21 +42,23 @@ export async function GET(req: Request) {
 		};
 	}
 
-	if (orgId && orgId !== "") {
-		where.org = orgId;
-	}
-
 	try {
 		const products = await db.product.findMany({
 			where,
-			take: max ? max : 10,
+			skip: (page - 1) * pageSize,
+			take: pageSize,
 			orderBy: {
-				id: "asc",
+				price: order ? (order === "price_asc" ? "asc" : "desc") : undefined,
 			},
 		});
 
+		products.forEach((product) => {
+			product.aviable = product.aviable > 0 ? 1 : 0;
+		});
+
 		return Response.json({ products }, { status: 200 });
-	} catch {
+	} catch (err: any) {
+		console.log(JSON.stringify(err));
 		return new Response("An error ocurred", { status: 400 });
 	}
 }

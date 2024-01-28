@@ -29,6 +29,7 @@ import { useAction } from "@/hooks/useAction";
 import { solicitarCuenta } from "@/actions/organizations/solicitar";
 import toast from "react-hot-toast";
 import { FormErrors } from "@/components/error/FormErrors";
+import Link from "next/link";
 
 type orgType = "cuenta_propia" | "tcp" | "mypime";
 
@@ -97,7 +98,7 @@ const SolicitarBody = ({
 
 	return (
 		<>
-			<label className="flex flex-col space-y-2 text-sx">
+			<label className="flex flex-col text-xs gap-y-2">
 				{_("name")}
 				<Input
 					disabled={pending}
@@ -108,7 +109,7 @@ const SolicitarBody = ({
 			</label>
 			<FormErrors id="name" errors={errors} />
 
-			<label className="flex flex-col space-y-2 text-sx">
+			<label className="flex flex-col text-xs gap-y-2">
 				{_("proposito")}
 				<Textarea
 					disabled={pending}
@@ -119,7 +120,7 @@ const SolicitarBody = ({
 			</label>
 			<FormErrors id="proposito" errors={errors} />
 
-			<label className="flex flex-col space-y-2 text-sx">
+			<label className="flex flex-col text-xs gap-y-2">
 				{_("org_type")}
 				<Select
 					required
@@ -140,9 +141,19 @@ const SolicitarBody = ({
 
 			<FormErrors id="org_type" errors={errors} />
 
+			<p className="text-xs text-muted-foreground">
+				{_("org_type_help")}{" "}
+				<Link
+					className="text-sky-600 hover:underline hover:text-sky-700"
+					href={"/panel/pricing"}
+				>
+					{_("pricing")}
+				</Link>
+			</p>
+
 			<Separator />
 
-			<label className="flex flex-col space-y-2 text-sx">
+			<label className="flex flex-col text-xs gap-y-2">
 				{_("email")}
 				<Input
 					disabled={pending}
@@ -154,7 +165,7 @@ const SolicitarBody = ({
 
 			<FormErrors id="email" errors={errors} />
 
-			<label className="flex flex-col space-y-2 text-sx">
+			<label className="flex flex-col text-xs gap-y-2">
 				{_("phone")}
 				<Input disabled={pending} name="phone" placeholder={_("phone")} />
 			</label>

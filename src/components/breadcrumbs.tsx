@@ -1,23 +1,27 @@
 import { cn } from "@/lib/utils";
 import { ChevronRight, Home } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/link";
 
 export function Breadcrumbs({ children }: { children: React.ReactNode }) {
 	return (
 		<nav className="w-full flex items-center">
-			<ol className="flex flex-wrap items-center gap-5">
+			<ul className="flex flex-wrap items-center gap-5">
 				<BreadcrumbsLinkItem href="/">
-					<Home />
+					<Home /> <span className="sr-only">Home</span>
 				</BreadcrumbsLinkItem>
 				<BreadcrumbsSeparator />
 				{children}
-			</ol>
+			</ul>
 		</nav>
 	);
 }
 
 export function BreadcrumbsSeparator() {
-	return <ChevronRight />;
+	return (
+		<li>
+			<ChevronRight />
+		</li>
+	);
 }
 
 export function BreadcrumbsLinkItem({

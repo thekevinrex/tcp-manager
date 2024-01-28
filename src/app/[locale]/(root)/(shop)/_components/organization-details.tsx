@@ -1,19 +1,30 @@
 import { ClerkImage } from "@/components/Image";
-import { Button } from "@/components/ui/button";
+
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Organization } from "@prisma/client";
-import { Bike, MapPin, Phone } from "lucide-react";
+import { Bike, MapPin, MessageCircleReply, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { DomicilioDo } from "./domicilio/domicilio";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Share } from "@/components/share";
 
 export function OrganizationDetails({
 	org,
 	reverse = false,
+	productId,
 }: {
 	org: Organization;
 	reverse?: boolean;
+	productId?: number;
 }) {
 	const _ = useTranslations("home");
+
+	const link = `https://wa.me/${org.phone}&text=${_("share-text")}`;
+	const share = `${
+		process.env.HOST_URL || "http://localhost:3000"
+	}/organizations/${org.slug}`;
 
 	return (
 		<section
@@ -28,21 +39,51 @@ export function OrganizationDetails({
 			</div>
 
 			<div className="w-full flex flex-col px-2">
-				<h2 className="text-xl md:text-3xl lg:text-5xl font-semibold tracking-wide">
+				<h1 className="text-xl md:text-3xl lg:text-5xl font-semibold tracking-wide mb-3">
 					{org.name}
-				</h2>
+				</h1>
 				<p className="max-w-prose tracking-wide text-muted-foreground mb-3">
 					{org.description}
 				</p>
+
+				<div>
+					<Share link={share} />
+				</div>
 
 				<Separator className="my-3" />
 
 				<div className="flex flex-col space-y-3">
 					<span className="txt-sm font-semibold">{_("contact_details")}</span>
 
-					<div className="flex items-center gap-x-3">
-						<Phone />
-						<span className="text-lg">{org.phone}</span>
+					<div className="flex flex-col gap-y-2">
+						<div className="flex items-center gap-x-3">
+							<Phone />
+							<span className="text-lg">{org.phone}</span>
+						</div>
+
+						<div className="flex gap-x-3">
+							<a
+								href={link}
+								target="_blank"
+								className="border rounded-2xl bg-green-500 text-white items-center text-sm flex gap-x-1 px-2 py-1 hover:bg-green-700 cursor-pointer"
+							>
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									strokeWidth="2"
+									stroke="currentColor"
+									fill="none"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+									<path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+								</svg>
+								{_("whatsapp")}
+							</a>
+						</div>
 					</div>
 
 					<div className="flex items-center gap-x-3">
@@ -67,7 +108,9 @@ export function OrganizationDetails({
 							)}
 
 							<div>
-								<Button variant={"secondary"}>{_("domicilio_do")}</Button>
+								<Suspense fallback={<Skeleton className="w-[150px] h-10" />}>
+									<DomicilioDo orgId={org.org} productId={productId} />
+								</Suspense>
 							</div>
 						</>
 					) : (

@@ -5,7 +5,7 @@ import {
 	useTranslations,
 } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { FiltersProducts } from "../_components/filters-products";
+import { FiltersProducts } from "../../_components/filters-products";
 import { Breadcrumbs, BreadcrumbsItem } from "@/components/breadcrumbs";
 
 export default function ProductLayout({
@@ -27,7 +27,7 @@ export default function ProductLayout({
 					<Breadcrumbs>
 						<BreadcrumbsItem>{_("products")}</BreadcrumbsItem>
 					</Breadcrumbs>
-					<h1 className="md:text-3xl text-5xl font-semibold tracking-wide mt-6">
+					<h1 className="text-2xl md:text-3xl lg:text-5xl font-semibold tracking-wide mt-6">
 						{_("products")}
 					</h1>
 					<p className="max-w-prose tracking-wide text-muted-foreground mb-3">

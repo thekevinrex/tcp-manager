@@ -1,12 +1,14 @@
-import { Separator } from "@/components/ui/separator";
 import {
 	NextIntlClientProvider,
 	useMessages,
 	useTranslations,
 } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { FiltersOrganizations } from "../_components/filters-organizations";
+
+import { Separator } from "@/components/ui/separator";
 import { Breadcrumbs, BreadcrumbsItem } from "@/components/breadcrumbs";
+
+import { FiltersOrganizations } from "../_components/filters-organizations";
 
 export default function OrganizationsLayout({
 	children,
@@ -27,7 +29,7 @@ export default function OrganizationsLayout({
 					<Breadcrumbs>
 						<BreadcrumbsItem>{_("organizations")}</BreadcrumbsItem>
 					</Breadcrumbs>
-					<h1 className="md:text-3xl text-5xl font-semibold tracking-wide mt-6">
+					<h1 className="text-2xl md:text-3xl lg:text-5xl font-semibold tracking-wide mt-6">
 						{_("organizations")}
 					</h1>
 					<p className="max-w-prose tracking-wide text-muted-foreground mb-3">

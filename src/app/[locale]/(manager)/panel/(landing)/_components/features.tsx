@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { cn } from "@/lib/utils";
 import {
 	Activity,
@@ -19,7 +20,7 @@ export function Features() {
 				<h1 className="text-3xl md:text-4xl font-bold tracking-wider text-pretty mb-5 max-w-screen-sm text-center">
 					{_("features_title")}
 				</h1>
-				<p className="text-lg max-w-prose text-muted-foreground text-justify">
+				<p className="text-lg max-w-prose text-muted-foreground text-center">
 					{_("features_description")}
 				</p>
 			</header>

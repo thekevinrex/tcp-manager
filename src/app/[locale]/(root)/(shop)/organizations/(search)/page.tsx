@@ -6,7 +6,7 @@ import { ReelSkeleton } from "@/components/skeletons/reel";
 import { Separator } from "@/components/ui/separator";
 
 import { TopOrganizationsSlider } from "../_components/top-org-slider";
-import { SearchOrganizations } from "../../_components/search-organizations";
+import { SearchOrganizations } from "../_components/search-organizations";
 
 export default function ProductsPage({
 	params: { locale },

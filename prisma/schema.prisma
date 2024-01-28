@@ -17,6 +17,9 @@ model Inventory {
   total     Int     @default(0)
   selled Int @default(0)
 
+  archived  Boolean @default(false)
+  blocked Boolean @default(false)
+
   createdAt DateTime @default(now())
 
   Product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
@@ -136,6 +139,7 @@ model Organization {
   visible Boolean @default(false)
 
   products Product[]
+  domicilios Domicilios[]
   transactions OrganizationTransactions[]
 
   @@map("organizations")
@@ -194,4 +198,21 @@ model Solicitudes {
   updatedAt DateTime @updatedAt
   
   @@map("solicitudes")
+}
+
+model Domicilios {
+
+  id Int @id @default(autoincrement())
+  org String 
+  
+  organization Organization @relation(fields: [org], references: [org], onDelete: Cascade)
+
+  phone String
+  address String
+
+  products Json
+
+  createdAt DateTime @default(now())
+
+  @@map("domicilios")
 }

@@ -1,8 +1,9 @@
-import { FetchFailedError } from "@/components/error/FetchFailed";
-import { getSolicitudByKey } from "@/fetchs/organization";
 import { SignUp } from "@clerk/nextjs";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { redirect } from "next/navigation";
+
+import { FetchFailedError } from "@/components/error/FetchFailed";
+import { getSolicitudByKey } from "@/fetchs/organization";
+
 import { NeedSolicitudKey } from "./need-solicitud-key";
 
 export default async function Page({
@@ -18,7 +19,7 @@ export default async function Page({
 		return <NeedSolicitudKey />;
 	}
 
-	const solicitud = await getSolicitudByKey(solicitudKey);
+	const solicitud = await getSolicitudByKey(solicitudKey || "");
 
 	if (solicitud.error) {
 		return <FetchFailedError error={solicitud.error} />;
@@ -28,10 +29,20 @@ export default async function Page({
 		return <NeedSolicitudKey />;
 	}
 
+	const link =
+		solicitud.data.type === "invitation"
+			? "/panel/org-selection"
+			: "/panel/org-create";
+
 	return (
 		<SignUp
 			initialValues={{ emailAddress: solicitud.data.email }}
-			afterSignUpUrl={"/panel/org-create"}
+			afterSignUpUrl={link}
+			appearance={{
+				elements: {
+					card: "shadow-none",
+				},
+			}}
 			path={`/${locale}/sign-up`}
 		/>
 	);

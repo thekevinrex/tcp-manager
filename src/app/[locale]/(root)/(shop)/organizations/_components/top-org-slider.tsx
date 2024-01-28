@@ -1,12 +1,11 @@
 import { CarouselReel } from "@/components/carousel";
 import { FetchFailedError } from "@/components/error/FetchFailed";
 import { OrganizationReelItem } from "@/components/page/organization-reel-item";
-import { ProductReelItem } from "@/components/page/product-reel-item";
 import { Reel } from "@/components/reel";
 import { CarouselItem } from "@/components/ui/carousel";
 import { getTopOrganizations } from "@/fetchs/shop/organizations";
 
-import { Building2, ShoppingBasket } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export async function TopOrganizationsSlider({

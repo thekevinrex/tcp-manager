@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import { useTranslations } from "next-intl";
 
 export function Testimonials() {
 	const _ = useTranslations("landing");
 
 	return (
-		<div className="container my-24 mx-auto md:px-6">
+		<div className="container mt-24  mx-auto md:px-6">
 			<section className="mb-32 text-center">
 				<h2 className="mb-12 text-3xl font-bold">{_("testimonials_title")}</h2>
 

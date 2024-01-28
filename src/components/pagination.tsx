@@ -27,7 +27,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+import Link from "@/components/link";
 import { useTranslations } from "next-intl";
 
 const ROWS = [1, 5, 10, 20, 30, 50, 100];

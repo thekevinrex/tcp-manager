@@ -16,6 +16,65 @@ import {
 	BreadcrumbsLinkItem,
 	BreadcrumbsSeparator,
 } from "@/components/breadcrumbs";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+	params: { locale, productId },
+}: {
+	params: { locale: string; productId: string };
+}) {
+	const t = await getTranslations({ locale, namespace: "header" });
+
+	const response = await getProduct(Number(productId));
+
+	if (response.error || !response.data) {
+		return {
+			notFound: true,
+		};
+	}
+
+	const { organization, description, image, name, id, status } = response.data;
+
+	if (!organization.visible || status === "hidden") {
+		return {
+			notFound: true,
+		};
+	}
+
+	const metadata: Metadata = {
+		title: name,
+		description,
+
+		twitter: {
+			title: name,
+			description: description ? description : undefined,
+			images: {
+				url:
+					image ||
+					`${process.env.HOST_URL || "http://localhost:3000"}/not_image.svg`,
+				alt: name,
+			},
+		},
+
+		openGraph: {
+			type: "profile",
+			emails: organization.email ? organization.email : undefined,
+			url: `${process.env.HOST_URL || "http://localhost:3000"}/products/${id}`,
+			title: name,
+			description: description ? description : undefined,
+			images: [
+				{
+					url:
+						image ||
+						`${process.env.HOST_URL || "http://localhost:3000"}/not_image.svg`,
+					alt: name,
+				},
+			],
+		},
+	};
+
+	return metadata;
+}
 
 export default async function ProductPage({
 	params: { locale, productId },
@@ -37,7 +96,7 @@ export default async function ProductPage({
 	const product = response.data;
 
 	if (!product?.organization.visible || product.status === "hidden") {
-		return <FetchFailedError error={"Product no visible"} />;
+		return <FetchFailedError error={_("product_no_visible")} />;
 	}
 
 	return (
@@ -58,7 +117,11 @@ export default async function ProductPage({
 
 				<Separator className="mb-5 mt-2" />
 
-				<OrganizationDetails reverse org={product.organization} />
+				<OrganizationDetails
+					reverse
+					org={product.organization}
+					productId={product.id}
+				/>
 
 				<Separator className="my-5" />
 

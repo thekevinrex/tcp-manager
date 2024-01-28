@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Image from "next/image";
-import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 
 export const FetchFailedError = ({ error }: { error?: string }) => {

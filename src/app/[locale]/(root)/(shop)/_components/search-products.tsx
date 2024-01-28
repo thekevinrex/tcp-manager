@@ -15,16 +15,42 @@ export function SearchProducts({
 }: {
 	org?: string;
 	q: string;
-	filters: string[];
+	filters: Record<string, string | null>;
 }) {
 	const _ = useTranslations("home");
 
 	const [product, setProducts] = useState<ProductsWithPrices[]>([]);
 	const [more, setMore] = useState(true);
-	const [lastId, setLastId] = useState<null | number>(0);
+	const [page, setPage] = useState<number>(1);
+
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	useEffect(() => {
+		setMore(true);
+		setPage(1);
+		setProducts([]);
+	}, [q, filters]);
+
+	if (!mounted) {
+		return (
+			<>
+				<Loading />
+			</>
+		);
+	}
 
 	const getProducts = () => {
-		fetch(`/api/products?lastId=${lastId}&q=${q}&org=${org ? org : ""}`)
+		fetch(`/api/products?page=${page}&q=${q}`, {
+			method: "POST",
+			body: JSON.stringify({
+				org,
+				...filters,
+			}),
+		})
 			.then(async (response) => {
 				if (response.status !== 200) {
 					setMore(false);
@@ -36,16 +62,15 @@ export function SearchProducts({
 					await response.json();
 
 				if (json.products.length === 0) {
-					setLastId(null);
 					setMore(false);
 				} else {
 					setProducts((prev) => [...prev, ...json.products]);
-					const lastProduct = json.products.pop();
 
-					setLastId(lastProduct?.id || null);
+					setPage((prev) => prev + 1);
 				}
 			})
-			.catch(() => {
+			.catch((err) => {
+				console.log(err);
 				setMore(false);
 				toast.error(_("fetch_error"));
 			});
@@ -60,7 +85,7 @@ export function SearchProducts({
 			endMessage={<NoMore />}
 			scrollThreshold={0.5}
 		>
-			<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+			<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center w-full">
 				{product.map((product) => {
 					return <ProductReelItem key={product.id} {...product} />;
 				})}
@@ -70,7 +95,7 @@ export function SearchProducts({
 }
 
 const Loading = () => (
-	<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+	<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5 w-full">
 		{[...Array(4)].map((num, i) => {
 			return <ReelSkeletonItem key={i} />;
 		})}

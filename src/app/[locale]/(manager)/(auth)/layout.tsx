@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextIntlClientProvider, useMessages } from "next-intl";
-import { Header } from "../_components/header";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { Navbar } from "./_components/navbar";
 
 export default function AuthLayout({
 	children,
@@ -29,15 +29,11 @@ export default function AuthLayout({
 		<NextIntlClientProvider
 			messages={{ header: message.header, landing: message.landing }}
 		>
-			<header className="w-full flex flex-row justify-center fixed top-0 left-0 bg-background z-50">
-				<Header />
-			</header>
-
-			<main className="flex w-full h-screen pt-16">
+			<main className="flex w-full min-h-screen">
 				<div className="w-full flex flex-row">
-					<div className="w-full h-full relative justify-center items-center hidden lg:flex">
+					<div className="w-full h-screen justify-center items-center hidden lg:flex sticky top-0">
 						<img
-							src="/auth-background.jpg"
+							src="/auth-background.webp"
 							alt="woman helmet holding open laptop working"
 							className="w-full h-full"
 						/>
@@ -48,8 +44,12 @@ export default function AuthLayout({
 							on Freepik
 						</div>
 					</div>
-					<div className="w-full lg:max-w-xl flex flex-col p-10 items-center overflow-x-hidden overflow-y-auto justify-center">
-						{children}
+					<div className="w-full lg:max-w-xl flex flex-col items-center relative">
+						<Navbar />
+
+						<div className="flex p-10 items-center justify-center w-full flex-1">
+							{children}
+						</div>
 					</div>
 				</div>
 			</main>

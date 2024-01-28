@@ -23,20 +23,22 @@ export function Combobox({
 	data,
 	onSelect,
 	trigger,
-	empty = "No results found",
-	search = "Search",
+	empty,
+	search,
+	modal = false,
 }: {
 	data: DataType[];
 	onSelect?: (selected: string) => void;
 	trigger: JSX.Element;
 	empty?: string;
 	search?: string;
+	modal?: boolean;
 }) {
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState("");
 
 	return (
-		<Popover open={open} onOpenChange={setOpen}>
+		<Popover open={open} onOpenChange={setOpen} modal={modal}>
 			<PopoverTrigger asChild>{trigger}</PopoverTrigger>
 			<PopoverContent className="w-full p-0">
 				<Command>
