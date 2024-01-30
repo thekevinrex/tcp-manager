@@ -1,13 +1,12 @@
 import { Suspense } from "react";
-
 import { unstable_setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider, useMessages } from "next-intl";
+import { Protect } from "@clerk/nextjs";
 
 import Organization from "../_components/organization/organization";
 import { ActiveArea } from "../_components/active-area";
 import { CardSkeleton } from "@/components/skeletons/card";
 import { Navbar } from "./_components/navbar";
-import { Protect } from "@clerk/nextjs";
 import { NoPermission } from "@/components/page/no-permission";
 
 export default function OrganizationLayout({
@@ -29,7 +28,7 @@ export default function OrganizationLayout({
 						messages={{ organization: messages.organization }}
 					>
 						<nav className="sticky top-[80px]">
-							<Navbar />
+							<Navbar locale={locale} />
 						</nav>
 					</NextIntlClientProvider>
 

@@ -1,6 +1,7 @@
 import { Table } from "@tanstack/react-table";
 import { Loader2, X } from "lucide-react";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 import { AlertModal } from "@/components/dialog";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -9,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { SellWithProduct } from "@/lib/types";
 import { useAction } from "@/hooks/useAction";
 import { deleteSells } from "@/actions/sell/delete-sells";
-import { useTranslations } from "next-intl";
 
 export function SelectedSells({ table }: { table: Table<SellWithProduct> }) {
 	const selecteds = table.getSelectedRowModel().rows;

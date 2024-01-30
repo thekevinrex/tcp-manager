@@ -2,6 +2,7 @@
 
 import db from "@/lib/db";
 import { Prisma } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 
 export async function Products({
 	q,
@@ -16,6 +17,8 @@ export async function Products({
 	filters: { min?: string; order?: string; max?: string };
 	org?: string;
 }) {
+	const _ = await getTranslations("error");
+
 	const where: Prisma.ProductWhereInput = {
 		status: {
 			not: "hidden",
@@ -57,6 +60,6 @@ export async function Products({
 			status: 200,
 		};
 	} catch (err: any) {
-		return { error: "error" };
+		return { error: _("error") };
 	}
 }

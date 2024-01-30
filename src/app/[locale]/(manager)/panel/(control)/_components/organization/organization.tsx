@@ -1,7 +1,7 @@
 "use client";
 
 import { useOrganization } from "@clerk/nextjs";
-import Link from "next/link";
+import Link from "@/components/link";
 import { useTranslations } from "next-intl";
 
 import {

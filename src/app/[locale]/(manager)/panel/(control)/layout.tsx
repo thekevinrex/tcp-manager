@@ -5,10 +5,10 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { PageHeader } from "./_components/page-header";
 import { Footer } from "@/components/page/footer";
 
-const ListOrg = () => {
+const ListOrg = ({ locale }: { locale: string }) => {
 	return (
 		<div className="grid place-content-center w-full h-full min-h-screen">
-			<OrganizationList afterSelectPersonalUrl={"/"} />
+			<OrganizationList afterSelectPersonalUrl={`/${locale}`} />
 		</div>
 	);
 };
@@ -16,17 +16,18 @@ const ListOrg = () => {
 export default function ProductLayout({
 	children,
 	params: { locale },
-	sidebar,
 }: {
 	children: React.ReactNode;
 	params: { locale: string };
-	sidebar: React.ReactNode;
 }) {
 	unstable_setRequestLocale(locale);
 	const messages = useMessages();
 
 	return (
-		<Protect permission="org:dashboard:access" fallback={<ListOrg />}>
+		<Protect
+			permission="org:dashboard:access"
+			fallback={<ListOrg locale={locale} />}
+		>
 			<div className="w-full layouts-container gap-6 p-3 sm:p-5">
 				<header className="[grid-area:header] border rounded-md sticky top-0 left-0 bg-white dark:bg-slate-900 h-14 z-50">
 					<NextIntlClientProvider messages={{ header: messages.header }}>

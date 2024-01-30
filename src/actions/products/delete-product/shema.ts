@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const DeleteProduct = z.object({
 	products: z.array(z.number(), {
-		required_error: "Select the products you want to delete",
+		required_error: "products_required",
 	}),
 });
 

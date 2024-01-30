@@ -1,11 +1,12 @@
-import { ClerkImage } from "@/components/Image";
-import { FormErrors } from "@/components/error/FormErrors";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useOrganization } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ClerkImage } from "@/components/Image";
+import { FormErrors } from "@/components/error/FormErrors";
 
 export function OrganizationClerk({ errors }: { errors: any }) {
 	const { organization } = useOrganization();
@@ -46,6 +47,7 @@ export function OrganizationClerk({ errors }: { errors: any }) {
 					disabled={pending}
 					defaultValue={organization?.name}
 					name="name"
+					required
 					placeholder={_("org_name")}
 				/>
 			</label>
@@ -56,6 +58,7 @@ export function OrganizationClerk({ errors }: { errors: any }) {
 				<Input
 					disabled={pending}
 					name="slug"
+					required
 					defaultValue={organization?.slug || ""}
 					placeholder={_("org_slug")}
 				/>

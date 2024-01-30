@@ -1,16 +1,16 @@
 "use client";
 
 import { Loader2, Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
+import { SellArea } from "@prisma/client";
 
 import { AlertModal } from "@/components/dialog";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-import { SellArea } from "@prisma/client";
 import { useAction } from "@/hooks/useAction";
 import { deleteSellArea } from "@/actions/sell-area/delete-sell-area";
-import { useTranslations } from "next-intl";
 
 export const DeleteArea = ({ area }: { area: SellArea }) => {
 	const _ = useTranslations("areas");

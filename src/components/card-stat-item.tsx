@@ -6,7 +6,7 @@ export const CardStatItem = ({
 	icon,
 }: {
 	title: string;
-	total: number | string;
+	total: number | string | string[];
 	icon: JSX.Element;
 }) => {
 	return (
@@ -17,7 +17,11 @@ export const CardStatItem = ({
 			</CardHeader>
 
 			<CardContent>
-				<div className="text-2xl font-bold">{total}</div>
+				<div className="text-2xl font-bold">
+					{Array.isArray(total)
+						? total.map((t, i) => <div key={i}>{t}</div>)
+						: total}
+				</div>
 			</CardContent>
 		</Card>
 	);

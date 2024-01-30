@@ -1,18 +1,13 @@
 import { useFormStatus } from "react-dom";
 import { Loader2Icon, Plus, Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Product } from "@prisma/client";
 
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
-import { cn } from "@/lib/utils";
-import { useState } from "react";
-import { Product } from "@prisma/client";
 import { Prices } from "@/lib/types";
-import { STATUS } from "@/config/site";
 import { FormErrors } from "@/components/error/FormErrors";
-import { useTranslations } from "next-intl";
 
 export const ProductBody = ({
 	product,
@@ -28,7 +23,6 @@ export const ProductBody = ({
 	const _ = useTranslations("products");
 
 	const { pending: loading } = useFormStatus();
-	const [radioValue, setRadioValue] = useState(product?.status || "visible");
 
 	const addBreakdown = () => {
 		handlePrices([
@@ -65,10 +59,6 @@ export const ProductBody = ({
 
 	const deleteBreakdown = (uuid: string) => {
 		handlePrices(prices.filter((price) => price.uuid !== uuid));
-	};
-
-	const handleRadioChange = (value: any) => {
-		setRadioValue(value);
 	};
 
 	return (
@@ -159,51 +149,6 @@ export const ProductBody = ({
 					))}
 			</div>
 			<FormErrors id="prices" errors={errors} />
-
-			{/* Image producto */}
-			<label className="font-semibold text-sm">
-				{_("product_image")}
-				<Input disabled={loading} accept="image/*" type="file" name="image" />
-			</label>
-			<FormErrors id="formdata" errors={errors} />
-
-			<label className="font-semibold text-sm">
-				{_("product_des")}
-				<Textarea
-					disabled={loading}
-					defaultValue={product?.description as string}
-					name="description"
-					placeholder={_("product_des")}
-				/>
-			</label>
-			<FormErrors id="description" errors={errors} />
-
-			<div>
-				<span className="font-semibold text-sm">{_("product_visible")}</span>
-				<p className="text-xs font-light tracking-wide mb-3">
-					{_("product_visible_des")}
-				</p>
-				<input type="hidden" name="status" value={radioValue} />
-				<RadioGroup
-					defaultValue={radioValue}
-					onValueChange={handleRadioChange}
-					className="flex flow-row flex-wrap gap-3 items-center"
-				>
-					{STATUS.map(({ value, bg }, key) => (
-						<label
-							key={key}
-							className={cn([
-								"flex rounded-full text-white text-sm px-2 py-1 gap-3",
-								bg,
-							])}
-						>
-							<RadioGroupItem disabled={loading} value={value} />
-							<span>{_(value)}</span>
-						</label>
-					))}
-				</RadioGroup>
-				<FormErrors id="status" errors={errors} />
-			</div>
 
 			<Button disabled={loading}>
 				{loading ? <Loader2Icon className="animate-spin" /> : _("save")}

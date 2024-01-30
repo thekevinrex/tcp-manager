@@ -1,6 +1,7 @@
 "use client";
 
 import { orgInvitation } from "@/actions/organizations/invitations/create";
+import { FormErrors } from "@/components/error/FormErrors";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -36,7 +37,7 @@ export function OrgInvite({
 
 	const form = useRef<HTMLFormElement>(null);
 
-	const { execute } = useAction(orgInvitation, {
+	const { execute, fieldErrors } = useAction(orgInvitation, {
 		onSuccess: () => {
 			form.current?.reset();
 			if (invitations && invitations.revalidate) {
@@ -72,14 +73,14 @@ export function OrgInvite({
 					className="flex flex-col gap-y-4"
 				>
 					<h3 className="text-lg">{_("invite")}</h3>
-					<InviteBody />
+					<InviteBody errors={fieldErrors} />
 				</form>
 			</PopoverContent>
 		</Popover>
 	);
 }
 
-const InviteBody = () => {
+const InviteBody = ({ errors }: { errors: any }) => {
 	const _ = useTranslations("organization");
 	const { pending } = useFormStatus();
 
@@ -89,13 +90,24 @@ const InviteBody = () => {
 		<>
 			<label className="flex flex-col gap-y-2 text-xs">
 				{_("email")}
-				<Input disabled={pending} name="email" placeholder={_("email")} />
+				<Input
+					disabled={pending}
+					required
+					name="email"
+					placeholder={_("email")}
+				/>
 			</label>
+
+			<FormErrors errors={errors} id="email" />
 
 			<label className="flex flex-col gap-y-2 text-xs">
 				{_("rol")}
-				<input type="hidden" name="rol" value={role} />
-				<Select value={role} onValueChange={(value: string) => setRole(value)}>
+				<input type="hidden" required name="rol" value={role} />
+				<Select
+					value={role}
+					required
+					onValueChange={(value: string) => setRole(value)}
+				>
 					<SelectTrigger>
 						<SelectValue placeholder={_("rol")} />
 					</SelectTrigger>
@@ -110,6 +122,8 @@ const InviteBody = () => {
 					</SelectContent>
 				</Select>
 			</label>
+
+			<FormErrors errors={errors} id="rol" />
 
 			<div>
 				<Button disabled={pending}>

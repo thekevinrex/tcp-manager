@@ -32,7 +32,7 @@ export function ProductDetails({
 	return (
 		<section className="pt-8 pb-5 flex flex-col max-md:items-center md:flex-row gap-4">
 			<div className="relative w-[300px] flex mb-6 h-[300px] overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20 bg-[50%] flex-col shrink-0">
-				<SupabaseImage src={product.image} alt={product.name} />
+				<SupabaseImage product={product} alt={product.name} />
 				<div className="mask absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,0.2)]"></div>
 			</div>
 

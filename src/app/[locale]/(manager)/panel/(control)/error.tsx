@@ -8,16 +8,18 @@ export default function Error(
 	error: Error & { digest?: string },
 	reset: () => void
 ) {
-	console.error(error);
+	console.log(reset);
 	return (
 		<>
 			<main className="[grid-area:main] flex flex-col">
 				<FetchFailedError error={"error page"} />
 
 				{reset && (
-					<Button variant={"secondary"} onClick={() => reset()}>
-						<RefreshCcw />
-					</Button>
+					<div className="w-full flex justify-center">
+						<Button variant={"secondary"} onClick={reset}>
+							<RefreshCcw /> Refresh
+						</Button>
+					</div>
 				)}
 			</main>
 			<aside className="[grid-area:aside] w-0"></aside>

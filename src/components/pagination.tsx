@@ -127,7 +127,7 @@ export const PaginationComponent = ({
 							))}
 						</div>
 
-						{(items.pop() || 0) < totalItems ? (
+						{totalItems > 2 ? (
 							<PaginationItem>
 								<DropdownMenu>
 									<DropdownMenuTrigger>

@@ -19,7 +19,7 @@ export default function Page({
 							card: "shadow-none",
 						},
 					}}
-					afterSignInUrl={"/panel/dashboard"}
+					afterSignInUrl={`/${locale}/panel/dashboard`}
 				/>
 			</ClerkLoaded>
 			<ClerkLoading>

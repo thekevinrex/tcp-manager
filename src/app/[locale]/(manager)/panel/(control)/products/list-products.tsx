@@ -29,6 +29,7 @@ export async function ListProducts({
 				products: messages.products,
 				alert: messages.alert,
 				pagination: messages.pagination,
+				fieldsErrors: messages.fieldsErrors,
 			}}
 		>
 			<div className="flex flex-col space-y-5">

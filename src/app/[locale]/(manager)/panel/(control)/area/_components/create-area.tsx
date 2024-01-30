@@ -2,23 +2,25 @@
 import { useRouter } from "next/navigation";
 import { Loader2, PlusCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import { useLocale, useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 
 import { useAction } from "@/hooks/useAction";
 import { createSellArea } from "@/actions/sell-area/create-sell-area";
 import { AlertModal } from "@/components/dialog";
-import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { useTranslations } from "next-intl";
+import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 export function CreateArea() {
 	// Create the state selected products with the already selected area products or with the products with visible state
 	const _ = useTranslations("areas");
 	const { push } = useRouter();
+	const locale = useLocale();
 
 	const { execute, isLoading: loading } = useAction(createSellArea, {
 		onSuccess: () => {
 			toast.success(_("area_created_successfully"));
-			push(`/panel/sell-area`);
+			push(`/${locale}/panel/sell-area`);
 		},
 		onError: (error) => {
 			toast.error(error);

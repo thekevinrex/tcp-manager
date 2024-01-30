@@ -11,7 +11,7 @@ import { SellArea } from "@prisma/client";
 import { useAction } from "@/hooks/useAction";
 import { finalizeSellArea } from "@/actions/sell-area/finalize-sell-area";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export function FinalizeArea({
 	area,
@@ -21,12 +21,13 @@ export function FinalizeArea({
 	disabled?: boolean;
 }) {
 	const { push } = useRouter();
+	const locale = useLocale();
 	const _ = useTranslations("areas");
 
 	const { execute, isLoading: loading } = useAction(finalizeSellArea, {
 		onSuccess: () => {
 			toast.success(_("area_finalized_successfully"));
-			push("/panel/area/dashboard");
+			push(`/${locale}/panel/area/dashboard`);
 		},
 		onError: (error) => {
 			toast.error(error);

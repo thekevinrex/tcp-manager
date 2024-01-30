@@ -18,11 +18,11 @@ export default function AuthLayout({
 	const { userId, orgId } = auth();
 
 	if (userId && !orgId) {
-		return redirect("/panel/org-selection");
+		return redirect(`/${locale}/panel/org-selection`);
 	}
 
 	if (userId && orgId) {
-		return redirect("/panel/dashboard");
+		return redirect(`/${locale}/panel/dashboard`);
 	}
 
 	return (
@@ -45,7 +45,7 @@ export default function AuthLayout({
 						</div>
 					</div>
 					<div className="w-full lg:max-w-xl flex flex-col items-center relative">
-						<Navbar />
+						<Navbar locale={locale} />
 
 						<div className="flex p-10 items-center justify-center w-full flex-1">
 							{children}

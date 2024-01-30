@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import {
 	ColumnDef,
@@ -26,7 +27,7 @@ import {
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { SellWithProduct } from "@/lib/types";
 import { SelectedSells } from "./selected-area-sell";
-import { useTranslations } from "next-intl";
+import Link from "@/components/link";
 
 export function DataSells({ sells }: { sells: SellWithProduct[] }) {
 	const _ = useTranslations("sells");
@@ -78,9 +79,12 @@ export function DataSells({ sells }: { sells: SellWithProduct[] }) {
 			),
 			cell: ({ row }) => {
 				return (
-					<span className="text-lg font-semibold capitalize tracking-tight">
+					<Link
+						href={`/panel/products/${row.original.Product.id}`}
+						className="text-lg font-semibold capitalize tracking-tight"
+					>
 						{row.original.Product.name}
-					</span>
+					</Link>
 				);
 			},
 		},

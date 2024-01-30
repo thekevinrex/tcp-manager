@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import Link from "@/components/link";
 
 export function NeedSolicitudKey() {
 	const _ = useTranslations("solicitar");

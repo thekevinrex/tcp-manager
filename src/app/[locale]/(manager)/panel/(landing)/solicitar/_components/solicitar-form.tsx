@@ -1,5 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+import { useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
+import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
+
 import {
 	Card,
 	CardContent,
@@ -7,7 +13,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-
 import {
 	Select,
 	SelectContent,
@@ -15,21 +20,15 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-
 import { Input } from "@/components/ui/input";
-
 import { Textarea } from "@/components/ui/textarea";
-import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
-import { useFormStatus } from "react-dom";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import Link from "@/components/link";
+
 import { useAction } from "@/hooks/useAction";
 import { solicitarCuenta } from "@/actions/organizations/solicitar";
-import toast from "react-hot-toast";
 import { FormErrors } from "@/components/error/FormErrors";
-import Link from "next/link";
 
 type orgType = "cuenta_propia" | "tcp" | "mypime";
 

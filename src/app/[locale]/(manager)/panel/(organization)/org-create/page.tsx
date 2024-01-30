@@ -10,7 +10,7 @@ export default function OrgCreate({
 	return (
 		<CreateOrganization
 			skipInvitationScreen={true}
-			afterCreateOrganizationUrl={"/panel/org-selection/:id"}
+			afterCreateOrganizationUrl={`/${locale}/panel/org-selection/:id`}
 		/>
 	);
 }

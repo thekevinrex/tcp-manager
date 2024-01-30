@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { DndContext, DragOverlay, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
 import { SellArea } from "@prisma/client";
@@ -12,7 +11,7 @@ import { MouseSensor } from "@/lib/sensors";
 
 import { Button } from "@/components/ui/button";
 import { Draggable } from "@/components/draggable";
-import { Calculator } from "@/components/calculator";
+import Link from "@/components/link";
 
 import { ProductDraggableItem } from "./_components/product-draggable-item";
 import { SellForm } from "./_components/sell-form";

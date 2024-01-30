@@ -64,7 +64,7 @@ export default async function Page({
 
 	const areaProducts = await getAllProductsWithPrices();
 
-	if (areaProducts.error) {
+	if (areaProducts.error || !areaProducts.data) {
 		return (
 			<ErrorLayout>
 				<FetchFailedError error={areaProducts.error} />

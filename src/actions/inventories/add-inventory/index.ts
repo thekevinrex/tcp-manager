@@ -23,19 +23,19 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 	const { cant, cost, product: productId } = data;
 
-	const product = await db.product.findFirst({
-		where: {
-			org: orgId,
-			id: productId,
-		},
-	});
-
-	if (!product) {
-		return { error: _("no_product") };
-	}
-
 	try {
-		const [product] = await db.$transaction([
+		const product = await db.product.findFirst({
+			where: {
+				org: orgId,
+				id: productId,
+			},
+		});
+
+		if (!product) {
+			return { error: _("no_product") };
+		}
+
+		const [updated] = await db.$transaction([
 			db.product.update({
 				data: {
 					aviable: {
@@ -55,7 +55,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		]);
 
 		revalidatePath("/panel/inventory");
-		return { data: product };
+		return { data: [] };
 	} catch {
 		return { error: _("error") };
 	}

@@ -13,6 +13,7 @@ export const ProductReelItem = ({
 	id,
 	price,
 	image,
+	image_url,
 	prices,
 	aviable,
 }: ProductsWithPrices) => {
@@ -30,7 +31,7 @@ export const ProductReelItem = ({
 		<div className="mb-8 lg:mb-0 space-y-3 flex flex-col items-center">
 			<div className="w-full max-w-sm items-center flex flex-col">
 				<div className="relative w-full flex mb-6 max-w-[300px] h-[200px] overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20 bg-[50%]">
-					<SupabaseImage src={image} alt={name} />
+					<SupabaseImage product={{ image_url, image }} alt={name} />
 					<Link href={`/products/${id}`}>
 						<div className="mask absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,0.2)]"></div>
 					</Link>

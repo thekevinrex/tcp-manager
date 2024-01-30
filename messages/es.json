@@ -222,6 +222,28 @@
 		"no_products": "No hay productos",
 		"total_products": "Cantidad de productos",
 		"total_can_earn": "Cantidad maxima de ganancias",
+		"total_min_earn": "Cantidad minima de ganancias",
+
+		"product_stats": "Estadisticas del producto",
+		"inventories_stats": "Estadisticas del inventario",
+		"sells_stats": "Estadisticas de venta",
+
+		"cant_inventories": "Cantidad en inventario",
+		"sell_inventories": "Cantidad vendido",
+		"inversion_actual": "Inversion actual",
+		"inversion_inicial": "Inversion inicial",
+
+		"earns": "Ganancias",
+		"sells": "Ventas",
+		"entries": "Entradas",
+
+		"see_all_inventories": "Ver todos los inventarios",
+		"see_all_sells": "Ver todas las ventas",
+
+		"#_sells": "Numero de ventas",
+		"units_sells": "Unidades vendidas",
+		"total_sells": "Total Ventas",
+		"total_earns": "Total ganancias",
 
 		"search": "Buscar productos...",
 
@@ -241,6 +263,19 @@
 		"edit": "Editar",
 		"save": "Guardar",
 
+		"home": "Inicio",
+		"settings": "Configuraciones",
+		"stadistics": "Estadisticas",
+		"inventories": "Inventarios",
+
+		"stadistics_des": "Analiza las estadisticas del producto",
+		"sells_des": "Mira todas las ventas del producto",
+		"inventories_des": "Mira todos los inventarios del producto",
+		"settings_des": "Modifica las configuraciones publicas del producto",
+
+		"product_info": "Información del producto",
+		"product_info_des": "Mira las estadisticas y edita las configuraciones del producto",
+
 		"product_created_successfully": "Producto añadido correctamente",
 		"add_product": "Añadir producto",
 		"add_product_des": "Agregue un nuevo producto a su organizacion, este producto es necesario para la página de publica y el área de venta",
@@ -249,10 +284,17 @@
 		"product_delete_title": "Eliminar productos seleccionados",
 		"product_delete_title_all": "Eliminar todos los productos",
 		"product_delete_des": "¿Estás seguro de que quieres eliminar los productos?",
+		"product_single_delete_title": "Eliminar producto",
+		"product_single_delete_des": "¿Estás seguro de que quieres eliminar el producto?",
+
+		"product": "Producto",
+		"product_settings": "Configuraciones del producto",
 
 		"product_name": "Nombre del producto",
 		"product_price": "Precio de producto",
 		"product_image": "Imagen del producto",
+		"product_image_help": "Los productos para ser publicos necesitan una imagen. Para mejorar la experiencia de usuario, recomendamos que la imagen sea de 1200x1200 pixeles",
+
 		"product_des": "Descripción del producto",
 		"product_visible": "Estado del producto",
 		"product_visible_des": "Estado del producto, esto es importante para mostrar en la parte publica del sitio",
@@ -262,6 +304,10 @@
 		"price_breakdown_des": "Puede agregar un desglose de precios para tener diferentes precios dependiendo de la cantidad",
 		"price_breakdown_cant": "Cantidad",
 		"price_breakdown_price": "Price",
+
+		"change_visibility": "Modificar estado",
+		"change_visibility_des": "Modifica el estado de los productos seleccionados.",
+		"change_visibility_success": "El cambio de estado se realizo correctamente.",
 
 		"selected": "Seleccionados {selected}",
 		"select_all": "Seleccionar todos",
@@ -313,6 +359,7 @@
 		"important": "Importante!",
 		"inventory_update_cant": "Si actualiza la cantidad del inventario, no modificará ninguna venta, solo modificará la disponibilidad del producto de este inventario.",
 		"save": "Guardar",
+		"cancel": "Cancelar",
 
 		"inventory_added_successfully": "Inventario añadido correctamente",
 		"inventory_add": "Añadir inventario",
@@ -598,6 +645,7 @@
 
 		"product_and_areaProduct_not_coincide": "Uno o mas de los elementos seleccionados es invalido",
 		"sell_and_selleds_not_coincide": "Uno o mas de los elementos seleccionados es invalido",
+		"at_least_one_product_need_image": "Uno o mas de los productos seleccionados necesitan una imagen para poder ser públicos",
 
 		"product_invalid": "El producto es invalido",
 		"no_product": "El producto es invalido",
@@ -622,7 +670,49 @@
 
 		"no_solicitudes_per_now": "No estámos aceptando solicitudes por el momento",
 		"domicilio_limit": "Solo puedes solicitar domicilio a una organización cada {horas} horas",
-		"add_at_least_1": "Añade al menos un producto"
+		"add_at_least_1": "Añade al menos un producto",
+		"product_need_image": "El producto necesita una imagen",
+
+		"slug_exists": "Ese Slug ya se está utilizando, intenta otro"
+	},
+
+	"fieldsErrors": {
+		"price_required": "El precio es requerido",
+		"cant_required": "La cantidad es requerida",
+		"prices_required": "Los precios son requeridos",
+		"cost_required": "El costo es requerido",
+
+		"price_gt_1": "El precio debe ser mayor a 1",
+		"price_gte_0": "El precio debe ser mayor o igual a 0",
+		"cant_gte_1": "La cantidad debe ser mayor o igual a 1",
+		"sell_add_least_1": "Añade al menos un producto a la lista de venta",
+
+		"product_required": "El Producto es requerido",
+		"products_required": "Los productos a eliminar son requeridos",
+		"inventory_required": "Los inventarios a eliminar son requeridos",
+		"org_required": "La organización es requerida",
+		"sell_area_required": "El area de venta es requerido",
+
+		"phone_required": "El telefono es requerido",
+		"location_required": "La ubicación es requerido",
+		"address_required": "La dirección es requerido",
+		"domicilio_required": "El domicilio es requerido",
+		"name_required": "El nombre es requerido",
+		"visibility_required": "La visibilidad es requerida",
+		"propo_required": "El proposito es requerido",
+		"email_required": "El correo electrónico es requerido",
+		"key_required": "El código es requerido",
+		"rol_required": "El rol es requerido",
+		"invalid_key_code": "El Código invalido",
+
+		"slug_required": "El Slug es requerido",
+		"slug_exists": "Ese Slug ya se está utilizando, intenta otro",
+		"error": "Lo sentimos ha ocurrido un error",
+
+		"status_required": "El estado es requerido",
+		"des_required": "La descripción es requerida",
+		"max_img_5mb": "El tamaño máximo de las imagenes es de 5mb",
+		"img_file_support": "Solo .jpg, .jpeg, .png y .webp formatos de imagenes son soportados."
 	},
 
 	"solicitar": {

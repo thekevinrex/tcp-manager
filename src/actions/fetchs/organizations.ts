@@ -1,6 +1,7 @@
 "use server";
 
 import db from "@/lib/db";
+import { getTranslations } from "next-intl/server";
 
 export async function Organizations({
 	q,
@@ -13,6 +14,8 @@ export async function Organizations({
 	max: number;
 	filters: string[];
 }) {
+	const _ = await getTranslations("error");
+
 	try {
 		const organizations = await db.organization.findMany({
 			where: {
@@ -28,6 +31,6 @@ export async function Organizations({
 
 		return { status: 200, organizations };
 	} catch {
-		return { error: "An error ocurred", status: 400 };
+		return { error: _("error"), status: 400 };
 	}
 }

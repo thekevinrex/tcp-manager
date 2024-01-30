@@ -1,4 +1,9 @@
 "use client";
+import { useAuth, useOrganization } from "@clerk/nextjs";
+import { Edit, Loader2, Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 import { ClerkImage } from "@/components/Image";
 import { AlertModal } from "@/components/dialog";
@@ -29,11 +34,6 @@ import {
 } from "@/components/ui/table";
 import { ROLES } from "@/config/site";
 import { formatDate } from "@/lib/utils";
-import { useAuth, useOrganization } from "@clerk/nextjs";
-import { Edit, Loader2, Trash } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
-import toast from "react-hot-toast";
 
 export function OrgMembers() {
 	const _ = useTranslations("organization");

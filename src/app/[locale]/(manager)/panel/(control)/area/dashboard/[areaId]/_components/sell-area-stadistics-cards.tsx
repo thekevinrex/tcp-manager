@@ -1,10 +1,10 @@
 import { CreditCard, DollarSign, Hash, TrendingUp } from "lucide-react";
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
 import { SellWithProductAndInventories } from "@/lib/types";
-import { useMemo } from "react";
 import { calcStadisticsSell, formatCurrency } from "@/lib/utils";
 import { CardStatItem } from "@/components/card-stat-item";
-import { useTranslations } from "next-intl";
 
 export function SellAreaStadisticsCard({
 	sells,

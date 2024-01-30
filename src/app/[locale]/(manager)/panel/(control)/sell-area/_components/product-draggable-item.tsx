@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input";
 
 import { ProductsWithPrices } from "@/lib/types";
 import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
 
 export function ProductDraggableItem({
 	areaProduct,

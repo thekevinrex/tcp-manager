@@ -1,7 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
 import { Loader2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { SellArea } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
 import {
@@ -16,12 +15,12 @@ import { Button } from "@/components/ui/button";
 import { calcPriceBreakdown, cn, formatCurrency } from "@/lib/utils";
 import { SellProductItem } from "./sell-product-item";
 
-import { ProductsWithPrices } from "@/lib/types";
-import { SelectedFn, SelectedType } from "../sell-area";
+import Link from "@/components/link";
 import { Calculator } from "@/components/calculator";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { MAX_SELECTEDS } from "@/config/site";
+import { ProductsWithPrices } from "@/lib/types";
+import { SelectedFn, SelectedType } from "../sell-area";
 
 export function SellForm({
 	over,

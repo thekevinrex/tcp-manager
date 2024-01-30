@@ -108,7 +108,7 @@ export function Chart({
 							fontSize={12}
 							tickLine={false}
 							axisLine={false}
-							tickFormatter={(value) => `$${value}`}
+							tickFormatter={(value) => formatCurrency(value)}
 						/>
 						<Bar
 							dataKey={tab}

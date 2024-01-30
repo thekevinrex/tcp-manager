@@ -15,6 +15,7 @@ import { InventoryWithProduct } from "@/lib/types";
 
 import { EditInventory } from "./edit-inventory";
 import { DeleteBotton } from "./delete-inventory";
+import Link from "@/components/link";
 
 export function InventoriesTable({
 	inventories,
@@ -42,7 +43,11 @@ export function InventoriesTable({
 						inventories.map((row) => {
 							return (
 								<TableRow key={row.id}>
-									<TableCell>{row.Product.name}</TableCell>
+									<TableCell>
+										<Link href={`/panel/products/${row.Product.id}`}>
+											{row.Product.name}
+										</Link>
+									</TableCell>
 									<TableCell>{row.selled}</TableCell>
 									<TableCell>{row.cant}</TableCell>
 									<TableCell>{formatCurrency(row.total)}</TableCell>

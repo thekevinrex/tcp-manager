@@ -1,14 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Logo } from "@/components/page/logo";
 import ModeToggle from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import Link from "@/components/link";
 
-export function Navbar() {
+export function Navbar({ locale }: { locale: string }) {
 	const pathname = usePathname();
 	const _ = useTranslations("header");
 
@@ -21,11 +21,11 @@ export function Navbar() {
 
 				{!pathname.endsWith("/sign-in") ? (
 					<Button variant={"link"} asChild>
-						<Link href={"/sign-in"}>{_("sign_in")}</Link>
+						<Link href={`/${locale}/sign-in`}>{_("sign_in")}</Link>
 					</Button>
 				) : (
 					<Button variant={"link"} asChild>
-						<Link href={"/sign-up"}>{_("sign_up")}</Link>
+						<Link href={`/${locale}/sign-up`}>{_("sign_up")}</Link>
 					</Button>
 				)}
 			</div>

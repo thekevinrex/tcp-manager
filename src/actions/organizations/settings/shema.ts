@@ -3,23 +3,31 @@ import { Organization as OrgType } from "@prisma/client";
 import { z } from "zod";
 
 export const Organization = z.object({
-	description: z.string().nullable(),
+	description: z
+		.string({
+			required_error: "des_required",
+			invalid_type_error: "des_required",
+		})
+		.nullable(),
 	location: z
 		.string({
-			required_error: "The location is required",
+			required_error: "location_required",
+			invalid_type_error: "location_required",
 		})
-		.min(1, "The location is required"),
+		.min(1, "location_required"),
 	phone: z
 		.string({
-			required_error: "The phone is required",
+			required_error: "phone_required",
+			invalid_type_error: "phone_required",
 		})
-		.min(8, "The phone is required"),
+		.min(8, "phone_required"),
 	domicilio: z.boolean({
-		required_error: "The domicilio is required",
+		required_error: "domicilio_required",
+		invalid_type_error: "domicilio_required",
 	}),
 	domicilio_details: z.string().nullable(),
 	visible: z.boolean({
-		required_error: "The visibility is required",
+		required_error: "visibility_required",
 	}),
 });
 

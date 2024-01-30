@@ -1,14 +1,15 @@
 "use client";
 
 import { useOrganization } from "@clerk/nextjs";
-
-import { FormSkeleton } from "@/components/skeletons/form";
-import { OrganizationClerk } from "./_components/organization-clerk";
-import { useAction } from "@/hooks/useAction";
-import { clerkOrganization } from "@/actions/organizations/clerk";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
+
+import { FormSkeleton } from "@/components/skeletons/form";
+import { OrganizationClerk } from "./_components/organization-clerk";
+
+import { clerkOrganization } from "@/actions/organizations/clerk";
+import { useAction } from "@/hooks/useAction";
 
 export function OrganizationBasic() {
 	const { isLoaded, organization } = useOrganization();

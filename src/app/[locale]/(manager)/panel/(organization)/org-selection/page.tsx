@@ -7,12 +7,13 @@ export default function OrgSelection({
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(locale);
+
 	return (
 		<OrganizationList
-			afterSelectOrganizationUrl={"/panel/org-selection/:id"}
-			afterCreateOrganizationUrl={"/panel/org-selection/:id"}
+			afterSelectOrganizationUrl={`/${locale}/panel/org-selection/:id`}
+			afterCreateOrganizationUrl={`/${locale}/panel/org-selection/:id`}
 			skipInvitationScreen={true}
-			afterSelectPersonalUrl={"/"}
+			afterSelectPersonalUrl={`/${locale}`}
 		/>
 	);
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,7 +10,8 @@ import {
 	DropdownMenuTrigger,
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { useTranslations } from "next-intl";
+
+import Link from "@/components/link";
 
 const Limits: Array<number> = [7, 15, 30];
 

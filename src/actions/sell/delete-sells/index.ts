@@ -120,6 +120,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 										selled: {
 											decrement: invent.cant,
 										},
+										archived: false,
 									},
 									where: {
 										id: invent.id,

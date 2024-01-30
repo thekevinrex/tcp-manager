@@ -11,6 +11,7 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -23,12 +24,12 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { Badge, BadgeProps } from "@/components/ui/badge";
+import Link from "@/components/link";
+import { SupabaseImage } from "@/components/Image";
 
 import { SelectedProducts } from "./selected-products";
 import { formatCurrency } from "@/lib/utils";
-import { SupabaseImage } from "@/components/Image";
 import { ProductsWithPrices } from "@/lib/types";
-import { useTranslations } from "next-intl";
 
 const StatusMapVariant: Record<string, BadgeProps["variant"]> = {
 	hidden: "secondary",
@@ -89,13 +90,19 @@ export function DataProducts({ products }: { products: ProductsWithPrices[] }) {
 			cell: ({ row }) => {
 				return (
 					<div className="capitalize flex flex-row items-center gap-5">
-						<div className="w-[180px] h-[120px] flex shrink-0 relative">
-							<SupabaseImage alt={row.original.name} src={row.original.image} />
-						</div>
+						<Link
+							href={`/panel/products/${row.original.id}`}
+							className="w-[180px] h-[120px] flex shrink-0 relative"
+						>
+							<SupabaseImage alt={row.original.name} product={row.original} />
+						</Link>
 						<div className="flex flex-col space-y-2 max-w-lg">
-							<span className="text-lg font-semibold capitalize tracking-tight">
+							<Link
+								href={`/panel/products/${row.original.id}`}
+								className="text-lg font-semibold capitalize tracking-tight"
+							>
 								{row.getValue("name")}
-							</span>
+							</Link>
 							{row.original.description && (
 								<p className="text-sm text-ellipsis line-clamp-3">
 									{row.original.description}

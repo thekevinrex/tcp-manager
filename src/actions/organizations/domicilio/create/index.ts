@@ -75,7 +75,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			},
 		});
 
-		return { data: domicilio };
+		return { data: [] };
 	} catch {
 		return { error: _("error") };
 	}

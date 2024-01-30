@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
 import { useTranslations } from "next-intl";
 
+import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {

@@ -1,18 +1,24 @@
-import { editInventory } from "@/actions/inventories/edit-inventory";
-import { Modal } from "@/components/modal";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useAction } from "@/hooks/useAction";
-import { InventoryWithProduct } from "@/lib/types";
-import { DialogClose } from "@radix-ui/react-dialog";
 import { Loader2, Pencil, Terminal } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import toast from "react-hot-toast";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+	DialogClose,
+	DialogFooter,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+import { Modal } from "@/components/modal";
+import { editInventory } from "@/actions/inventories/edit-inventory";
+
+import { useAction } from "@/hooks/useAction";
+import { InventoryWithProduct } from "@/lib/types";
 
 export const EditInventory = ({
 	inventory,
@@ -91,7 +97,9 @@ export const EditInventory = ({
 			</Alert>
 
 			<DialogFooter>
-				<DialogClose />
+				<DialogClose asChild>
+					<Button variant={"outline"}>{_("cancel")}</Button>
+				</DialogClose>
 
 				<Button type="button" onClick={handleAction} disabled={isLoading}>
 					{isLoading ? <Loader2 className="animate-spin" /> : _("save")}

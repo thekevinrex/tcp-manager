@@ -34,7 +34,10 @@ export default function SolicitarPage({
 					</div>
 					<div className="mb-12 lg:mb-0 flex justify-center">
 						<NextIntlClientProvider
-							messages={{ solicitar: messages.solicitar }}
+							messages={{
+								solicitar: messages.solicitar,
+								fieldsErrors: messages.fieldsErrors,
+							}}
 						>
 							<SolicitarForm />
 						</NextIntlClientProvider>

@@ -31,8 +31,8 @@ export default async function Page({
 
 	const link =
 		solicitud.data.type === "invitation"
-			? "/panel/org-selection"
-			: "/panel/org-create";
+			? `/${locale}/panel/org-selection`
+			: `/${locale}/panel/org-create`;
 
 	return (
 		<SignUp

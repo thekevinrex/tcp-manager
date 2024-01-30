@@ -15,7 +15,12 @@ export async function OrganizationPublic() {
 	}
 
 	return (
-		<NextIntlClientProvider messages={{ organization: messages.organization }}>
+		<NextIntlClientProvider
+			messages={{
+				organization: messages.organization,
+				fieldsErrors: messages.fieldsErrors,
+			}}
+		>
 			<OrganizationPublicForm org={org.data} />
 		</NextIntlClientProvider>
 	);

@@ -7,6 +7,26 @@ export type Status = {
 	bg: string;
 };
 
+export type ProductsWithAll = Prisma.ProductGetPayload<{
+	include: {
+		prices: true;
+		inventories: true;
+		selleds: {
+			include: {
+				inventories: true;
+			};
+		};
+		_count:
+			| {
+					select: {
+						inventories: true;
+						selleds: true;
+					};
+			  }
+			| undefined;
+	};
+}>;
+
 export type ProductsWithPrices = Prisma.ProductGetPayload<{
 	include: { prices: true };
 }>;

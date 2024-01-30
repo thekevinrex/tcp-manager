@@ -46,7 +46,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		revalidatePath("/panel/area/dashboard");
 
-		return { data: deleted };
+		return { data: [] };
 	} catch {
 		return { error: _("error") };
 	}

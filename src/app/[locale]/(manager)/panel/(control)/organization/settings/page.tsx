@@ -5,12 +5,12 @@ import {
 	useTranslations,
 } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { Protect } from "@clerk/nextjs";
 
 import { FormSkeleton } from "@/components/skeletons/form";
 
 import { OrganizationPublic } from "./organization-public";
 import { OrganizationBasic } from "./organization-basic";
-import { Protect } from "@clerk/nextjs";
 import { NoPermission } from "@/components/page/no-permission";
 
 export default function OrganizationSettings({
@@ -38,7 +38,10 @@ export default function OrganizationSettings({
 					</header>
 
 					<NextIntlClientProvider
-						messages={{ organization: messages.organization }}
+						messages={{
+							organization: messages.organization,
+							fieldsErrors: messages.fieldsErrors,
+						}}
 					>
 						<OrganizationBasic />
 					</NextIntlClientProvider>

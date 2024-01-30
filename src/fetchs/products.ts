@@ -2,7 +2,12 @@ import { auth } from "@clerk/nextjs";
 import { Prisma, Product } from "@prisma/client";
 
 import db from "@/lib/db";
-import { ProductsWithPrices, ReturnFetch } from "@/lib/types";
+import {
+	ProductsWithAll,
+	ProductsWithPrices,
+	ProductsWithPricesAndOrg,
+	ReturnFetch,
+} from "@/lib/types";
 import { getTranslations } from "next-intl/server";
 
 export async function fetchAllProducts({
@@ -132,6 +137,62 @@ export async function getProductsStats(): Promise<
 			await db.$queryRaw`select count(*) as total, sum (aviable * price) as total_can_earn from products where org = ${orgId}`;
 
 		return { data: products[0] };
+	} catch {
+		return { error: _("error") };
+	}
+}
+
+export async function getProduct(
+	productId: number,
+	options?: Prisma.ProductInclude
+): Promise<ReturnFetch<ProductsWithAll>> {
+	const { orgId, userId } = auth();
+	const _ = await getTranslations("error");
+
+	if (!orgId || !userId) {
+		return { error: _("unauthorized") };
+	}
+
+	try {
+		const product = await db.product.findUnique({
+			where: {
+				org: orgId,
+				id: productId,
+			},
+			include: {
+				prices: true,
+				selleds:
+					options && options.selleds !== undefined
+						? options.selleds
+						: {
+								include: {
+									inventories: true,
+								},
+								orderBy: {
+									id: "desc",
+								},
+						  },
+				inventories:
+					options && options.inventories !== undefined
+						? options.inventories
+						: {
+								orderBy: {
+									id: "desc",
+								},
+						  },
+				_count:
+					options && options._count !== undefined
+						? options._count
+						: {
+								select: {
+									inventories: true,
+									selleds: true,
+								},
+						  },
+			},
+		});
+
+		return { data: product as ProductsWithAll };
 	} catch {
 		return { error: _("error") };
 	}

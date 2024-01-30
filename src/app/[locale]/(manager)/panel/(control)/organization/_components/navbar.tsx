@@ -1,12 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { Building, Settings, Truck, Users, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+
+import Link from "@/components/link";
 import { cn } from "@/lib/utils";
 
-export function Navbar() {
+export function Navbar({ locale }: { locale: string }) {
 	const _ = useTranslations("organization");
 	const pathname = usePathname();
 
@@ -14,23 +15,23 @@ export function Navbar() {
 		{
 			icon: <Building />,
 			label: _("organization"),
-			href: "/panel/organization",
+			href: `/${locale}/panel/organization`,
 		},
 		{ icon: <Wallet />, label: _("plan"), href: "/panel/organization/plan" },
 		{
 			icon: <Truck />,
 			label: _("deliveries"),
-			href: "/panel/organization/deliveries",
+			href: `/${locale}/panel/organization/deliveries`,
 		},
 		{
 			icon: <Users />,
 			label: _("members"),
-			href: "/panel/organization/members",
+			href: `/${locale}/panel/organization/members`,
 		},
 		{
 			icon: <Settings />,
 			label: _("settings"),
-			href: "/panel/organization/settings",
+			href: `/${locale}/panel/organization/settings`,
 		},
 	];
 

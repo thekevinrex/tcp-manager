@@ -4,7 +4,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function AreaLayout({
 	children,
-	params,
+	params: { locale, areaId },
 }: {
 	children: React.ReactNode;
 	params: {
@@ -12,7 +12,7 @@ export default function AreaLayout({
 		locale: string;
 	};
 }) {
-	unstable_setRequestLocale(params.locale);
+	unstable_setRequestLocale(locale);
 	const _ = useTranslations("areas");
 
 	return (
@@ -28,7 +28,7 @@ export default function AreaLayout({
 					<NextIntlClientProvider
 						messages={{ labels: { stats: _("stadistics"), sells: _("sells") } }}
 					>
-						<AreaNavbar area={params.areaId} />
+						<AreaNavbar locale={locale} area={areaId} />
 					</NextIntlClientProvider>
 				</div>
 			</header>

@@ -3,7 +3,6 @@
 import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 
-import supabaseClient from "@/lib/supabaseClient";
 import { createSafeAction } from "@/lib/create-safe-action";
 import db from "@/lib/db";
 
@@ -24,7 +23,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		return { error: _("no_permission") };
 	}
 
-	const { description, name, price, status, prices } = data;
+	const { name, price, prices } = data;
 
 	const organization = await db.organization.findUnique({
 		where: {
@@ -44,6 +43,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	}
 
 	const plan = PLANS[organization.plan];
+
 	if (plan.max_products !== -1) {
 		if (organization._count.products >= plan.max_products) {
 			return { error: _("upgrade_plan_to_create_more_products") };
@@ -53,14 +53,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	const CreateData: Prisma.ProductCreateInput = {
 		by_user: userId,
 		name,
+
 		organization: {
 			connect: {
 				org: orgId,
 			},
 		},
-		description,
+
 		price,
-		status,
+		status: "hidden",
 		prices: {
 			createMany: {
 				data:
@@ -71,32 +72,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		},
 	};
 
-	const supabase = await supabaseClient();
-
-	if (!supabase) {
-		return { error: _("failed_supabase_client") };
-	}
-
-	const uuid = crypto.randomUUID();
-	const file = data.formdata.get("image") as File;
-
-	if (file !== null && file.size > 0) {
-		const filename = uuid + "_" + file.name;
-
-		const { data, error } = await supabase.storage
-			.from("products")
-			.upload(filename, file, {
-				cacheControl: "3600",
-				upsert: false,
-			});
-
-		if (!data || error) {
-			return { error: _("error") };
-		}
-
-		CreateData.image = data.path;
-	}
-
 	try {
 		const created = await db.product.create({
 			data: CreateData,
@@ -104,7 +79,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		revalidatePath("/panel/products");
 
-		return { data: created };
+		return { data: { productId: created.id } };
 	} catch {
 		return { error: _("error") };
 	}

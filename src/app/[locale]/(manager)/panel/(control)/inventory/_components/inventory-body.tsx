@@ -1,12 +1,12 @@
-import { Combobox } from "@/components/combobox";
-import { FormErrors } from "@/components/error/FormErrors";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { DataType } from "@/lib/types";
 import { ChevronsUpDown, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useFormStatus } from "react-dom";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Combobox } from "@/components/combobox";
+import { FormErrors } from "@/components/error/FormErrors";
+import { DataType } from "@/lib/types";
 
 export function InventoryBody({
 	products,
@@ -29,6 +29,7 @@ export function InventoryBody({
 					name="cant"
 					disabled={loading}
 					type="number"
+					required
 					placeholder={_("inventory_cant")}
 				/>
 			</label>
@@ -40,6 +41,7 @@ export function InventoryBody({
 					name="cost"
 					disabled={loading}
 					type="number"
+					required
 					placeholder={_("inventory_cost")}
 				/>
 			</label>

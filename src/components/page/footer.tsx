@@ -125,11 +125,11 @@ const SocialIcons = () => {
 		<div className="flex justify-center flex-wrap gap-5">
 			{SocialLinks.map((link) => {
 				return (
-					<Link key={link.link} href={link.link} target="_blank">
+					<a key={link.link} href={link.link} target="_blank">
 						<div className="rounded-full p-4 shadow-md hover:border-slate-500 border flex items-center justify-center">
 							{link.icon}
 						</div>
-					</Link>
+					</a>
 				);
 			})}
 		</div>

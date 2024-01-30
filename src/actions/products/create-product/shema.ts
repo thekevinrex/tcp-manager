@@ -1,60 +1,39 @@
 import { ActionState } from "@/lib/create-safe-action";
-import { Product } from "@prisma/client";
 import { z } from "zod";
-
-const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = [
-	"image/jpeg",
-	"image/jpg",
-	"image/png",
-	"image/webp",
-];
 
 export const CreateProduct = z.object({
 	name: z.string({
-		required_error: "Name is required",
-		invalid_type_error: "Name is required",
+		required_error: "name_required",
+		invalid_type_error: "name_required",
 	}),
 	price: z
 		.number({
-			required_error: "Price is required",
-			invalid_type_error: "Price is required",
+			required_error: "price_required",
+			invalid_type_error: "price_required",
 		})
-		.gt(1, "Price must be greater than 1"),
-	status: z.enum(["out_stock", "admin", "visible", "hidden"], {
-		required_error: "Status is required",
-		invalid_type_error: "Status is required",
-	}),
-	description: z
-		.string({
-			required_error: "Description is required",
-		})
-		.nullable(),
+		.gt(1, "price_gt_1"),
 	prices: z
 		.array(
 			z.object({
-				cant: z.number().gt(1),
-				value: z.number().gt(1),
+				cant: z
+					.number({
+						required_error: "cant_required",
+						invalid_type_error: "cant_required",
+					})
+					.gte(1, "cant_gte_1"),
+				value: z
+					.number({
+						required_error: "price_required",
+						invalid_type_error: "price_required",
+					})
+					.gt(1, "price_gt_1"),
 			}),
 			{
-				required_error: "Prices is required",
+				required_error: "prices_required",
 			}
 		)
 		.nullable(),
-	formdata: z
-		.any()
-		.nullable()
-		.refine((form) => {
-			const file = form.get("image") as File;
-			if (!file || file.size <= 0) return true;
-			return file.size < MAX_FILE_SIZE;
-		}, `Max image size is 5MB.`)
-		.refine((form) => {
-			const file = form.get("image") as File;
-			if (!file || file.size <= 0) return true;
-			return ACCEPTED_IMAGE_TYPES.includes(file?.type);
-		}, "Only .jpg, .jpeg, .png and .webp formats are supported."),
 });
 
 export type InputType = z.infer<typeof CreateProduct>;
-export type ReturnType = ActionState<InputType, Product>;
+export type ReturnType = ActionState<InputType, { productId: number }>;

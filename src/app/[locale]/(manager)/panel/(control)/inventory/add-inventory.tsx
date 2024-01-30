@@ -19,7 +19,12 @@ export async function AddInventory() {
 		}) || [];
 
 	return (
-		<NextIntlClientProvider messages={{ inventories: messages.inventories }}>
+		<NextIntlClientProvider
+			messages={{
+				inventories: messages.inventories,
+				fieldsErrors: messages.fieldsErrors,
+			}}
+		>
 			<InventoryForm products={productsMapped} />
 		</NextIntlClientProvider>
 	);

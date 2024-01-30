@@ -1,13 +1,14 @@
+import { Organization } from "@prisma/client";
+import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useFormStatus } from "react-dom";
+
 import { FormErrors } from "@/components/error/FormErrors";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { Organization } from "@prisma/client";
-import { Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useFormStatus } from "react-dom";
 
 export function OrganizationBody({
 	errors,
@@ -120,6 +121,7 @@ export function OrganizationBody({
 						id="org-visible"
 						checked={visible}
 						disabled={pending}
+						required
 						onCheckedChange={(checked) => handleVisible(checked)}
 					/>
 				</div>

@@ -43,12 +43,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 					endedAt: new Date(),
 				},
 			}),
-			db.$executeRaw`delete from inventories where "productId" in (select id from products where org = ${orgId}) and selled = cant`,
+			db.$executeRaw`update inventories set archived = true where "productId" in (select id from products where org = ${orgId}) and selled = cant`,
 		]);
 
 		revalidatePath("/panel/area/dashboard");
 
-		return { data: updated };
+		return { data: [] };
 	} catch (err: any) {
 		return { error: _("error") };
 	}

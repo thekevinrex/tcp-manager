@@ -1,10 +1,12 @@
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
+
+import { Button } from "@/components/ui/button";
+import Link from "@/components/link";
+
 import { Features } from "./_components/features";
 import { HeroSection } from "./_components/hero";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Testimonials } from "./_components/testimonials";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function Home({
 	params: { locale },

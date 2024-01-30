@@ -26,11 +26,6 @@ export default async function AreaSells({
 	};
 }) {
 	unstable_setRequestLocale(params.locale);
-	const { orgId } = auth();
-
-	if (!orgId) {
-		redirect("/panel/area/dashboard");
-	}
 
 	const areaResponse = await getArea(Number(params.areaId));
 

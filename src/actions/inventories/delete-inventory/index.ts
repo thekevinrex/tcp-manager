@@ -24,25 +24,25 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 	const { id } = data;
 
-	const inventory = await db.inventory.findFirst({
-		where: {
-			id,
-		},
-	});
-
-	if (!inventory) {
-		return { error: _("no_inventory") };
-	}
-
-	const area = await getActiveArea();
-
-	if (area.data) {
-		return {
-			error: _("inventory_delete_active_area"),
-		};
-	}
-
 	try {
+		const inventory = await db.inventory.findFirst({
+			where: {
+				id,
+			},
+		});
+
+		if (!inventory) {
+			return { error: _("no_inventory") };
+		}
+
+		const area = await getActiveArea();
+
+		if (area.data) {
+			return {
+				error: _("inventory_delete_active_area"),
+			};
+		}
+
 		const [deleted, product] = await db.$transaction([
 			db.inventory.delete({
 				where: {
@@ -62,7 +62,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		]);
 
 		revalidatePath("/panel/inventory");
-		return { data: inventory };
+
+		return { data: [] };
 	} catch {
 		return { error: _("error") };
 	}

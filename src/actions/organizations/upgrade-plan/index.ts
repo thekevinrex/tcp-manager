@@ -33,11 +33,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	});
 
 	if (!upgradeData) {
-		return { fieldErrors: { key: [_("invalid_key_code")] } };
+		return { fieldErrors: { key: ["invalid_key_code"] } };
 	}
 
 	if (!Object.keys(PLANS).includes(upgradeData.plan)) {
-		return { fieldErrors: { key: [_("invalid_key_code")] } };
+		return { fieldErrors: { key: ["invalid_key_code"] } };
 	}
 
 	const prevMembers = organization?.maxAllowedMemberships || 1;

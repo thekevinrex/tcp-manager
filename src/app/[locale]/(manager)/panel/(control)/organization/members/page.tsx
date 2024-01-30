@@ -4,11 +4,11 @@ import {
 	useTranslations,
 } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { OrgMembers } from "./_components/org-members";
+import { Protect } from "@clerk/nextjs";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { OrgInvitations } from "./_components/org-invitations";
-import { Protect } from "@clerk/nextjs";
+import { OrgMembers } from "./_components/org-members";
 import { NoPermission } from "@/components/page/no-permission";
 
 export default function OrgMembersPage({
@@ -39,6 +39,7 @@ export default function OrgMembersPage({
 						messages={{
 							organization: messages.organization,
 							alert: messages.alert,
+							fieldsErrors: messages.fieldsErrors,
 						}}
 					>
 						<TabsContent value="members">

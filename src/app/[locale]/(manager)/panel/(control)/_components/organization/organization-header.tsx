@@ -1,17 +1,21 @@
+"use client";
+
 import { OrganizationSwitcher } from "@clerk/nextjs";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export const OrganizationHeader = () => {
 	const _ = useTranslations("header");
 
+	const locale = useLocale();
+
 	return (
 		<OrganizationSwitcher
-			afterSelectPersonalUrl={"/"}
+			afterSelectPersonalUrl={`/${locale}`}
 			createOrganizationMode="navigation"
-			createOrganizationUrl="/panel/org-create"
+			createOrganizationUrl={`/${locale}/panel/org-create`}
 			organizationProfileMode="navigation"
-			organizationProfileUrl="/panel/organization/settings"
-			afterSelectOrganizationUrl={"/panel/org-selection/:id"}
+			organizationProfileUrl={`/${locale}/panel/organization/settings`}
+			afterSelectOrganizationUrl={`/${locale}/panel/org-selection/:id`}
 		/>
 	);
 };

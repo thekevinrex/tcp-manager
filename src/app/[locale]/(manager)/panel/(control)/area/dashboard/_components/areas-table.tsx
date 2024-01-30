@@ -1,5 +1,5 @@
-import { BarChart3, Edit, EyeIcon, ListMinus } from "lucide-react";
-import Link from "next/link";
+import { BarChart3, ListMinus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import {
 	Table,
@@ -10,11 +10,11 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import Link from "@/components/link";
 
 import { DeleteArea } from "../_components/delete-area";
 import { formatDate } from "@/lib/utils";
 import { SellAreaWithTotalSells } from "@/lib/types";
-import { useTranslations } from "next-intl";
 
 export function AreasTable({ areas }: { areas: SellAreaWithTotalSells[] }) {
 	const _ = useTranslations("areas");

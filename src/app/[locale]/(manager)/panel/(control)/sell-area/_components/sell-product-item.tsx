@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,8 +11,6 @@ import { calcPriceBreakdown } from "@/lib/utils";
 import { SelectedFn, SelectedType } from "../sell-area";
 import { Modal } from "@/components/modal";
 import { DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import { useTranslations } from "next-intl";
-import { useFormStatus } from "react-dom";
 
 export function SellProductItem({
 	areaProduct,

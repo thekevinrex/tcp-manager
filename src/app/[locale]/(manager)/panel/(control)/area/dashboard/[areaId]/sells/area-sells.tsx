@@ -1,10 +1,11 @@
 import { SellArea } from "@prisma/client";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+
 import { DataSells } from "../_components/sells-data-table";
 import { PaginationComponent } from "@/components/pagination";
 import { FetchFailedError } from "@/components/error/FetchFailed";
 import { getAreaSells } from "@/fetchs/sells";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 
 export async function AreaSellAll({
 	area,

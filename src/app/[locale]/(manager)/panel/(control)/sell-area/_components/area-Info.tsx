@@ -1,11 +1,13 @@
+import { BarChart3, ListMinus, Pencil, X } from "lucide-react";
+import { SellArea } from "@prisma/client";
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { BarChart3, ListMinus, Pencil, X } from "lucide-react";
-import Link from "next/link";
+import Link from "@/components/link";
+
 import { FinalizeArea } from "../../area/_components/finalice-area";
-import { SellArea } from "@prisma/client";
 import { formatDate } from "@/lib/utils";
-import { useTranslations } from "next-intl";
 
 export const AreaInfo = ({
 	area,

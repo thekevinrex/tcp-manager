@@ -23,7 +23,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		return { error: _("no_permission") };
 	}
 
-	const { id, description, name, price, status, prices } = data;
+	const { id, name, price, prices } = data;
 
 	const product = await db.product.findFirst({
 		where: {
@@ -41,9 +41,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 	const CreateData: Prisma.ProductUpdateInput = {
 		name,
-		description,
 		price,
-		status,
 		prices: {
 			deleteMany: {},
 			createMany: {
@@ -56,31 +54,31 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		},
 	};
 
-	const supabase = await supabaseServerClient();
+	// const supabase = await supabaseServerClient();
 
-	if (!supabase) {
-		return { error: _("failed_supabase_client") };
-	}
+	// if (!supabase) {
+	// 	return { error: _("failed_supabase_client") };
+	// }
 
-	const uuid = crypto.randomUUID();
-	const file = data.formdata.get("image") as File;
+	// const uuid = crypto.randomUUID();
+	// const file = data.formdata.get("image") as File;
 
-	if (file !== null && file.size > 0) {
-		const filename = uuid + "_" + file.name;
+	// if (file !== null && file.size > 0) {
+	// 	const filename = uuid + "_" + file.name;
 
-		const { data, error } = await supabase.storage
-			.from("products")
-			.upload(filename, file, {
-				cacheControl: "3600",
-				upsert: false,
-			});
+	// 	const { data, error } = await supabase.storage
+	// 		.from("products")
+	// 		.upload(filename, file, {
+	// 			cacheControl: "3600",
+	// 			upsert: false,
+	// 		});
 
-		if (!data || error) {
-			return { error: error.message };
-		}
+	// 	if (!data || error) {
+	// 		return { error: error.message };
+	// 	}
 
-		CreateData.image = data.path;
-	}
+	// 	CreateData.image = data.path;
+	// }
 
 	try {
 		const updated = await db.product.update({
@@ -90,12 +88,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			data: CreateData,
 		});
 
-		if (CreateData.image && product.image && product.image !== "") {
-			await supabase.storage.from("products").remove([product.image]);
-		}
+		// if (CreateData.image && product.image && product.image !== "") {
+		// 	await supabase.storage.from("products").remove([product.image]);
+		// }
 
 		revalidatePath("/panel/products");
-		return { data: updated };
+
+		return { data: [] };
 	} catch {
 		return { error: _("error") };
 	}

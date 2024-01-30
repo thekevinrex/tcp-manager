@@ -13,7 +13,7 @@ import {
 import { useTranslations } from "next-intl";
 
 interface Dialog {
-	trigger: React.ReactElement;
+	trigger?: React.ReactElement;
 	title: string;
 	description: string;
 	open?: boolean;

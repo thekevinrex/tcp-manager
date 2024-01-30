@@ -6,18 +6,18 @@ import {
 	useTranslations,
 } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { Protect } from "@clerk/nextjs";
 
 import { DataTableSkeleton } from "@/components/skeletons/data-table";
 import { Filter } from "@/components/filter";
 import { CardSkeleton } from "@/components/skeletons/card";
+import { NoPermission } from "@/components/page/no-permission";
+import { CardListSkeleton } from "@/components/skeletons/card-list";
 
 import { Organization } from "../_components/organization/organization";
 import { AddInventory } from "./add-inventory";
 import { ListInventories } from "./list-inventories";
-import { CardListSkeleton } from "@/components/skeletons/card-list";
 import { InventoriesStats } from "./inventories-stats";
-import { Protect } from "@clerk/nextjs";
-import { NoPermission } from "@/components/page/no-permission";
 
 export const metadata: Metadata = {
 	title: "Inventory Information",

@@ -23,53 +23,54 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	}
 
 	const { selecteds, id: areaId } = data;
-
-	const area = await db.sellArea.findUnique({
-		where: {
-			id: areaId,
-			org: orgId,
-		},
-	});
-
-	if (!area) {
-		return { error: _("no_area_found") };
-	}
-
-	if (selecteds.length <= 0) {
-		return { error: _("sell_add_least_1") };
-	}
-
-	const productsMap: {
-		[key: number]: {
-			id: number;
-			total: number;
-			sells: Array<{ added: number; price: number | null }>;
-		};
-	} = {};
-
-	for (const selected of selecteds) {
-		const product = productsMap[selected.id];
-
-		if (product) {
-			product.total += selected.added;
-
-			const productSell = product.sells.find((s) => s.price === selected.price);
-
-			if (productSell) {
-				productSell.added += selected.added;
-			} else {
-				product.sells.push({ added: selected.added, price: selected.price });
-			}
-		} else {
-			productsMap[selected.id] = {
-				id: selected.id,
-				total: selected.added,
-				sells: [{ added: selected.added, price: selected.price }],
-			};
-		}
-	}
-
 	try {
+		const area = await db.sellArea.findUnique({
+			where: {
+				id: areaId,
+				org: orgId,
+			},
+		});
+
+		if (!area) {
+			return { error: _("no_area_found") };
+		}
+
+		if (selecteds.length <= 0) {
+			return { error: _("sell_add_least_1") };
+		}
+
+		const productsMap: {
+			[key: number]: {
+				id: number;
+				total: number;
+				sells: Array<{ added: number; price: number | null }>;
+			};
+		} = {};
+
+		for (const selected of selecteds) {
+			const product = productsMap[selected.id];
+
+			if (product) {
+				product.total += selected.added;
+
+				const productSell = product.sells.find(
+					(s) => s.price === selected.price
+				);
+
+				if (productSell) {
+					productSell.added += selected.added;
+				} else {
+					product.sells.push({ added: selected.added, price: selected.price });
+				}
+			} else {
+				productsMap[selected.id] = {
+					id: selected.id,
+					total: selected.added,
+					sells: [{ added: selected.added, price: selected.price }],
+				};
+			}
+		}
+
 		let transactions = [];
 		const productsId = Object.keys(productsMap).map(Number);
 
@@ -82,6 +83,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			include: {
 				prices: true,
 				inventories: {
+					where: {
+						archived: false,
+					},
 					orderBy: {
 						id: "asc",
 					},

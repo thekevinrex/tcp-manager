@@ -1,8 +1,8 @@
 import { unstable_setRequestLocale } from "next-intl/server";
 import { Settings, Truck, Users, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 
+import Link from "@/components/link";
 import {
 	Card,
 	CardDescription,
@@ -22,25 +22,25 @@ export default function OrganizationPage({
 		{
 			icon: <Wallet />,
 			label: _("plan"),
-			href: "/panel/organization/plan",
+			href: `/${locale}/panel/organization/plan`,
 			des: _("plan_des"),
 		},
 		{
 			icon: <Truck />,
 			label: _("deliveries"),
-			href: "/panel/organization/deliveries",
+			href: `/${locale}/panel/organization/deliveries`,
 			des: _("deliveries_des"),
 		},
 		{
 			icon: <Users />,
 			label: _("members"),
-			href: "/panel/organization/members",
+			href: `/${locale}/panel/organization/members`,
 			des: _("members_des"),
 		},
 		{
 			icon: <Settings />,
 			label: _("settings"),
-			href: "/panel/organization/settings",
+			href: `/${locale}/panel/organization/settings`,
 			des: _("settings_des"),
 		},
 	];

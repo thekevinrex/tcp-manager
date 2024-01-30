@@ -30,7 +30,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 		revalidatePath("/panel/area/dashboard");
 
-		return { data: Area };
+		return { data: [] };
 	} catch {
 		return { error: _("error") };
 	}

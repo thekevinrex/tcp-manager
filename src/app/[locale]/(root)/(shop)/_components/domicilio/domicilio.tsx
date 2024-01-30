@@ -22,7 +22,9 @@ export const DomicilioDo = async ({
 	}
 
 	return (
-		<NextIntlClientProvider messages={{ home: messages.home }}>
+		<NextIntlClientProvider
+			messages={{ home: messages.home, fieldsErrors: messages.fieldsErrors }}
+		>
 			<DomicilioForm
 				orgId={orgId}
 				products={products.data}

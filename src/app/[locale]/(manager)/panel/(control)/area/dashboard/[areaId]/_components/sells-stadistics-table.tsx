@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { X } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -12,6 +13,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import Link from "@/components/link";
 import { SellWithProductAndInventories, StaticProductSells } from "@/lib/types";
 import { calcStadisticsSell, formatCurrency } from "@/lib/utils";
 
@@ -67,12 +69,19 @@ export function SellsStadisticsTable({
 
 	return (
 		<div className="flex flex-col space-y-6">
-			<div className="flex">
+			<div className="flex relative">
 				<Input
 					placeholder={_("sell_area_search")}
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
 				/>
+
+				{search && (
+					<X
+						className="absolute right-2 top-2 z-10"
+						onClick={() => setSearch("")}
+					/>
+				)}
 			</div>
 			<div className="w-full rounded-md border my-6">
 				<Table>
@@ -90,9 +99,12 @@ export function SellsStadisticsTable({
 								return (
 									<TableRow key={product.id}>
 										<TableCell>
-											<span className="text-lg font-semibold">
+											<Link
+												href={`/panel/products/${product.id}`}
+												className="text-lg font-semibold"
+											>
 												{product.name}
-											</span>
+											</Link>
 										</TableCell>
 										<TableCell>
 											<span className=" text-lg font-semibold tracking-widest text-balance">

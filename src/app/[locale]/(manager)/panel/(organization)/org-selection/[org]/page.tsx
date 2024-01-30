@@ -4,8 +4,8 @@ import { auth } from "@clerk/nextjs";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 
+import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 
 export default async function OrgChangePage({
@@ -18,15 +18,15 @@ export default async function OrgChangePage({
 	const { orgId, userId } = auth();
 
 	if (!userId) {
-		redirect("/");
+		redirect(`/${locale}`);
 	}
 
 	if (!orgId) {
-		redirect("/panel/org-selection");
+		redirect(`/${locale}/panel/org-selection`);
 	}
 
 	if (org !== orgId) {
-		redirect("/panel/org-selection");
+		redirect(`/${locale}/panel/org-selection`);
 	}
 
 	const response = await db.organization.findUnique({
@@ -39,7 +39,7 @@ export default async function OrgChangePage({
 		return <NoOrganization />;
 	}
 
-	redirect("/panel/dashboard");
+	redirect(`/${locale}/panel/dashboard`);
 }
 
 const NoOrganization = () => {

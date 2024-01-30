@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
 	ClerkLoaded,
 	ClerkLoading,
@@ -13,6 +12,7 @@ import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 
 import { Logo } from "@/components/page/logo";
+import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import ModeToggle from "@/components/mode-toggle";
 import { AvatarSkeleton } from "@/components/skeletons/header";

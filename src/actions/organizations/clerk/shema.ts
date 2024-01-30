@@ -10,8 +10,14 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 export const Organization = z.object({
-	name: z.string(),
-	slug: z.string(),
+	name: z.string({
+		required_error: "name_required",
+		invalid_type_error: "name_required",
+	}),
+	slug: z.string({
+		required_error: "slug_required",
+		invalid_type_error: "slug_required",
+	}),
 	formdata: z
 		.any()
 		.nullable()
@@ -19,12 +25,12 @@ export const Organization = z.object({
 			const file = form.get("image") as File;
 			if (!file || file.size <= 0) return true;
 			return file.size < MAX_FILE_SIZE;
-		}, `Max image size is 5MB.`)
+		}, "max_img_5mb")
 		.refine((form) => {
 			const file = form.get("image") as File;
 			if (!file || file.size <= 0) return true;
 			return ACCEPTED_IMAGE_TYPES.includes(file?.type);
-		}, "Only .jpg, .jpeg, .png and .webp formats are supported."),
+		}, "img_file_support"),
 });
 
 export type InputType = z.infer<typeof Organization>;

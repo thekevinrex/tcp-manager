@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/link";
 import { AlignJustify, Home } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
@@ -28,19 +28,20 @@ import { cn } from "@/lib/utils";
 const AuthButton = () => {
 	return (
 		<>
-			<SignedIn>
-				{/* Mount the UserButton component */}
-				<ClerkLoading>
-					<AvatarSkeleton />
-				</ClerkLoading>
-				<ClerkLoaded>
+			<ClerkLoading>
+				<AvatarSkeleton />
+			</ClerkLoading>
+			<ClerkLoaded>
+				<SignedIn>
+					{/* Mount the UserButton component */}
+
 					<UserButton afterSignOutUrl="/" />
-				</ClerkLoaded>
-			</SignedIn>
-			<SignedOut>
-				{/* Signed out users get sign in button */}
-				<SignInButton />
-			</SignedOut>
+				</SignedIn>
+				<SignedOut>
+					{/* Signed out users get sign in button */}
+					<SignInButton />
+				</SignedOut>
+			</ClerkLoaded>
 		</>
 	);
 };
@@ -95,7 +96,7 @@ export const PageHeader = () => {
 						asChild
 					>
 						<Link href="/panel/dashboard">
-							<Home />
+							<Home /> <span className="sr-only">{_("dashboard")}</span>
 						</Link>
 					</Button>
 

@@ -5,20 +5,36 @@ import { supabaseBrowserClient } from "@/lib/supabaseClient";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Product } from "@prisma/client";
 
 type ImageProps = {
-	src: string | null;
+	product?: { image?: string | null; image_url?: string | null } | null;
+	src?: string | null;
 	alt: string;
 	style?: any;
 };
 
-export const SupabaseImage = ({ src, alt }: ImageProps) => {
+export const SupabaseImage = ({ product, alt }: ImageProps) => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [image, setImage] = useState<string | null>(null);
 
 	useEffect(() => {
-		async function fetchImage(src: string | null) {
-			if (!src) {
+		async function fetchImage(
+			product?: { image?: string | null; image_url?: string | null } | null
+		) {
+			if (!product?.image && !product?.image_url) {
+				setImage("/not_image.svg");
+				setLoading(false);
+				return;
+			}
+
+			if (product.image_url) {
+				setImage(product.image_url);
+				setLoading(false);
+				return;
+			}
+
+			if (!product.image) {
 				setImage("/not_image.svg");
 				setLoading(false);
 				return;
@@ -28,7 +44,7 @@ export const SupabaseImage = ({ src, alt }: ImageProps) => {
 
 			const response = await supabase?.storage
 				.from("products")
-				.getPublicUrl(src);
+				.getPublicUrl(product.image);
 
 			if (!response) {
 				setImage("/not_image.svg");
@@ -38,8 +54,8 @@ export const SupabaseImage = ({ src, alt }: ImageProps) => {
 			setLoading(false);
 		}
 
-		fetchImage(src);
-	}, [src]);
+		fetchImage(product);
+	}, [product]);
 
 	if (loading || !image) {
 		return <Skeleton className={cn(`w-full h-full`, "rounded-md")} />;

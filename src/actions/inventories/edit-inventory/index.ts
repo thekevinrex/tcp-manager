@@ -33,57 +33,61 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
 	const { cant, cost, id, update_all } = data;
 
-	const inventory = await db.inventory.findUnique({
-		where: {
-			id,
-			Product: {
-				org: orgId,
-			},
-		},
-	});
-
-	if (!inventory) {
-		return { error: _("no_inventory") };
-	}
-
-	const updateData: Prisma.InventoryUpdateArgs = {
-		where: {
-			id,
-		},
-		data: {
-			total: cost,
-		},
-	};
-
-	if (update_all) {
-		updateData.data.sell = {
-			updateMany: {
-				data: {
-					price: cost,
-				},
-				where: {},
-			},
-		};
-	}
-
-	if (cant && cant > 0) {
-		updateData.data.Product = {
-			update: {
-				aviable: {
-					increment: cant - (inventory.cant - inventory.selled),
-				},
-			},
-		};
-		updateData.data.cant = cant;
-		updateData.data.selled = 0;
-	}
-
 	try {
+		const inventory = await db.inventory.findUnique({
+			where: {
+				id,
+				Product: {
+					org: orgId,
+				},
+			},
+		});
+
+		if (!inventory) {
+			return { error: _("no_inventory") };
+		}
+
+		const updateData: Prisma.InventoryUpdateArgs = {
+			where: {
+				id,
+			},
+			data: {
+				total: cost,
+			},
+		};
+
+		if (update_all) {
+			updateData.data.sell = {
+				updateMany: {
+					data: {
+						price: cost,
+					},
+					where: {
+						price: {
+							gt: 0,
+						},
+					},
+				},
+			};
+		}
+
+		if (cant && cant > 0) {
+			updateData.data.Product = {
+				update: {
+					aviable: {
+						increment: cant - (inventory.cant - inventory.selled),
+					},
+				},
+			};
+			updateData.data.cant = cant;
+			updateData.data.selled = 0;
+		}
+
 		const Inventory = await db.inventory.update(updateData);
 
 		revalidatePath("/panel/inventory");
 
-		return { data: Inventory };
+		return { data: [] };
 	} catch {
 		return { error: _("error") };
 	}

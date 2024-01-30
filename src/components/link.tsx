@@ -19,6 +19,10 @@ export function Link({
 
 	const toLocale = locale ? locale : actualLocale;
 
+	if (!href.startsWith("/es") && !href.startsWith("/en")) {
+		href = `/${toLocale}${href}`;
+	}
+
 	return (
 		<CoreLink
 			href={href}

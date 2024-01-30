@@ -6,6 +6,7 @@ import {
 	getTranslations,
 	unstable_setRequestLocale,
 } from "next-intl/server";
+import { Protect } from "@clerk/nextjs";
 
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -17,7 +18,6 @@ import { PLANS } from "@/config/site";
 import { Transactions } from "./_components/transactions";
 import { UpgradePlan } from "./_components/upgrade-plan";
 import { getActualOrganization } from "@/fetchs/organization";
-import { Protect } from "@clerk/nextjs";
 import { NoPermission } from "@/components/page/no-permission";
 
 export default async function OrganizationPlanPage({
@@ -71,7 +71,10 @@ export default async function OrganizationPlanPage({
 			</section>
 
 			<NextIntlClientProvider
-				messages={{ organization: messages.organization }}
+				messages={{
+					organization: messages.organization,
+					fieldsErrors: messages.fieldsErrors,
+				}}
 			>
 				<UpgradePlan org={org} />
 			</NextIntlClientProvider>

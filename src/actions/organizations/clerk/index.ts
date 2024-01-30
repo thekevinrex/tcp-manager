@@ -39,18 +39,18 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			slug,
 		});
 
-		console.log(org.slug);
-
 		return { data: [] };
 	} catch (err: any) {
 		if (err.clerkError) {
 			const fieldErrors: Record<string, string[]> = {};
 
 			err.errors.forEach((e: any) => {
-				fieldErrors[e.meta.paramName] = [e.longMessage];
+				fieldErrors[e.meta.paramName || "error"] = [
+					e.meta.paramName && e.meta.paramName === "slug"
+						? "slug_exists"
+						: "error",
+				];
 			});
-
-			console.log(fieldErrors);
 
 			return { fieldErrors };
 		}
