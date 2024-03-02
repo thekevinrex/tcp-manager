@@ -158,6 +158,7 @@ const SolicitarBody = ({
 					disabled={pending}
 					required
 					name="email"
+					type="email"
 					placeholder={_("email")}
 				/>
 			</label>

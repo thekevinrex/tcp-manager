@@ -21,7 +21,7 @@ export function Footer() {
 	}
 
 	const locales = [
-		{ label: _("en"), locale: "en", link: `/en${pathnameWithoutLocale}` },
+		// { label: _("en"), locale: "en", link: `/en${pathnameWithoutLocale}` },
 		{ label: _("es"), locale: "es", link: `/es${pathnameWithoutLocale}` },
 	];
 
@@ -105,20 +105,20 @@ const SocialIcons = () => {
 	const SocialLinks = [
 		{
 			icon: <Github />,
-			link: "https://github.com/",
+			link: "https://github.com/thekevinrex",
 		},
-		{
-			icon: <Facebook />,
-			link: "https://www.facebook.com/",
-		},
+		// {
+		// 	icon: <Facebook />,
+		// 	link: "https://www.facebook.com/",
+		// },
 		{
 			icon: <Linkedin />,
-			link: "https://www.linkedin.com/",
+			link: "https://www.linkedin.com/in/kevin-gonzalez-918015241/",
 		},
-		{
-			icon: <Twitter />,
-			link: "https://twitter.com/",
-		},
+		// {
+		// 	icon: <Twitter />,
+		// 	link: "https://twitter.com/",
+		// },
 	];
 
 	return (
