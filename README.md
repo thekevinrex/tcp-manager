@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TCP Manager - Simplifica la gestión de inventarios y potencia tus ventas
 
-## Getting Started
+![TCP Manager](https://kevin-portafolio.netlify.app/projects/tcp_manager.png)
 
-First, run the development server:
+Aplicación que permite mantener un control preciso y actualizado de tus inventarios, brindando información en tiempo real sobre la disponibilidad de tus productos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Estadisticas en tiempo real
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sigue en tiempo real el total de ventas y ganancias generadas para que tengas una visión clara y precisa del rendimiento de tu negocio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Monitoreo instantáneo
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Obtén información actualizada al instante sobre las ventas realizadas, el inventario disponible y otras métricas importantes para tu negocio.
 
-## Learn More
+### Acceso desde cualquier lugar
 
-To learn more about Next.js, take a look at the following resources:
+Nuestras estadísticas en tiempo real están disponibles en cualquier dispositivo con conexión a internet, lo que te permite acceder a ellas desde la comodidad de tu oficina, en el camino o desde cualquier lugar donde te encuentres
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Dashboard Page](https://tcp-manager.vercel.app/features/dashboard_page.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Gestion de inventario en tiempo real
 
-## Deploy on Vercel
+Permite mantener un control preciso y actualizado de tus inventarios, brindando información en tiempo real sobre la disponibilidad de tus productos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Actualización automática
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Los niveles de inventario se actualizan automaticamente con cada venta y compra que hagas. Esto te permite tener siempre la información más reciente de disponibilidad.
+
+### Control de stock en tiempo real
+
+Podrás ver al instante la disponibilidad de los productos, así como los que están por agotarse o necesitan reabastecimiento. Esto te ayudará a tomar decisiones informadas sobre las compras, evitar la escasez de productos y optimizar tus operaciones
+
+![Product Page](https://tcp-manager.vercel.app/features/inventories_page.png)
+
+## Tecnologias usadas
+
+- Next JS
+- React
+- Html 5
+- TailwindCss
+- Clerk
+- Supabase
+- Postgre Sql
+- Prisma
